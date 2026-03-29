@@ -113,7 +113,7 @@ export function SubmitAgentForm({ userId, categories }: SubmitAgentFormProps) {
 
           <div className="space-y-2">
             <Label>Category</Label>
-            <Select value={form.category_id} onValueChange={(v) => updateField('category_id', v)}>
+            <Select value={form.category_id} onValueChange={(v) => updateField('category_id', v || '')}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
@@ -147,7 +147,7 @@ export function SubmitAgentForm({ userId, categories }: SubmitAgentFormProps) {
             <Label>Pricing Model *</Label>
             <Select
               value={form.pricing_model}
-              onValueChange={(v) => updateField('pricing_model', v)}
+              onValueChange={(v) => updateField('pricing_model', v || '')}
             >
               <SelectTrigger>
                 <SelectValue />

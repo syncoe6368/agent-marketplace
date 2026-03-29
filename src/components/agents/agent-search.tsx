@@ -62,7 +62,7 @@ export function AgentSearch({
           />
         </div>
         <Sheet>
-          <SheetTrigger asChild>
+          <SheetTrigger>
             <Button variant="outline" className="lg:hidden">
               <SlidersHorizontal className="h-4 w-4 mr-2" />
               Filters
@@ -73,7 +73,7 @@ export function AgentSearch({
             <div className="space-y-4 mt-6">
               <div className="space-y-2">
                 <Label>Category</Label>
-                <Select value={initialCategory} onValueChange={(v) => updateParams('category', v)}>
+                <Select value={initialCategory} onValueChange={(v) => updateParams('category', v || '')}>
                   <SelectTrigger>
                     <SelectValue placeholder="All categories" />
                   </SelectTrigger>
@@ -90,7 +90,7 @@ export function AgentSearch({
 
               <div className="space-y-2">
                 <Label>Pricing</Label>
-                <Select value={initialPricing} onValueChange={(v) => updateParams('pricing', v)}>
+                <Select value={initialPricing} onValueChange={(v) => updateParams('pricing', v || '')}>
                   <SelectTrigger>
                     <SelectValue placeholder="All pricing" />
                   </SelectTrigger>
@@ -110,7 +110,7 @@ export function AgentSearch({
 
       {/* Desktop filters */}
       <div className="hidden lg:flex items-center gap-3">
-        <Select value={initialCategory} onValueChange={(v) => updateParams('category', v)}>
+        <Select value={initialCategory} onValueChange={(v) => updateParams('category', v || '')}>
           <SelectTrigger className="w-48">
             <SelectValue placeholder="All categories" />
           </SelectTrigger>
@@ -124,7 +124,7 @@ export function AgentSearch({
           </SelectContent>
         </Select>
 
-        <Select value={initialPricing} onValueChange={(v) => updateParams('pricing', v)}>
+        <Select value={initialPricing} onValueChange={(v) => updateParams('pricing', v || '')}>
           <SelectTrigger className="w-40">
             <SelectValue placeholder="All pricing" />
           </SelectTrigger>
@@ -137,7 +137,7 @@ export function AgentSearch({
           </SelectContent>
         </Select>
 
-        <Select value={initialSort} onValueChange={(v) => updateParams('sort', v)}>
+        <Select value={initialSort} onValueChange={(v) => updateParams('sort', v || '')}>
           <SelectTrigger className="w-44">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>

@@ -2,11 +2,25 @@ import Link from 'next/link';
 import { Star, ExternalLink, BadgeCheck } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import type { Agent } from '@/types';
 import { formatPrice } from '@/lib/utils';
 
 interface AgentCardProps {
-  agent: Agent;
+  agent: {
+    id: string;
+    name: string;
+    slug: string;
+    description: string;
+    pricing_model: string;
+    price_amount: number | null;
+    currency: string;
+    logo_url?: string | null;
+    tags?: string[] | null;
+    is_featured?: boolean;
+    is_verified?: boolean;
+    average_rating?: number;
+    review_count?: number;
+    category?: { id: string; name: string; slug: string } | null;
+  };
 }
 
 export function AgentCard({ agent }: AgentCardProps) {

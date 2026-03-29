@@ -22,7 +22,7 @@ export interface Category {
 export interface Agent {
   id: string;
   creator_id: string;
-  category_id: string;
+  category_id: string | null;
   name: string;
   slug: string;
   description: string;

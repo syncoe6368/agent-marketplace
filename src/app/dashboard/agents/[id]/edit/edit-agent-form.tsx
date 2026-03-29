@@ -102,7 +102,7 @@ export function EditAgentForm({ agent, categories }: EditAgentFormProps) {
           </div>
           <div className="space-y-2">
             <Label>Category</Label>
-            <Select value={form.category_id} onValueChange={(v) => updateField('category_id', v)}>
+            <Select value={form.category_id} onValueChange={(v) => updateField('category_id', v || '')}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
@@ -125,7 +125,7 @@ export function EditAgentForm({ agent, categories }: EditAgentFormProps) {
           <h2 className="font-semibold text-lg">Pricing</h2>
           <div className="space-y-2">
             <Label>Pricing Model *</Label>
-            <Select value={form.pricing_model} onValueChange={(v) => updateField('pricing_model', v)}>
+            <Select value={form.pricing_model} onValueChange={(v) => updateField('pricing_model', v || '')}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="free">Free</SelectItem>

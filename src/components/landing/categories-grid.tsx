@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
 import {
   Zap, Search, MessageSquare, Code, Megaphone, TrendingUp,
 } from 'lucide-react';
-import type { Category } from '@/types';
 
 const iconMap: Record<string, React.ReactNode> = {
   Zap: <Zap className="h-6 w-6" />,
@@ -14,8 +12,17 @@ const iconMap: Record<string, React.ReactNode> = {
   TrendingUp: <TrendingUp className="h-6 w-6" />,
 };
 
+interface CategoryItem {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  icon?: string | null;
+  agent_count?: number;
+}
+
 interface CategoriesGridProps {
-  categories: Category[];
+  categories: CategoryItem[];
 }
 
 export function CategoriesGrid({ categories }: CategoriesGridProps) {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Bot, Github, Twitter } from 'lucide-react';
+import { Bot, GitFork, X } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export function Footer() {
@@ -55,10 +55,10 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <Link href="https://github.com" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Github className="h-5 w-5" />
+              <GitFork className="h-5 w-5" />
             </Link>
             <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Twitter className="h-5 w-5" />
+              <X className="h-5 w-5" />
             </Link>
           </div>
         </div>
