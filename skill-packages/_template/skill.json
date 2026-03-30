@@ -1,0 +1,22 @@
+{
+  "name": "my-agent-skill",
+  "version": "0.1.0",
+  "description": "A brief description of the agent skill (max 200 chars)",
+  "longDescription": "A detailed explanation of what this agent does, how it works, and what problems it solves.",
+  "author": "Your Name <email@example.com>",
+  "license": "MIT",
+  "category": "automation",
+  "pricingModel": "free",
+  "tags": ["automation", "ai", "productivity"],
+  "homepage": "https://github.com/yourname/my-agent-skill",
+  "repository": "https://github.com/yourname/my-agent-skill",
+  "icon": "icon.svg",
+  "features": [
+    "Feature one — what it does",
+    "Feature two — another capability"
+  ],
+  "runtime": {
+    "node": ">=18.0.0"
+  },
+  "entrypoint": "scripts/main.sh"
+}

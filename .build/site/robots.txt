@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/v1/agents/*/download
+
+Sitemap: /sitemap.xml

@@ -1,0 +1,28 @@
+{
+  "name": "Trading Bot Agent",
+  "version": "1.0.0",
+  "description": "Automated BTC RSI Turtle strategy with real-time market analysis and risk management",
+  "longDescription": "A sophisticated trading bot that implements the proven Turtle RSI strategy for Bitcoin. Features real-time market monitoring, automated entry/exit signals, risk management, and comprehensive performance tracking.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "finance",
+  "pricingModel": "subscription",
+  "price": 99,
+  "currency": "USD",
+  "homepage": "https://syncoe.trading",
+  "repository": "https://github.com/syncoe/trading-bot",
+  "apiDocs": "https://docs.syncoe.trading",
+  "icon": "icon.svg",
+  "tags": ["bitcoin", "trading", "automation", "rsi", "crypto", "defi"],
+  "features": [
+    "Automated RSI-based entry/exit",
+    "Real-time market monitoring",
+    "Risk management protocols",
+    "Performance analytics dashboard",
+    "Multi-timeframe analysis"
+  ],
+  "runtime": {
+    "node": ">=18.0.0"
+  },
+  "entrypoint": "scripts/main.sh"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Code Review Agent",
+  "version": "1.2.0",
+  "description": "AI-powered code review for security vulnerabilities, performance, and best practices",
+  "longDescription": "Intelligent code review agent that analyzes codebases for security vulnerabilities, performance bottlenecks, and adherence to best practices.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "development",
+  "pricingModel": "freemium",
+  "price": 49,
+  "currency": "USD",
+  "homepage": "https://syncoe.securitypad",
+  "repository": "https://github.com/syncoe/securitypad",
+  "icon": "icon.svg",
+  "tags": ["code-review", "security", "performance", "ai", "automation", "solidity"],
+  "features": [
+    "Security vulnerability detection",
+    "Performance optimization suggestions",
+    "Code quality metrics",
+    "Multi-language support",
+    "GitHub/GitLab integration"
+  ],
+  "runtime": {
+    "node": ">=18.0.0",
+    "python": ">=3.10"
+  },
+  "entrypoint": "scripts/main.sh"
+}

@@ -1,0 +1,98 @@
+{
+  "schema": "agent-marketplace/api-manifest/v1",
+  "generatedAt": "2026-03-29T22:19:58Z",
+  "marketplace": {
+    "name": "Syncoe Agent Marketplace",
+    "version": "1.0.0",
+    "description": "AI Agent skill package distribution manifest",
+    "baseUrl": "https://agent-marketplace.syncoe.com"
+  },
+  "endpoints": {
+    "index": "/api/v1/index.json",
+    "categories": "/api/v1/categories.json",
+    "agent": "/api/v1/agents/{slug}.json",
+    "agentDownload": "/api/v1/agents/{slug}/download",
+    "search": "/api/v1/search?q={query}&category={category}",
+    "health": "/api/v1/health"
+  },
+  "packages": [
+    {
+      "slug": "code-review-agent",
+      "name": "Code Review Agent",
+      "version": "1.2.0",
+      "description": "AI-powered code review for security vulnerabilities, performance, and best practices",
+      "author": "Syncoe <ops@syncoe.com>",
+      "license": "MIT",
+      "category": "development",
+      "pricingModel": "freemium",
+      "price": 49,
+      "currency": "USD",
+      "tags": [
+        "code-review",
+        "security",
+        "performance",
+        "ai",
+        "automation",
+        "solidity"
+      ],
+      "features": [
+        "Security vulnerability detection",
+        "Performance optimization suggestions",
+        "Code quality metrics",
+        "Multi-language support",
+        "GitHub/GitLab integration"
+      ],
+      "downloadUrl": "/api/v1/agents/code-review-agent/download",
+      "detailUrl": "/api/v1/agents/code-review-agent.json",
+      "docsUrl": "/skill-packages/code-review-agent/SKILL.md",
+      "packagePath": "skill-packages/code-review-agent",
+      "sizeBytes": 2077,
+      "checksum": null
+    },
+    {
+      "slug": "trading-bot-agent",
+      "name": "Trading Bot Agent",
+      "version": "1.0.0",
+      "description": "Automated BTC RSI Turtle strategy with real-time market analysis and risk management",
+      "author": "Syncoe <ops@syncoe.com>",
+      "license": "MIT",
+      "category": "finance",
+      "pricingModel": "subscription",
+      "price": 99,
+      "currency": "USD",
+      "tags": [
+        "bitcoin",
+        "trading",
+        "automation",
+        "rsi",
+        "crypto",
+        "defi"
+      ],
+      "features": [
+        "Automated RSI-based entry/exit",
+        "Real-time market monitoring",
+        "Risk management protocols",
+        "Performance analytics dashboard",
+        "Multi-timeframe analysis"
+      ],
+      "downloadUrl": "/api/v1/agents/trading-bot-agent/download",
+      "detailUrl": "/api/v1/agents/trading-bot-agent.json",
+      "docsUrl": "/skill-packages/trading-bot-agent/SKILL.md",
+      "packagePath": "skill-packages/trading-bot-agent",
+      "sizeBytes": 2875,
+      "checksum": null
+    }
+  ],
+  "statistics": {
+    "totalAgents": 2,
+    "totalCategories": 2,
+    "pricingBreakdown": {
+      "freemium": 1,
+      "subscription": 1
+    },
+    "categoryBreakdown": {
+      "development": 1,
+      "finance": 1
+    }
+  }
+}

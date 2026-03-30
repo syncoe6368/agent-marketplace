@@ -39,3 +39,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Auto-added by Flux cleanup (2026-03-30)
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+.env
+.env.local
+.env.*.local

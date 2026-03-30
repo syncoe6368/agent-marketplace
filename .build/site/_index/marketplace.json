@@ -1,0 +1,95 @@
+{
+  "schema": "agent-marketplace/v1",
+  "generatedAt": "2026-03-29T22:19:58Z",
+  "totalAgents": 2,
+  "totalCategories": 2,
+  "agents": [
+    {
+      "id": "code-review-agent",
+      "name": "Code Review Agent",
+      "slug": "code-review-agent",
+      "version": "1.2.0",
+      "description": "AI-powered code review for security vulnerabilities, performance, and best practices",
+      "longDescription": "Intelligent code review agent that analyzes codebases for security vulnerabilities, performance bottlenecks, and adherence to best practices.",
+      "author": "Syncoe <ops@syncoe.com>",
+      "license": "MIT",
+      "category": "development",
+      "pricingModel": "freemium",
+      "price": 49,
+      "currency": "USD",
+      "tags": [
+        "code-review",
+        "security",
+        "performance",
+        "ai",
+        "automation",
+        "solidity"
+      ],
+      "homepage": "https://syncoe.securitypad",
+      "repository": "https://github.com/syncoe/securitypad",
+      "apiDocs": "",
+      "icon": "icon.svg",
+      "features": [
+        "Security vulnerability detection",
+        "Performance optimization suggestions",
+        "Code quality metrics",
+        "Multi-language support",
+        "GitHub/GitLab integration"
+      ],
+      "entrypoint": "scripts/main.sh",
+      "runtime": {
+        "node": ">=18.0.0",
+        "python": ">=3.10"
+      },
+      "packagePath": "skill-packages/code-review-agent",
+      "createdAt": "2026-03-29T22:19:58Z",
+      "updatedAt": "2026-03-29T22:19:58Z",
+      "status": "active",
+      "isVerified": false,
+      "isFeatured": false
+    },
+    {
+      "id": "trading-bot-agent",
+      "name": "Trading Bot Agent",
+      "slug": "trading-bot-agent",
+      "version": "1.0.0",
+      "description": "Automated BTC RSI Turtle strategy with real-time market analysis and risk management",
+      "longDescription": "A sophisticated trading bot that implements the proven Turtle RSI strategy for Bitcoin. Features real-time market monitoring, automated entry/exit signals, risk management, and comprehensive performance tracking.",
+      "author": "Syncoe <ops@syncoe.com>",
+      "license": "MIT",
+      "category": "finance",
+      "pricingModel": "subscription",
+      "price": 99,
+      "currency": "USD",
+      "tags": [
+        "bitcoin",
+        "trading",
+        "automation",
+        "rsi",
+        "crypto",
+        "defi"
+      ],
+      "homepage": "https://syncoe.trading",
+      "repository": "https://github.com/syncoe/trading-bot",
+      "apiDocs": "https://docs.syncoe.trading",
+      "icon": "icon.svg",
+      "features": [
+        "Automated RSI-based entry/exit",
+        "Real-time market monitoring",
+        "Risk management protocols",
+        "Performance analytics dashboard",
+        "Multi-timeframe analysis"
+      ],
+      "entrypoint": "scripts/main.sh",
+      "runtime": {
+        "node": ">=18.0.0"
+      },
+      "packagePath": "skill-packages/trading-bot-agent",
+      "createdAt": "2026-03-29T22:19:58Z",
+      "updatedAt": "2026-03-29T22:19:58Z",
+      "status": "active",
+      "isVerified": false,
+      "isFeatured": false
+    }
+  ]
+}

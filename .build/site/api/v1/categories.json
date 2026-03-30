@@ -1,0 +1,22 @@
+{
+  "schema": "agent-marketplace/categories/v1",
+  "generatedAt": "2026-03-29T22:19:58Z",
+  "categories": [
+    {
+      "name": "Development",
+      "slug": "development",
+      "agentCount": 1,
+      "agents": [
+        "code-review-agent"
+      ]
+    },
+    {
+      "name": "Finance",
+      "slug": "finance",
+      "agentCount": 1,
+      "agents": [
+        "trading-bot-agent"
+      ]
+    }
+  ]
+}
