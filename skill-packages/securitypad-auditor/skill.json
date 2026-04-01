@@ -1,0 +1,29 @@
+{
+  "name": "SecurityPad Auditor",
+  "version": "1.0.0",
+  "description": "Smart contract security auditor specializing in Solidity vulnerability detection and remediation guidance",
+  "longDescription": "An AI-powered agent that analyzes Solidity smart contracts for security vulnerabilities, provides detailed explanations of findings, generates proof-of-concept exploits, and offers step-by-step remediation guidance. Built specifically for the Syncoe SecurityPad platform.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "security",
+  "pricingModel": "subscription",
+  "price": 149,
+  "currency": "USD",
+  "homepage": "https://securitypad.syncoe.com",
+  "repository": "https://github.com/syncoe/securitypad",
+  "apiDocs": "https://docs.securitypad.syncoe.com",
+  "icon": "icon.svg",
+  "tags": ["solidity", "security", "audit", "vulnerability", "smart-contract", "defi"],
+  "features": [
+    "Solidity-specific vulnerability detection",
+    "AI-powered vulnerability explanations",
+    "Proof-of-concept exploit generation",
+    "Step-by-step remediation guidance",
+    "CI/CD integration ready",
+    "Multi-language support extensible"
+  ],
+  "runtime": {
+    "node": ">=18.0.0"
+  },
+  "entrypoint": "scripts/audit.sh"
+}
