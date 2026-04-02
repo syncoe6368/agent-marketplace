@@ -1,0 +1,70 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run type check
+      run: npm run type-check
+    
+    - name: Run lint
+      run: npm run lint
+    
+    - name: Build project
+      run: npm run build
+    
+    - name: Run tests (if configured)
+      run: |
+        if [ -f "jest.config.js" ] || [ -f "vitest.config.js" ] || [ -f "test.config.js" ]; then
+          npm test
+        else
+          echo "No test configuration found, skipping tests"
+        fi
+    
+    - name: Upload build artifact
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v4
+      with:
+        name: nextjs-build
+        path: .next
+        retention-days: 3
+
+  deploy-preview:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy preview (placeholder)
+      run: echo "Preview deployment would happen here for PR #${{ github.event.pull_request.number }}"
+
+  deploy-production:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy to production (placeholder)
+      run: echo "Production deployment would happen here - would trigger Vercel/Netlify deploy"

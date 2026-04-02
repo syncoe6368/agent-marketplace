@@ -40,9 +40,10 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="font-semibold">Legal</h4>
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
-              <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-              <Link href="/guidelines" className="hover:text-foreground transition-colors">Listing Guidelines</Link>
+              <Link href="/legal/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
+              <Link href="/legal/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+              <Link href="/legal/guidelines" className="hover:text-foreground transition-colors">Listing Guidelines</Link>
+              <Link href="/legal/dmca" className="hover:text-foreground transition-colors">DMCA Policy</Link>
             </nav>
           </div>
         </div>

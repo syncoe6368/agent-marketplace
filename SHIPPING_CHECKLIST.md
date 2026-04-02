@@ -2,8 +2,7 @@
 
 > **Goal:** MVP launch ready to accept first agent listings and generate revenue
 > **Target:** 7-day sprint
-> **Last Updated:** 2026-04-01
-> **Status:** API routes shipped, frontend components ready, awaiting Supabase project setup
+> **Last Updated:** 2026-03-27
 
 ---
 
@@ -15,25 +14,24 @@
 - [ ] Environment variables template created (`.env.example`)
 - [ ] Domain / subdomain secured (e.g. `agentmarketplace.io`)
 - [ ] SSL / HTTPS active
-- [x] Supabase project created (DB, Auth, Storage)
+- [ ] Supabase project created (DB, Auth, Storage)
 
 ## 2. Core Architecture
 
-- [x] Database schema designed & migrated
-  - [x] `agents` table (name, description, category, pricing_model, api_url, creator_id, status, created_at)
-  - [x] `users` table (via Supabase Auth)
-  - [x] `reviews` table (rating, comment, user_id, agent_id, created_at)
-  - [x] `categories` table (name, slug, icon, description)
-  - [x] `transactions` table (for future payment tracking)
-- [x] API routes defined
-  - [x] `GET /api/agents` — list/search agents
-  - [x] `GET /api/agents/[id]` — single agent detail
-  - [x] `POST /api/agents` — create listing (auth required)
-  - [x] `PUT /api/agents/[id]` — update listing (owner only)
-  - [x] `DELETE /api/agents/[id]` — remove listing (owner/admin)
-  - [x] `POST /api/reviews` — submit review
-  - [x] `GET /api/categories` — list categories
-  - [x] GET /api/profile (user profile)
+- [ ] Database schema designed & migrated
+  - [ ] `agents` table (name, description, category, pricing_model, api_url, creator_id, status, created_at)
+  - [ ] `users` table (via Supabase Auth)
+  - [ ] `reviews` table (rating, comment, user_id, agent_id, created_at)
+  - [ ] `categories` table (name, slug, icon, description)
+  - [ ] `transactions` table (for future payment tracking)
+- [ ] API routes defined
+  - [ ] `GET /api/agents` — list/search agents
+  - [ ] `GET /api/agents/[id]` — single agent detail
+  - [ ] `POST /api/agents` — create listing (auth required)
+  - [ ] `PUT /api/agents/[id]` — update listing (owner only)
+  - [ ] `DELETE /api/agents/[id]` — remove listing (owner/admin)
+  - [ ] `POST /api/reviews` — submit review
+  - [ ] `GET /api/categories` — list categories
 - [ ] Row-Level Security (RLS) policies on all tables
 - [ ] Rate limiting on API endpoints
 
