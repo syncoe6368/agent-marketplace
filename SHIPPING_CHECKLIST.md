@@ -2,7 +2,7 @@
 
 > **Goal:** MVP launch ready to accept first agent listings and generate revenue
 > **Target:** 7-day sprint
-> **Last Updated:** 2026-04-03
+> **Last Updated:** 2026-04-03 (night)
 
 ---
 
@@ -46,7 +46,7 @@
   - [x] Step 1: Basic info (name, description, category)
   - [x] Step 2: Configuration (pricing model, API/endpoint)
   - [x] Step 3: Preview & submit
-- [ ] Admin dashboard for listing moderation
+- [x] Admin dashboard for listing moderation
 
 ## 4. Frontend — Public Pages
 
@@ -63,7 +63,7 @@
 
 - [x] My agents list (with status: pending/active/suspended)
 - [x] Edit agent form
-- [ ] View reviews on my agents
+- [x] View reviews on my agents
 - [x] Basic analytics (views, clicks, reviews count)
 
 ## 6. Search & Discovery
@@ -114,8 +114,8 @@
 
 ## 11. Launch Preparation
 
-- [ ] 3-5 seed agent listings created
-- [ ] 3 categories populated with descriptions
+- [ ] 3-5 seed agent listings created (SQL script ready: `supabase/seed-demo-data.sql`)
+- [x] 3 categories populated with descriptions (in migration)
 - [ ] Social media accounts created (X, Discord, etc.)
 - [ ] Launch announcement draft ready
 - [ ] Submission to Product Hunt / Hacker News / relevant directories

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Search, Menu, X, Bot } from 'lucide-react';
+import { Search, Menu, X, Bot, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase/client';
 import { SignOutButton } from './sign-out-button';
@@ -37,6 +37,14 @@ export async function Navbar() {
               <Link href="/submit">
                 <Button size="sm">List Agent</Button>
               </Link>
+              {user.user_metadata?.role === 'admin' && (
+                <Link href="/admin">
+                  <Button variant="outline" size="sm" className="gap-1 border-indigo-300 text-indigo-700 dark:text-indigo-400">
+                    <ShieldCheck className="h-3.5 w-3.5" />
+                    Admin
+                  </Button>
+                </Link>
+              )}
               <Link href="/dashboard">
                 <Button variant="outline" size="sm">Dashboard</Button>
               </Link>

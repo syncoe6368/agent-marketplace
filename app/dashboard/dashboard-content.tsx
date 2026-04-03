@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatDate, formatPrice } from '@/lib/utils';
-import { Eye, Edit, ExternalLink, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { Eye, Edit, ExternalLink, Clock, CheckCircle2, XCircle, MessageSquare } from 'lucide-react';
 
 interface DashboardContentProps {
   agents: {
@@ -58,6 +58,15 @@ export function DashboardContent({ agents }: DashboardContentProps) {
 
   return (
     <div className="space-y-4">
+      {/* Quick nav */}
+      <div className="flex items-center gap-2">
+        <Link href="/dashboard/reviews">
+          <Button variant="outline" size="sm" className="gap-1">
+            <MessageSquare className="h-3.5 w-3.5" />
+            View Reviews
+          </Button>
+        </Link>
+      </div>
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
