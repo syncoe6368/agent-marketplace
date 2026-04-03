@@ -40,6 +40,9 @@ export async function Navbar() {
               <Link href="/dashboard">
                 <Button variant="outline" size="sm">Dashboard</Button>
               </Link>
+              <Link href="/dashboard/profile">
+                <Button variant="ghost" size="sm">Profile</Button>
+              </Link>
               <SignOutButton />
             </div>
           ) : (

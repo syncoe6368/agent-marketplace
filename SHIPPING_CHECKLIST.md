@@ -9,39 +9,39 @@
 ## 1. Foundation & Setup
 
 - [ ] Repository initialized (Next.js + Supabase)
-- [ ] CI/CD pipeline configured (GitHub Actions → Vercel)
-- [ ] Development environment documented (`CONTRIBUTING.md`)
-- [ ] Environment variables template created (`.env.example`)
+- [x] CI/CD pipeline configured (GitHub Actions → Vercel)
+- [x] Development environment documented (`CONTRIBUTING.md`)
+- [x] Environment variables template created (`.env.example`)
 - [ ] Domain / subdomain secured (e.g. `agentmarketplace.io`)
 - [ ] SSL / HTTPS active
-- [ ] Supabase project created (DB, Auth, Storage)
+- [x] Supabase project created (DB, Auth, Storage)
 
 ## 2. Core Architecture
 
-- [ ] Database schema designed & migrated
-  - [ ] `agents` table (name, description, category, pricing_model, api_url, creator_id, status, created_at)
-  - [ ] `users` table (via Supabase Auth)
-  - [ ] `reviews` table (rating, comment, user_id, agent_id, created_at)
-  - [ ] `categories` table (name, slug, icon, description)
-  - [ ] `transactions` table (for future payment tracking)
-- [ ] API routes defined
-  - [ ] `GET /api/agents` — list/search agents
-  - [ ] `GET /api/agents/[id]` — single agent detail
-  - [ ] `POST /api/agents` — create listing (auth required)
-  - [ ] `PUT /api/agents/[id]` — update listing (owner only)
-  - [ ] `DELETE /api/agents/[id]` — remove listing (owner/admin)
-  - [ ] `POST /api/reviews` — submit review
-  - [ ] `GET /api/categories` — list categories
-- [ ] Row-Level Security (RLS) policies on all tables
-- [ ] Rate limiting on API endpoints
+- [x] Database schema designed & migrated
+  - [x] `agents` table (name, description, category, pricing_model, api_url, creator_id, status, created_at)
+  - [x] `users` table (via Supabase Auth)
+  - [x] `reviews` table (rating, comment, user_id, agent_id, created_at)
+  - [x] `categories` table (name, slug, icon, description)
+  - [x] `transactions` table (for future payment tracking)
+- [x] API routes defined
+  - [x] `GET /api/agents` — list/search agents
+  - [x] `GET /api/agents/[id]` — single agent detail
+  - [x] `POST /api/agents` — create listing (auth required)
+  - [x] `PUT /api/agents/[id]` — update listing (owner only)
+  - [x] `DELETE /api/agents/[id]` — remove listing (owner/admin)
+  - [x] `POST /api/reviews` — submit review
+  - [x] `GET /api/categories` — list categories
+- [x] Row-Level Security (RLS) policies on all tables
+- [x] Rate limiting on API endpoints
 
 ## 3. Authentication & User Flows
 
 - [ ] User sign-up (email/password)
 - [ ] User sign-in (email/password)
 - [ ] OAuth sign-in (Google, GitHub)
-- [ ] Password reset flow
-- [ ] User profile page
+- [x] Password reset flow
+- [x] User profile page
 - [ ] "List Your Agent" onboarding flow
   - [ ] Step 1: Basic info (name, description, category)
   - [ ] Step 2: Configuration (pricing model, API/endpoint)
@@ -50,14 +50,14 @@
 
 ## 4. Frontend — Public Pages
 
-- [ ] **Landing page** (hero, value prop, CTA, featured agents)
-- [ ] **Agent browse/discovery** (search bar, category filters, sort options)
-- [ ] **Agent detail page** (description, reviews, pricing, "Try it" button)
-- [ ] **Category pages** (browse by category)
-- [ ] **Search results page** (with filters)
-- [ ] **Footer** (links, legal, socials)
-- [ ] Responsive design (mobile-first)
-- [ ] Dark/light mode toggle
+- [x] **Landing page** (hero, value prop, CTA, featured agents)
+- [x] **Agent browse/discovery** (search bar, category filters, sort options)
+- [x] **Agent detail page** (description, reviews, pricing, "Try it" button)
+- [x] **Category pages** (browse by category)
+- [x] **Search results page** (with filters)
+- [x] **Footer** (links, legal, socials)
+- [x] Responsive design (mobile-first)
+- [x] Dark/light mode toggle
 
 ## 5. Frontend — Creator Dashboard
 
@@ -68,19 +68,19 @@
 
 ## 6. Search & Discovery
 
-- [ ] Full-text search on agent name + description
-- [ ] Filter by category
-- [ ] Filter by pricing model (free, paid, freemium, subscription)
-- [ ] Sort by (newest, top rated, most popular)
-- [ ] Featured/boosted listings logic
+- [x] Full-text search on agent name + description
+- [x] Filter by category
+- [x] Filter by pricing model (free, paid, freemium, subscription)
+- [x] Sort by (newest, top rated, most popular)
+- [x] Featured/boosted listings logic
 
 ## 7. Reviews & Ratings
 
-- [ ] Star rating (1-5) submission
-- [ ] Text review submission
-- [ ] Average rating display on agent cards
-- [ ] Review listing on agent detail page
-- [ ] Spam/abuse basic protection (auth required, one review per user per agent)
+- [x] Star rating (1-5) submission
+- [x] Text review submission
+- [x] Average rating display on agent cards
+- [x] Review listing on agent detail page
+- [x] Spam/abuse basic protection (auth required, one review per user per agent)
 
 ## 8. Payments & Monetization (v1)
 
@@ -97,20 +97,20 @@
 
 ## 9. Content & SEO
 
-- [ ] Meta tags on all pages (title, description, Open Graph)
-- [ ] `robots.txt` configured
-- [ ] `sitemap.xml` auto-generated
-- [ ] Semantic HTML throughout
+- [x] Meta tags on all pages (title, description, Open Graph)
+- [x] `robots.txt` configured
+- [x] `sitemap.xml` auto-generated
+- [x] Semantic HTML throughout
 - [ ] Page loading performance (Lighthouse score > 90)
 - [ ] Favicon and OG images created
 
 ## 10. Legal & Compliance
 
-- [ ] Terms of Service page
-- [ ] Privacy Policy page
-- [ ] Cookie consent banner (if applicable)
-- [ ] Agent listing guidelines / rules
-- [ ] DMCA / takedown policy
+- [x] Terms of Service page
+- [x] Privacy Policy page
+- [x] Cookie consent banner (if applicable)
+- [x] Agent listing guidelines / rules
+- [x] DMCA / takedown policy
 
 ## 11. Launch Preparation
 

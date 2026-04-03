@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { Database } from '@/lib/supabase/database.types';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function GET(request: NextRequest) {
+  // Rate limiting
+  const rl = rateLimit(request, RATE_LIMITS.read);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429, headers: rl.headers });
+  }
+
   const supabase = await createClient();
 
   // Parse query params
