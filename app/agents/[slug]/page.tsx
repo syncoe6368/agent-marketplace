@@ -251,7 +251,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
           {/* Reviews */}
           <div>
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
-            <ReviewList reviews={reviews as Record<string, unknown>[]} />
+            <ReviewList reviews={reviews as any} />
           </div>
         </div>
 
@@ -285,7 +285,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
               <h3 className="font-semibold mb-3">Related Agents</h3>
               <div className="space-y-3">
                 {relatedAgents.map((relAgent) => (
-                  <AgentCard key={relAgent.id} agent={relAgent as Record<string, unknown>} />
+                  <AgentCard key={relAgent.id} agent={relAgent as any} />
                 ))}
               </div>
             </div>

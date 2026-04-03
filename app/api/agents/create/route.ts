@@ -11,7 +11,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: Record<string, unknown> | null = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let body: any;
   try {
     body = await request.json();
   } catch {

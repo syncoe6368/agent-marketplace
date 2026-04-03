@@ -1,13 +1,9 @@
 import { AgentCard } from '@/components/agents/agent-card';
 import { Flame } from 'lucide-react';
 
-interface AgentBasic {
-  id: string;
-  [key: string]: unknown;
-}
-
 interface FeaturedAgentsProps {
-  agents: AgentBasic[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  agents: any[];
 }
 
 export function FeaturedAgents({ agents }: FeaturedAgentsProps) {
