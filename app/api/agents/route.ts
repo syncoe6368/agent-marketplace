@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const q = searchParams.get('q')?.trim();
   const category = searchParams.get('category');
-  const pricingModel = searchParams.get('pricingModel');
+  const pricingModel = searchParams.get('pricingModel') as Database['public']['Enums']['pricing_model'] | null;
   const isFeatured = searchParams.get('featured') === 'true';
   const sortBy = searchParams.get('sort') || 'newest'; // newest, top_rated, popular
   const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 50);

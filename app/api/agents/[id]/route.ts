@@ -3,9 +3,9 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return NextResponse.json({ error: 'Agent ID is required' }, { status: 400 });
   }
@@ -31,26 +31,24 @@ export async function GET(
     return NextResponse.json({ error: 'Agent not found' }, { status: 404 });
   }
 
-  // Increment views (non-blocking)
-  supabase
+  // Increment views (fire-and-forget)
+  const currentViews = agent.views_count ?? 0;
+  void supabase
     .from('agents')
-    .update({ views_count: (agent.views_count ?? 0) + 1 })
+    .update({ views_count: currentViews + 1 })
     .eq('id', id)
-    .throwOnError()
-    .then(() => {})
-    .catch(() => {});
+    .then(() => {});
 
   return NextResponse.json({ agent });
 }
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
-  const { id } = params;
+  const { id } = await params;
 
-  // Check auth
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -59,7 +57,6 @@ export async function PATCH(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  // Verify ownership
   const { data: existing } = await supabase
     .from('agents')
     .select('creator_id, status')
@@ -69,15 +66,15 @@ export async function PATCH(
   if (!existing) {
     return NextResponse.json({ error: 'Agent not found' }, { status: 404 });
   }
+
   if (existing.creator_id !== user.id) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
   const body = await request.json();
-  const { name, slug, description, pricing_model, price_amount } = body;
+  const { name, slug } = body;
 
-  // Update slug if name changes and slug not provided
-  const updatePayload: Record<string, any> = { ...body };
+  const updatePayload: Record<string, unknown> = { ...body };
   if (name && !slug) {
     const { data: slugData } = await supabase.rpc('generate_unique_slug', { p_name: name });
     if (slugData) updatePayload.slug = slugData;
@@ -99,10 +96,10 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
-  const { id } = params;
+  const { id } = await params;
 
   const {
     data: { user },

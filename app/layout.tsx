@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     siteName: 'AgentHub',
     title: 'AgentHub — Discover & Deploy AI Agents',
     description: 'The #1 marketplace for AI agents. Browse, compare, and deploy verified AI agents.',
+    images: ['/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.png',
+    apple: '/apple-touch-icon.png',
   },
 };
 
@@ -30,6 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

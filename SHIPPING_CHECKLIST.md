@@ -2,13 +2,13 @@
 
 > **Goal:** MVP launch ready to accept first agent listings and generate revenue
 > **Target:** 7-day sprint
-> **Last Updated:** 2026-03-27
+> **Last Updated:** 2026-04-03
 
 ---
 
 ## 1. Foundation & Setup
 
-- [ ] Repository initialized (Next.js + Supabase)
+- [x] Repository initialized (Next.js + Supabase)
 - [x] CI/CD pipeline configured (GitHub Actions → Vercel)
 - [x] Development environment documented (`CONTRIBUTING.md`)
 - [x] Environment variables template created (`.env.example`)
@@ -37,15 +37,15 @@
 
 ## 3. Authentication & User Flows
 
-- [ ] User sign-up (email/password)
-- [ ] User sign-in (email/password)
-- [ ] OAuth sign-in (Google, GitHub)
+- [x] User sign-up (email/password)
+- [x] User sign-in (email/password)
+- [x] OAuth sign-in (Google, GitHub)
 - [x] Password reset flow
 - [x] User profile page
-- [ ] "List Your Agent" onboarding flow
-  - [ ] Step 1: Basic info (name, description, category)
-  - [ ] Step 2: Configuration (pricing model, API/endpoint)
-  - [ ] Step 3: Preview & submit
+- [x] "List Your Agent" onboarding flow
+  - [x] Step 1: Basic info (name, description, category)
+  - [x] Step 2: Configuration (pricing model, API/endpoint)
+  - [x] Step 3: Preview & submit
 - [ ] Admin dashboard for listing moderation
 
 ## 4. Frontend — Public Pages
@@ -61,10 +61,10 @@
 
 ## 5. Frontend — Creator Dashboard
 
-- [ ] My agents list (with status: pending/active/suspended)
-- [ ] Edit agent form
+- [x] My agents list (with status: pending/active/suspended)
+- [x] Edit agent form
 - [ ] View reviews on my agents
-- [ ] Basic analytics (views, clicks, reviews count)
+- [x] Basic analytics (views, clicks, reviews count)
 
 ## 6. Search & Discovery
 
@@ -102,7 +102,7 @@
 - [x] `sitemap.xml` auto-generated
 - [x] Semantic HTML throughout
 - [ ] Page loading performance (Lighthouse score > 90)
-- [ ] Favicon and OG images created
+- [x] Favicon and OG images created
 
 ## 10. Legal & Compliance
 

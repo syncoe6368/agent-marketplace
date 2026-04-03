@@ -321,7 +321,7 @@ main() {
     log_info "Environment: $DEPLOYMENT_ENV"
     
     # Check if we're in the correct directory
-    if [ ! -f "package.json" ] || [ ! -f "src/app/page.tsx" ]; then
+    if [ ! -f "package.json" ] || [ ! -f "app/layout.tsx" ]; then
         log_error "Not in the agent-marketplace directory. Please run this script from the project root."
         exit 1
     fi

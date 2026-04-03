@@ -22,6 +22,13 @@ export interface Database {
           avatar_url?: string | null;
           bio?: string | null;
         };
+        Relationships: Array<{
+          foreignKeyName: string;
+          columns: string[];
+          isOneToOne: boolean;
+          referencedRelation: string;
+          referencedColumns: string[];
+        }>;
       };
       categories: {
         Row: {
@@ -45,6 +52,13 @@ export interface Database {
           description?: string | null;
           icon?: string | null;
         };
+        Relationships: Array<{
+          foreignKeyName: string;
+          columns: string[];
+          isOneToOne: boolean;
+          referencedRelation: string;
+          referencedColumns: string[];
+        }>;
       };
       agents: {
         Row: {
@@ -92,7 +106,10 @@ export interface Database {
           views_count?: number;
         };
         Update: {
+          creator_id?: string;
+          category_id?: string | null;
           name?: string;
+          slug?: string;
           description?: string;
           long_description?: string | null;
           pricing_model?: 'free' | 'paid' | 'freemium' | 'subscription';
@@ -106,8 +123,17 @@ export interface Database {
           is_featured?: boolean;
           is_verified?: boolean;
           status?: 'pending' | 'active' | 'suspended';
-          category_id?: string | null;
+          views_count?: number;
+          created_at?: string;
+          updated_at?: string;
         };
+        Relationships: Array<{
+          foreignKeyName: string;
+          columns: string[];
+          isOneToOne: boolean;
+          referencedRelation: string;
+          referencedColumns: string[];
+        }>;
       };
       reviews: {
         Row: {
@@ -129,6 +155,24 @@ export interface Database {
           rating?: number;
           comment?: string | null;
         };
+        Relationships: Array<{
+          foreignKeyName: string;
+          columns: string[];
+          isOneToOne: boolean;
+          referencedRelation: string;
+          referencedColumns: string[];
+        }>;
+      };
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      generate_unique_slug: {
+        Args: {
+          p_name: string;
+        };
+        Returns: string;
       };
     };
     Enums: {
@@ -138,7 +182,6 @@ export interface Database {
   };
 }
 
-// Minimal types for generated client
 export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row'];
 export type InsertTables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Insert'];
 export type UpdateTables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Update'];
