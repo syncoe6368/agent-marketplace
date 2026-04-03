@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: any;
+  let body: Record<string, unknown> | null = null;
   try {
     body = await request.json();
   } catch {
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Generate slug
-  let targetSlug = slug || name.toLowerCase()
+  const targetSlug = slug || name.toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 

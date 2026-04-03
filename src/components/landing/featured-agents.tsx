@@ -1,8 +1,13 @@
 import { AgentCard } from '@/components/agents/agent-card';
 import { Flame } from 'lucide-react';
 
+interface AgentBasic {
+  id: string;
+  [key: string]: unknown;
+}
+
 interface FeaturedAgentsProps {
-  agents: any[];
+  agents: AgentBasic[];
 }
 
 export function FeaturedAgents({ agents }: FeaturedAgentsProps) {
