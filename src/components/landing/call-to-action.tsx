@@ -1,6 +1,7 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { NewsletterSignup } from './newsletter-signup';
 
 export function CallToAction() {
   return (
@@ -41,6 +42,11 @@ export function CallToAction() {
             <p className="text-xs text-muted-foreground pt-2">
               No credit card required · Free tier includes up to 3 listings · Setup in under 2 minutes
             </p>
+
+            <div className="pt-6 border-t mt-6">
+              <p className="text-sm font-medium mb-3">Or get marketplace updates first</p>
+              <NewsletterSignup />
+            </div>
           </div>
         </div>
       </div>

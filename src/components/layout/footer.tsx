@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Bot, GitFork, MessageCircle } from 'lucide-react';
+import { Bot, GitFork, MessageCircle, Users } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 export function Footer() {
   return (
@@ -61,6 +62,27 @@ export function Footer() {
             </Link>
             <Link href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
               <MessageCircle className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Community CTA */}
+        <div className="mt-8 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/5 to-pink-500/10 border p-6">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+                <Users className="h-5 w-5 text-indigo-500" />
+              </div>
+              <div>
+                <p className="font-semibold text-sm">Join the AgentHub Community</p>
+                <p className="text-xs text-muted-foreground">Get help, share your agents, connect with builders</p>
+              </div>
+            </div>
+            <Link href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer" className="sm:ml-auto">
+              <Button variant="outline" size="sm">
+                <MessageCircle className="h-4 w-4 mr-1.5" />
+                Join Discord
+              </Button>
             </Link>
           </div>
         </div>

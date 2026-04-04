@@ -13,6 +13,7 @@ import { AgentInstall } from '@/components/agents/agent-install';
 import { AgentCapabilities } from '@/components/agents/agent-capabilities';
 import { AgentRequirements } from '@/components/agents/agent-requirements';
 import { AgentPricing } from '@/components/agents/agent-pricing';
+import { ShareAgent } from '@/components/agents/share-agent';
 import { formatDate, formatPrice } from '@/lib/utils';
 import {
   ExternalLink, GitFork, Globe, BookOpen, Star, Eye,
@@ -255,7 +256,12 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
           )}
 
           {/* Action buttons */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
+            <ShareAgent
+              agentName={agent.name}
+              agentSlug={agent.slug}
+              agentDescription={agent.description}
+            />
             {agent.website_url && (
               <a href={agent.website_url} target="_blank" rel="noopener noreferrer">
                 <Button>
