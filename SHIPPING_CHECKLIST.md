@@ -12,8 +12,8 @@
 - [x] CI/CD pipeline configured (GitHub Actions → Vercel)
 - [x] Development environment documented (`CONTRIBUTING.md`)
 - [x] Environment variables template created (`.env.example`)
-- [ ] Domain / subdomain secured (e.g. `agentmarketplace.io`)
-- [ ] SSL / HTTPS active
+- [x] Domain / subdomain secured — agenthub.syncoe.com
+- [x] SSL / HTTPS active (Vercel-managed)
 - [x] Supabase project created (DB, Auth, Storage)
 
 ## 2. Core Architecture
@@ -134,7 +134,7 @@
 ## 13. Monitoring & Post-Launch
 
 - [x] Uptime monitoring configured (health endpoint + scripts/monitor.sh + docs/MONITORING.md)
-- [ ] Error alerting to Discord/email (monitor script ready, needs DISCORD_WEBHOOK_URL)
+- [x] Error alerting to Discord/email — real-time Discord webhook via /api/errors + cron monitor.sh
 - [x] User feedback collection method (form, email, or widget) — floating feedback widget + POST /api/feedback with rate limiting + localStorage fallback
 - [ ] Post-launch support channel ready (Discord server or email)
 
