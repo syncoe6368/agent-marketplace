@@ -118,7 +118,36 @@
 
 - [x] 3-5 seed agent listings created (22 agents live in Supabase)
 - [x] 3 categories populated with descriptions (6 categories live)
-- [ ] Social media accounts created (X, Discord, etc.)
+- [x] Social media accounts created (X, Discord, etc.) — using existing Syncoe channels
+
+## 17. Creator Profile Pages
+
+- [x] `/creators/[id]` — Public creator profile with agent list, stats (agents count, avg rating, total views, join date)
+- [x] Creator name links on agent detail pages
+- [x] Deterministic gradient avatars for creators without uploaded photos
+- [x] Empty state with CTA for creators with no agents
+- [x] Verified Creator badge when any of their agents is verified
+
+## 18. Search Autocomplete
+
+- [x] `/api/agents/suggestions` — Returns agents + categories as user types
+- [x] 30s server-side caching
+- [x] Input sanitization via `sanitizeSearchQuery()`
+- [x] Rate limit of 20 results per query
+- [x] Documented in `/api-docs`
+
+## 19. Enhanced Agent Discovery
+
+- [x] Smarter Similar Agents — category-first, then tag-based recommendations
+- [x] Up to 4 related agents shown on detail pages (was 3)
+- [x] Deduplication between category and tag results
+
+## 20. Changelog
+
+- [x] `/changelog` — Public changelog page with timeline design
+- [x] Versioned entries (v0.1.0 through v0.9.0)
+- [x] Type badges (Major, Feature, Improved, Fixed)
+- [x] Linked to footer, mobile nav, and sitemap
 - [x] Live stats API endpoint (`/api/stats` with 60s caching)
 - [x] "Recently Added" section on homepage (4 newest agents)
 - [x] Pricing page with live marketplace stats + FAQ section
