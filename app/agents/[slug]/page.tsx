@@ -9,6 +9,10 @@ import { Separator } from '@/components/ui/separator';
 import { StarRating } from '@/components/agents/star-rating';
 import { ReviewList } from '@/components/agents/review-list';
 import { AgentCard } from '@/components/agents/agent-card';
+import { AgentInstall } from '@/components/agents/agent-install';
+import { AgentCapabilities } from '@/components/agents/agent-capabilities';
+import { AgentRequirements } from '@/components/agents/agent-requirements';
+import { AgentPricing } from '@/components/agents/agent-pricing';
 import { formatDate, formatPrice } from '@/lib/utils';
 import {
   ExternalLink, GitFork, Globe, BookOpen, Star, Eye,
@@ -57,6 +61,17 @@ interface AgentRow {
   views_count: number;
   created_at: string;
   updated_at: string;
+  install_command?: string | null;
+  capabilities?: string[] | null;
+  requirements?: string[] | null;
+  platforms?: string[] | null;
+  pricing_tier_free?: { features: string[]; limits: string } | null;
+  pricing_tier_paid?: {
+    features: string[];
+    price_monthly?: number;
+    price_annual?: number;
+    popular?: boolean;
+  } | null;
   category?: { id: string; name: string; slug: string; description: string | null; icon: string | null } | null;
   creator?: { id: string; full_name: string | null; avatar_url: string | null; bio: string | null } | null;
 }
@@ -115,6 +130,8 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
       tags, is_featured, is_verified, status, views_count,
       category_id, creator_id,
       created_at, updated_at,
+      install_command, capabilities, requirements, platforms,
+      pricing_tier_free, pricing_tier_paid,
       category:categories(id, name, slug, description, icon),
       creator:profiles(id, full_name, avatar_url, bio)
     `)
@@ -248,6 +265,14 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
 
           <Separator />
 
+          {/* Quick Start / Install */}
+          <AgentInstall slug={agent.slug} name={agent.name} tags={agent.tags} />
+
+          {/* Capabilities */}
+          <AgentCapabilities name={agent.name} tags={agent.tags} capabilities={agent.capabilities} />
+
+          <Separator />
+
           {/* Reviews */}
           <div>
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
@@ -257,19 +282,27 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
 
         {/* Sidebar */}
         <div className="space-y-6">
+          {/* Pricing breakdown */}
+          <AgentPricing
+            name={agent.name}
+            pricingModel={agent.pricing_model}
+            priceAmount={agent.price_amount}
+            currency={agent.currency}
+            pricingTierFree={agent.pricing_tier_free}
+            pricingTierPaid={agent.pricing_tier_paid}
+          />
+
+          {/* Requirements */}
+          <AgentRequirements
+            name={agent.name}
+            tags={agent.tags}
+            requirements={agent.requirements}
+            platforms={agent.platforms}
+          />
+
+          {/* Creator info */}
           <Card>
             <CardContent className="p-6 space-y-4">
-              <div className="text-center">
-                <Badge className={pricingColors[agent.pricing_model] || ''}>
-                  {agent.pricing_model === 'free' ? 'Free' : formatPrice(agent.price_amount, agent.currency)}
-                </Badge>
-                <p className="text-sm text-muted-foreground mt-2 capitalize">
-                  {agent.pricing_model}
-                </p>
-              </div>
-
-              <Separator />
-
               {agent.creator && (
                 <div className="text-center">
                   <p className="text-sm font-medium">Created by</p>

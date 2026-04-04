@@ -3,6 +3,7 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { HeroSection } from '@/components/landing/hero-section';
 import { FeaturedAgents } from '@/components/landing/featured-agents';
+import { TrendingAgents } from '@/components/landing/trending-agents';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
 
@@ -25,6 +26,7 @@ interface AgentRow {
   is_verified: boolean;
   status: string;
   views_count: number;
+  created_at: string;
   category?: { id: string; name: string; slug: string } | null;
   creator?: { full_name: string | null; avatar_url: string | null } | null;
   reviews?: { rating: number }[];
@@ -65,11 +67,20 @@ export default async function HomePage() {
     .select('*, agents(count)')
     .order('name');
 
+  // Fetch trending agents (top 5 by views_count)
+  const { data: trendingData } = await supabase
+    .from('agents')
+    .select('*, category:categories(id, name, slug)')
+    .eq('status', 'active')
+    .order('views_count', { ascending: false })
+    .limit(5);
+
   const agents = (agentsData || []) as AgentRow[];
   const categories = ((categoriesData || []) as CategoryRow[]).map((cat) => ({
     ...cat,
     agent_count: (cat.agents as unknown as { count: number }[])?.[0]?.count || 0,
   }));
+  const trendingAgents = (trendingData || []) as AgentRow[];
 
   // Fetch stats for hero section
   const { count: totalAgents } = await supabase
@@ -90,6 +101,7 @@ export default async function HomePage() {
   return (
     <>
       <HeroSection totalAgents={totalAgents || 0} totalReviews={totalReviews} avgRating={avgRating} />
+      <TrendingAgents agents={trendingAgents} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
       <HowItWorks />

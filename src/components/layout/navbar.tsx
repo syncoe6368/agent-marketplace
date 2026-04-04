@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Search, Menu, X, Bot } from 'lucide-react';
+import { Search, Menu, X, Bot, GitCompare, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase/client';
 import { SignOutButton } from './sign-out-button';
@@ -23,6 +23,14 @@ export async function Navbar() {
             </Link>
             <Link href="/categories" className="text-muted-foreground hover:text-foreground transition-colors">
               Categories
+            </Link>
+            <Link href="/compare" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+              <GitCompare className="h-3.5 w-3.5" />
+              Compare
+            </Link>
+            <Link href="/#trending" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+              <TrendingUp className="h-3.5 w-3.5" />
+              Trending
             </Link>
             <Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">
               Pricing

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Bot } from 'lucide-react';
+import { Menu, X, Bot, GitCompare, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 
@@ -32,6 +32,14 @@ export function MobileNav({ user }: MobileNavProps) {
           </Link>
           <Link href="/categories" onClick={() => setOpen(false)} className="text-lg hover:text-indigo-600 transition-colors">
             Categories
+          </Link>
+          <Link href="/compare" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-indigo-600 transition-colors">
+            <GitCompare className="h-4 w-4" />
+            Compare
+          </Link>
+          <Link href="/#trending" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-indigo-600 transition-colors">
+            <TrendingUp className="h-4 w-4" />
+            Trending
           </Link>
           <Link href="/pricing" onClick={() => setOpen(false)} className="text-lg hover:text-indigo-600 transition-colors">
             Pricing
