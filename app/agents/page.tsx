@@ -76,7 +76,8 @@ export default async function AgentsPage({
 
   switch (params.sort) {
     case 'top_rated':
-      query = query.order('created_at', { ascending: false });
+      // Fetch all matching agents and sort by rating client-side
+      // (Supabase doesn't support ordering by aggregated subquery)
       break;
     case 'most_viewed':
       query = query.order('views_count', { ascending: false });
@@ -98,6 +99,11 @@ export default async function AgentsPage({
     return { ...agentData, average_rating, review_count: ratings.length };
   });
 
+  // Sort by top rated (computed from reviews, can't do server-side)
+  const sortedAgents = params.sort === 'top_rated'
+    ? [...agents].sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0))
+    : agents;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -117,7 +123,7 @@ export default async function AgentsPage({
         />
       </div>
 
-      {agents.length === 0 ? (
+      {sortedAgents.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-lg text-muted-foreground mb-2">No agents found</p>
           <p className="text-sm text-muted-foreground">Try adjusting your filters or search terms</p>
@@ -125,11 +131,11 @@ export default async function AgentsPage({
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {agents.map((agent) => (
+            {sortedAgents.map((agent) => (
               <AgentCard key={agent.id} agent={agent} />
             ))}
           </div>
-          {agents.length === perPage && (
+          {sortedAgents.length === perPage && (
             <div className="text-center mt-8">
               <a
                 href={`/agents?q=${params.q || ''}&category=${params.category || 'all'}&pricing=${params.pricing || 'all'}&sort=${params.sort || 'newest'}&page=${page + 1}`}

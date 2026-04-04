@@ -1,8 +1,14 @@
-import { Bot, Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export function HeroSection() {
+interface HeroSectionProps {
+  totalAgents: number;
+  totalReviews: number;
+  avgRating: number;
+}
+
+export function HeroSection({ totalAgents, totalReviews, avgRating }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden border-b bg-gradient-to-b from-indigo-50/50 to-background dark:from-indigo-950/20 dark:to-background">
       {/* Background decoration */}
@@ -46,17 +52,17 @@ export function HeroSection() {
 
           <div className="flex items-center justify-center gap-8 pt-8 text-sm text-muted-foreground">
             <div className="text-center">
-              <p className="text-2xl font-bold text-foreground">500+</p>
+              <p className="text-2xl font-bold text-foreground">{totalAgents}+</p>
               <p>AI Agents</p>
             </div>
             <div className="h-8 w-px bg-border" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-foreground">10K+</p>
-              <p>Active Users</p>
+              <p className="text-2xl font-bold text-foreground">{totalReviews}+</p>
+              <p>Reviews</p>
             </div>
             <div className="h-8 w-px bg-border" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-foreground">4.8</p>
+              <p className="text-2xl font-bold text-foreground">{avgRating.toFixed(1)}</p>
               <p>Avg Rating</p>
             </div>
           </div>

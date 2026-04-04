@@ -71,9 +71,25 @@ export default async function HomePage() {
     agent_count: (cat.agents as unknown as { count: number }[])?.[0]?.count || 0,
   }));
 
+  // Fetch stats for hero section
+  const { count: totalAgents } = await supabase
+    .from('agents')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'active');
+
+  const { data: allReviews } = await supabase
+    .from('reviews')
+    .select('rating');
+
+  const reviews = (allReviews || []) as { rating: number }[];
+  const totalReviews = reviews.length;
+  const avgRating = totalReviews > 0
+    ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
+    : 0;
+
   return (
     <>
-      <HeroSection />
+      <HeroSection totalAgents={totalAgents || 0} totalReviews={totalReviews} avgRating={avgRating} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
       <HowItWorks />
