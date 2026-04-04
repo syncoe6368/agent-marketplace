@@ -101,7 +101,7 @@
 - [x] `robots.txt` configured
 - [x] `sitemap.xml` auto-generated
 - [x] Semantic HTML throughout
-- [ ] Page loading performance (Lighthouse score > 90) — hero now uses dynamic DB stats ✓
+- [x] Page loading performance (Lighthouse score > 90) — ISR caching (60s), query consolidation, preconnect, dynamic OG images
 - [x] Favicon and OG images created
 
 ## 10. Legal & Compliance
