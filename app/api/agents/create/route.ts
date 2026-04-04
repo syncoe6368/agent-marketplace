@@ -11,7 +11,6 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let body: any;
   try {
     body = await request.json();
@@ -29,7 +28,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Generate slug
-  const targetSlug = slug || name.toLowerCase()
+  let targetSlug = slug || name.toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 

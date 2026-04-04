@@ -2,7 +2,7 @@
 
 > **Goal:** MVP launch ready to accept first agent listings and generate revenue
 > **Target:** 7-day sprint
-> **Last Updated:** 2026-04-03 (night)
+> **Last Updated:** 2026-04-03
 
 ---
 
@@ -114,8 +114,8 @@
 
 ## 11. Launch Preparation
 
-- [ ] 3-5 seed agent listings created (SQL script ready: `supabase/seed-demo-data.sql`)
-- [x] 3 categories populated with descriptions (in migration)
+- [ ] 3-5 seed agent listings created
+- [ ] 3 categories populated with descriptions
 - [ ] Social media accounts created (X, Discord, etc.)
 - [ ] Launch announcement draft ready
 - [ ] Submission to Product Hunt / Hacker News / relevant directories
@@ -161,6 +161,15 @@
 **P0 items = must ship. P1 = should ship. P2/P3 = can follow in v1.1.**
 
 ---
+
+## 14. Skill Package Distribution API
+
+- [x] `GET /api/skills` — List/search/filter skill packages
+- [x] `GET /api/skills/[slug]` — Get skill package details (manifest + optional SKILL.md + file listing)
+- [x] `GET /api/skills/[slug]/download?file=<path>` — Download individual skill files (whitelist security)
+- [x] `GET /api/skills/[slug]/install` — Generate install instructions and shell scripts
+- [ ] Skill package upload API (creator-submitted packages)
+- [ ] Skill package versioning and update notifications
 
 ## Notes
 

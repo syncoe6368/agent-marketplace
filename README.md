@@ -12,6 +12,8 @@ The #1 marketplace for discovering, comparing, and deploying AI agents.
 - **Featured Listings** — Promote your agents with featured placement
 - **Verified Badges** — Build trust with verified agent status
 - **Auth** — Email/password + GitHub + Google OAuth via Supabase
+- **Skill Package API** — Browse, download, and install skill packages programmatically
+- **Admin Dashboard** — Listing moderation, user management
 - **Dark Mode** — System-aware theme toggle
 - **Responsive** — Mobile-first design
 - **SEO** — Full meta tags, Open Graph, semantic HTML
@@ -83,6 +85,32 @@ src/
 └── middleware.ts            # Auth session middleware
 ```
 
+## Skill Package Distribution API
+
+The `/api/skills` endpoints enable programmatic discovery and installation of skill packages:
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/skills` | List all skill packages with filtering (category, tag, model, search, sort) |
+| `GET /api/skills/[slug]` | Get skill package details (manifest + optional SKILL.md + file listing) |
+| `GET /api/skills/[slug]/download?file=<path>` | Download individual files (whitelist-secured) |
+| `GET /api/skills/[slug]/install` | Generate install instructions or shell script (`?format=sh`) |
+
+### Example: Install a skill
+```bash
+# List available skills
+curl https://agenthub.example.com/api/skills
+
+# Get skill details
+curl https://agenthub.example.com/api/skills/code-review-agent
+
+# Download the SKILL.md
+curl -LO https://agenthub.example.com/api/skills/code-review-agent/download?file=SKILL.md
+
+# Get install script
+curl https://agenthub.example.com/api/skills/code-review-agent/install?format=sh | bash
+```
+
 ## Deployment
 
 ### Vercel (Recommended)
@@ -104,13 +132,14 @@ npm start
 ## Roadmap
 
 - [ ] Stripe payment integration for featured listings
-- [ ] Admin moderation panel
+- [x] Admin moderation panel
 - [ ] Agent comparison tool
 - [ ] Newsletter / notifications
-- [ ] API for programmatic agent access
+- [x] Skill Package Distribution API
 - [ ] Social sharing & embeds
 - [ ] Agent analytics dashboard (charts)
 - [ ] Multi-language support
+- [ ] Skill package upload API (creator-submitted)
 
 ## License
 
