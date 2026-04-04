@@ -17,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: '/trending', lastModified: new Date() },
     { url: '/compare', lastModified: new Date() },
     { url: '/bookmarks', lastModified: new Date() },
+    { url: '/changelog', lastModified: new Date() },
   ];
 
   // Fetch dynamic agent slugs and categories from Supabase (server-side)

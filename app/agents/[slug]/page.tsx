@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -167,17 +168,39 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
 
   const reviews = (reviewsData || []) as ReviewRow[];
 
-  // Fetch related agents (same category)
-  const { data: relatedData } = await supabase
+  // Fetch related agents (same category first, then tag overlap)
+  const { data: categoryRelated } = await supabase
     .from('agents')
     .select('*, category:categories(id, name, slug)')
     .eq('status', 'active')
     .neq('id', agent.id)
     .eq('category_id', agent.category_id)
     .order('views_count', { ascending: false })
-    .limit(3);
+    .limit(4);
 
-  const relatedAgents = (relatedData || []) as AgentRow[];
+  // Build tag-based query for additional suggestions
+  let tagRelated: AgentRow[] = [];
+  if (agent.tags && agent.tags.length > 0 && (categoryRelated || []).length < 3) {
+    const tagFilters = agent.tags
+      .slice(0, 3)
+      .map((tag) => `tags.ilike.%${tag}%`)
+      .join(',');
+    const existingIds = (categoryRelated || []).map((a: AgentRow) => a.id);
+    const { data: tagData } = await supabase
+      .from('agents')
+      .select('*, category:categories(id, name, slug)')
+      .eq('status', 'active')
+      .neq('id', agent.id)
+      .or(tagFilters)
+      .limit(4);
+    tagRelated = (tagData || []).filter((a: AgentRow) => !existingIds.includes(a.id)) as AgentRow[];
+  }
+
+  // Merge: prefer category matches, fill with tag matches
+  const relatedAgents = [
+    ...(categoryRelated || []) as AgentRow[],
+    ...tagRelated,
+  ].slice(0, 4);
 
   // Per-category avatar gradients
   const categoryGradients: Record<string, string> = {
@@ -337,7 +360,12 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
               {agent.creator && (
                 <div className="text-center">
                   <p className="text-sm font-medium">Created by</p>
-                  <p className="text-sm text-muted-foreground">{agent.creator.full_name || 'Anonymous'}</p>
+                  <Link href={`/creators/${agent.creator.id}`} className="text-sm text-primary hover:underline">
+                    {agent.creator.full_name || 'Anonymous'}
+                  </Link>
+                  {agent.creator.bio && (
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{agent.creator.bio}</p>
+                  )}
                 </div>
               )}
             </CardContent>

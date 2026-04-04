@@ -50,6 +50,9 @@ export function MobileNav({ user }: MobileNavProps) {
           <Link href="/api-docs" onClick={() => setOpen(false)} className="text-lg hover:text-primary transition-colors">
             API
           </Link>
+          <Link href="/changelog" onClick={() => setOpen(false)} className="text-lg hover:text-primary transition-colors">
+            Changelog
+          </Link>
           <hr className="my-2" />
           {user ? (
             <>

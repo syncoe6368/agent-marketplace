@@ -38,6 +38,13 @@ const endpoints: { group: string; icon: string; items: Endpoint[] }[] = [
         description: 'Get full details for a single agent including reviews and creator info.',
         params: 'Path param: id (uuid)',
       },
+      {
+        method: 'GET',
+        path: '/api/agents/suggestions',
+        description: 'Search autocomplete — returns agent and category suggestions as user types.',
+        params: '?q=<query>&limit=8',
+        response: '{ "suggestions": [{ "type": "agent", "name": "...", "slug": "...", "meta": "category" }], "count": 5 }',
+      },
     ],
   },
   {

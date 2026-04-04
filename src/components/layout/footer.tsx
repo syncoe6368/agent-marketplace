@@ -36,6 +36,7 @@ export function Footer() {
               <Link href="/trending" className="hover:text-foreground transition-colors">Trending</Link>
               <Link href="/bookmarks" className="hover:text-foreground transition-colors">Saved Agents</Link>
               <Link href="/api-docs" className="hover:text-foreground transition-colors">API Documentation</Link>
+              <Link href="/changelog" className="hover:text-foreground transition-colors">Changelog</Link>
             </nav>
           </div>
 
