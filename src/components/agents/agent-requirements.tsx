@@ -90,7 +90,7 @@ export function AgentRequirements({ name, tags, requirements, platforms: propPla
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <AlertCircle className="h-5 w-5 text-indigo-600" />
+          <AlertCircle className="h-5 w-5 text-primary" />
           Requirements & Setup
         </CardTitle>
       </CardHeader>

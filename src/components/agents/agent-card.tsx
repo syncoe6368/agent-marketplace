@@ -129,21 +129,21 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
 
   return (
     <Link href={`/agents/${agent.slug}`}>
-      <Card className="group h-full hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-200">
+      <Card className="group h-full hover:shadow-lg hover:border-primary/30 transition-all duration-200">
         <CardContent className="p-5 flex flex-col h-full">
           {/* Top row: avatar, name, pricing */}
           <div className="flex items-start justify-between mb-2">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-bold text-sm shrink-0">
                 {agent.name.charAt(0).toUpperCase()}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <h3 className="font-semibold text-sm truncate group-hover:text-indigo-600 transition-colors">
+                  <h3 className="font-semibold text-sm truncate group-hover:text-primary transition-colors">
                     {agent.name}
                   </h3>
                   {agent.is_verified && (
-                    <BadgeCheck className="h-4 w-4 text-indigo-600 shrink-0" />
+                    <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   )}
                 </div>
                 {agent.category && (
@@ -194,8 +194,8 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
                 onClick={toggleCompare}
                 className={`p-1 rounded transition-colors ${
                   comparing
-                    ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950'
-                    : 'text-muted-foreground hover:text-indigo-600 hover:bg-muted'
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-primary hover:bg-muted'
                 }`}
                 title={comparing ? 'Remove from comparison' : 'Add to comparison'}
               >

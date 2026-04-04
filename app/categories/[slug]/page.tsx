@@ -100,7 +100,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="text-center py-16">
           <p className="text-lg text-muted-foreground mb-2">No agents in this category yet</p>
           <p className="text-sm text-muted-foreground">
-            Be the first to <a href="/submit" className="text-indigo-600 hover:underline">list an agent</a> in {category.name}
+            Be the first to <a href="/submit" className="text-primary hover:underline">list an agent</a> in {category.name}
           </p>
         </div>
       ) : (

@@ -53,7 +53,7 @@ export default function SignupPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <Bot className="h-8 w-8 text-indigo-600" />
+            <Bot className="h-8 w-8 text-primary" />
           </div>
           <CardTitle>Create your account</CardTitle>
           <CardDescription>Join AgentHub and start discovering AI agents</CardDescription>
@@ -121,7 +121,7 @@ export default function SignupPage() {
 
           <p className="text-sm text-center text-muted-foreground">
             Already have an account?{' '}
-            <Link href="/auth/login" className="text-indigo-600 hover:underline">
+            <Link href="/auth/login" className="text-primary hover:underline">
               Sign in
             </Link>
           </p>

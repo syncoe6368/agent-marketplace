@@ -30,10 +30,10 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <div key={step.title} className="text-center space-y-4">
               <div className="relative inline-flex">
-                <div className="p-4 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600">
+                <div className="p-4 rounded-xl bg-primary/10 text-primary">
                   {step.icon}
                 </div>
-                <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center">
+                <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
                   {index + 1}
                 </div>
               </div>

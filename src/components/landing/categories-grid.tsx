@@ -36,8 +36,8 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((category) => (
             <Link key={category.id} href={`/categories/${category.slug}`}>
-              <div className="group flex flex-col items-center gap-3 p-6 rounded-xl border bg-card hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-200 cursor-pointer">
-                <div className="p-3 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 group-hover:scale-110 transition-transform">
+              <div className="group flex flex-col items-center gap-3 p-6 rounded-xl border bg-card hover:shadow-md hover:border-primary/30 transition-all duration-200 cursor-pointer">
+                <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform">
                   {iconMap[category.icon || 'Zap'] || <Zap className="h-6 w-6" />}
                 </div>
                 <div className="text-center">

@@ -46,7 +46,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <Bot className="h-8 w-8 text-indigo-600" />
+            <Bot className="h-8 w-8 text-primary" />
           </div>
           <CardTitle>Welcome back</CardTitle>
           <CardDescription>Sign in to your AgentHub account</CardDescription>
@@ -87,7 +87,7 @@ export default function LoginPage() {
                 <Label htmlFor="password">Password</Label>
                 <Link
                   href="/auth/reset-password"
-                  className="text-xs text-indigo-600 hover:underline"
+                  className="text-xs text-primary hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -110,7 +110,7 @@ export default function LoginPage() {
 
           <p className="text-sm text-center text-muted-foreground">
             Don&apos;t have an account?{' '}
-            <Link href="/auth/signup" className="text-indigo-600 hover:underline">
+            <Link href="/auth/signup" className="text-primary hover:underline">
               Sign up
             </Link>
           </p>

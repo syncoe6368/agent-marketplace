@@ -98,7 +98,7 @@ export function AgentPricing({
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Star className="h-5 w-5 text-indigo-600" />
+          <Star className="h-5 w-5 text-primary" />
           Pricing Plans
         </CardTitle>
       </CardHeader>
@@ -110,7 +110,7 @@ export function AgentPricing({
             <button
               onClick={() => setAnnual(!annual)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                annual ? 'bg-indigo-600' : 'bg-muted'
+                annual ? 'bg-primary' : 'bg-muted'
               }`}
             >
               <span
@@ -145,9 +145,9 @@ export function AgentPricing({
           )}
 
           {/* Paid Tier */}
-          <div className="relative p-4 rounded-lg border-2 border-indigo-200 dark:border-indigo-800 bg-card">
+          <div className="relative p-4 rounded-lg border-2 border-primary/30 bg-card">
             {isPopular && (
-              <Badge className="absolute -top-2.5 right-3 bg-indigo-600 text-white text-xs">
+              <Badge className="absolute -top-2.5 right-3 bg-primary text-primary-foreground text-xs">
                 <Zap className="h-3 w-3 mr-1" />
                 Most Popular
               </Badge>
@@ -169,7 +169,7 @@ export function AgentPricing({
             <div className="space-y-1.5">
               {paidFeatures.map((f) => (
                 <div key={f} className="flex items-center gap-2 text-sm">
-                  <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-primary shrink-0" />
                   <span>{f}</span>
                 </div>
               ))}

@@ -23,25 +23,25 @@ export function MobileNav({ user }: MobileNavProps) {
       </SheetTrigger>
       <SheetContent side="right" className="w-72">
         <SheetTitle className="flex items-center gap-2 mb-6">
-          <Bot className="h-5 w-5 text-indigo-600" />
+          <Bot className="h-5 w-5 text-primary" />
           AgentHub
         </SheetTitle>
         <nav className="flex flex-col gap-3">
-          <Link href="/agents" onClick={() => setOpen(false)} className="text-lg hover:text-indigo-600 transition-colors">
+          <Link href="/agents" onClick={() => setOpen(false)} className="text-lg hover:text-primary transition-colors">
             Browse Agents
           </Link>
-          <Link href="/categories" onClick={() => setOpen(false)} className="text-lg hover:text-indigo-600 transition-colors">
+          <Link href="/categories" onClick={() => setOpen(false)} className="text-lg hover:text-primary transition-colors">
             Categories
           </Link>
-          <Link href="/compare" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-indigo-600 transition-colors">
+          <Link href="/compare" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-primary transition-colors">
             <GitCompare className="h-4 w-4" />
             Compare
           </Link>
-          <Link href="/#trending" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-indigo-600 transition-colors">
+          <Link href="/#trending" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-primary transition-colors">
             <TrendingUp className="h-4 w-4" />
             Trending
           </Link>
-          <Link href="/pricing" onClick={() => setOpen(false)} className="text-lg hover:text-indigo-600 transition-colors">
+          <Link href="/pricing" onClick={() => setOpen(false)} className="text-lg hover:text-primary transition-colors">
             Pricing
           </Link>
           <hr className="my-2" />

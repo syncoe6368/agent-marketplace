@@ -28,7 +28,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
               key={i}
               className="relative rounded-xl border bg-card p-6 space-y-4 hover:shadow-md transition-shadow"
             >
-              <Quote className="absolute top-4 right-4 h-8 w-8 text-indigo-200 dark:text-indigo-900/50" />
+              <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/15" />
               <div className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star
@@ -45,13 +45,13 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                 &ldquo;{t.comment}&rdquo;
               </p>
               <div className="flex items-center gap-3 pt-1">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary/70 to-accent flex items-center justify-center text-primary-foreground text-xs font-bold shrink-0">
                   {t.user_name.charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-medium truncate">{t.user_name}</p>
                   <p className="text-xs text-muted-foreground truncate">
-                    about <a href={`/agents/${t.agent_slug}`} className="text-indigo-600 hover:underline">{t.agent_name}</a>
+                    about <a href={`/agents/${t.agent_slug}`} className="text-primary hover:underline">{t.agent_name}</a>
                   </p>
                 </div>
               </div>

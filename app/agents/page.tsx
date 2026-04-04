@@ -141,7 +141,7 @@ export default async function AgentsPage({
             <div className="text-center mt-8">
               <a
                 href={`/agents?q=${params.q || ''}&category=${params.category || 'all'}&pricing=${params.pricing || 'all'}&sort=${params.sort || 'newest'}&page=${page + 1}`}
-                className="text-indigo-600 hover:underline"
+                className="text-primary hover:underline"
               >
                 Load more agents →
               </a>

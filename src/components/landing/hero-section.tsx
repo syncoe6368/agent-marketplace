@@ -10,23 +10,23 @@ interface HeroSectionProps {
 
 export function HeroSection({ totalAgents, totalReviews, avgRating }: HeroSectionProps) {
   return (
-    <section className="relative overflow-hidden border-b bg-gradient-to-b from-indigo-50/50 to-background dark:from-indigo-950/20 dark:to-background">
+    <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 to-background dark:from-primary/5 dark:to-background">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-purple-500/10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 py-20 md:py-32 relative">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
             <Sparkles className="h-4 w-4" />
             The #1 AI Agent Marketplace
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             Discover & Deploy
-            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
               {' '}AI Agents
             </span>{' '}
             That Actually Work

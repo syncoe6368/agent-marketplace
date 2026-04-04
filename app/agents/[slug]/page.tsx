@@ -193,14 +193,14 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
         <div className="lg:col-span-2 space-y-6">
           {/* Header */}
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-2xl shrink-0">
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-bold text-2xl shrink-0">
               {agent.name.charAt(0).toUpperCase()}
             </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-bold">{agent.name}</h1>
                 {agent.is_verified && (
-                  <BadgeCheck className="h-5 w-5 text-indigo-600" />
+                  <BadgeCheck className="h-5 w-5 text-primary" />
                 )}
               </div>
               {agent.category && (

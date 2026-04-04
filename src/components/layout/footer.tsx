@@ -9,7 +9,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-              <Bot className="h-6 w-6 text-indigo-600" />
+              <Bot className="h-6 w-6 text-primary" />
               AgentHub
             </Link>
             <p className="text-sm text-muted-foreground">

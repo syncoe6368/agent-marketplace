@@ -47,7 +47,7 @@ export default function PrivacyPage() {
           <li>To display your Agent listings and reviews to other Users.</li>
           <li>To process payments for featured listings and verified badges.</li>
           <li>To communicate with you about your account or platform updates.</li>
-          <li>To enforce our <Link href="/legal/guidelines" className="text-indigo-600 hover:underline">Agent Listing Guidelines</Link> and these Terms.</li>
+          <li>To enforce our <Link href="/legal/guidelines" className="text-primary hover:underline">Agent Listing Guidelines</Link> and these Terms.</li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">3. Information Sharing</h2>
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
           <li><strong>Correction:</strong> You may update or correct your account information.</li>
           <li><strong>Deletion:</strong> You may request deletion of your account and associated data.</li>
           <li><strong>Opt-Out:</strong> You may unsubscribe from marketing communications at any time.</li>
-          <li>To exercise these rights, contact us at <a href="mailto:privacy@agenthub.io" className="text-indigo-600 hover:underline">privacy@agenthub.io</a>.</li>
+          <li>To exercise these rights, contact us at <a href="mailto:privacy@agenthub.io" className="text-primary hover:underline">privacy@agenthub.io</a>.</li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">6. Cookies</h2>
@@ -98,12 +98,12 @@ export default function PrivacyPage() {
         <h2 className="text-2xl font-semibold mt-8 mb-4">9. Contact</h2>
         <p>
           For privacy-related inquiries, contact us at{' '}
-          <a href="mailto:privacy@agenthub.io" className="text-indigo-600 hover:underline">privacy@agenthub.io</a>.
+          <a href="mailto:privacy@agenthub.io" className="text-primary hover:underline">privacy@agenthub.io</a>.
         </p>
       </div>
 
       <div className="mt-12 pt-6 border-t">
-        <Link href="/" className="text-indigo-600 hover:underline">← Back to AgentHub</Link>
+        <Link href="/" className="text-primary hover:underline">← Back to AgentHub</Link>
       </div>
     </div>
   );

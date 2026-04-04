@@ -100,7 +100,7 @@ export function DashboardContent({ agents }: DashboardContentProps) {
             <CardContent className="p-5">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-bold text-sm shrink-0">
                     {agent.name.charAt(0).toUpperCase()}
                   </div>
                   <div>

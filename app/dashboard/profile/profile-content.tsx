@@ -76,7 +76,7 @@ export function ProfileContent({ user, profile }: ProfileContentProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Mail className="h-5 w-5 text-indigo-600" />
+            <Mail className="h-5 w-5 text-primary" />
             Account
           </CardTitle>
         </CardHeader>
@@ -96,7 +96,7 @@ export function ProfileContent({ user, profile }: ProfileContentProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <User className="h-5 w-5 text-indigo-600" />
+            <User className="h-5 w-5 text-primary" />
             Public Profile
           </CardTitle>
         </CardHeader>

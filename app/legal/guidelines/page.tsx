@@ -87,7 +87,7 @@ export default function GuidelinesPage() {
         <h2 className="text-2xl font-semibold mt-8 mb-4">9. Disclosure & Transparency</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>If your Agent uses AI models or datasets with known biases, disclose these limitations.</li>
-          <li>If your Agent collects user data, describe what data is collected and how it is used in the <Link href="/legal/privacy" className="text-indigo-600 hover:underline">Privacy Policy</Link>.</li>
+          <li>If your Agent collects user data, describe what data is collected and how it is used in the <Link href="/legal/privacy" className="text-primary hover:underline">Privacy Policy</Link>.</li>
           <li>If your Agent is licensed (e.g., for medical, legal, financial purposes), include appropriate disclaimers.</li>
         </ul>
 
@@ -105,19 +105,19 @@ export default function GuidelinesPage() {
         <h2 className="text-2xl font-semibold mt-8 mb-4">11. Appeals</h2>
         <p>
           If your listing is rejected or removed, you may appeal by contacting us at{' '}
-          <a href="mailto:appeals@agenthub.io" className="text-indigo-600 hover:underline">appeals@agenthub.io</a>.
+          <a href="mailto:appeals@agenthub.io" className="text-primary hover:underline">appeals@agenthub.io</a>.
           Include your listing URL/slug and the reason for reconsideration.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">12. Questions</h2>
         <p>
-          Contact us at <a href="mailto:guidelines@agenthub.io" className="text-indigo-600 hover:underline">guidelines@agenthub.io</a>
+          Contact us at <a href="mailto:guidelines@agenthub.io" className="text-primary hover:underline">guidelines@agenthub.io</a>
           with questions about these Guidelines.
         </p>
       </div>
 
       <div className="mt-12 pt-6 border-t">
-        <Link href="/" className="text-indigo-600 hover:underline">← Back to AgentHub</Link>
+        <Link href="/" className="text-primary hover:underline">← Back to AgentHub</Link>
       </div>
     </div>
   );

@@ -135,7 +135,7 @@
 
 - [ ] Uptime monitoring configured (BetterUptime / UptimeRobot)
 - [ ] Error alerting to Discord/email
-- [ ] User feedback collection method (form, email, or widget)
+- [x] User feedback collection method (form, email, or widget) — floating feedback widget + POST /api/feedback with rate limiting + localStorage fallback
 - [ ] Post-launch support channel ready (Discord server or email)
 
 ---
