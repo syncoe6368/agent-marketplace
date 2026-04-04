@@ -37,7 +37,7 @@ export function MobileNav({ user }: MobileNavProps) {
             <GitCompare className="h-4 w-4" />
             Compare
           </Link>
-          <Link href="/#trending" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-primary transition-colors">
+          <Link href="/trending" onClick={() => setOpen(false)} className="flex items-center gap-2 text-lg hover:text-primary transition-colors">
             <TrendingUp className="h-4 w-4" />
             Trending
           </Link>

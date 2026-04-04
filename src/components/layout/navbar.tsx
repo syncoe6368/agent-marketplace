@@ -28,7 +28,7 @@ export async function Navbar() {
               <GitCompare className="h-3.5 w-3.5" />
               Compare
             </Link>
-            <Link href="/#trending" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/trending" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
               <TrendingUp className="h-3.5 w-3.5" />
               Trending
             </Link>
