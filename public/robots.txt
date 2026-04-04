@@ -11,6 +11,10 @@ Allow: /legal/terms
 Allow: /legal/privacy
 Allow: /legal/guidelines
 Allow: /legal/dmca
+Allow: /skills
+Allow: /trending
+Allow: /compare
+Allow: /bookmarks
 
 # Block authentication and internal routes
 Disallow: /auth/
@@ -19,4 +23,4 @@ Disallow: /submit/
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://agenthub.io/sitemap.xml
+Sitemap: https://agenthub.syncoe.com/sitemap.xml
