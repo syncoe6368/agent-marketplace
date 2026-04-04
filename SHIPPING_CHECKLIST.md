@@ -168,7 +168,7 @@
 - [x] `GET /api/skills/[slug]` — Get skill package details (manifest + optional SKILL.md + file listing)
 - [x] `GET /api/skills/[slug]/download?file=<path>` — Download individual skill files (whitelist security)
 - [x] `GET /api/skills/[slug]/install` — Generate install instructions and shell scripts
-- [ ] Skill package upload API (creator-submitted packages)
+- [x] Skill package upload API (creator-submitted packages)
 - [ ] Skill package versioning and update notifications
 
 ## Notes
