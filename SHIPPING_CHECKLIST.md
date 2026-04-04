@@ -136,7 +136,7 @@
 - [x] Uptime monitoring configured (health endpoint + scripts/monitor.sh + docs/MONITORING.md)
 - [x] Error alerting to Discord/email — real-time Discord webhook via /api/errors + cron monitor.sh
 - [x] User feedback collection method (form, email, or widget) — floating feedback widget + POST /api/feedback with rate limiting + localStorage fallback
-- [ ] Post-launch support channel ready (Discord server or email) — ✅ Discord community CTA in footer + /api/feedback widget
+- [x] Post-launch support channel ready (Discord server or email) — Discord community CTA in footer + /api/feedback widget
 
 ---
 
@@ -170,6 +170,19 @@
 - [x] `GET /api/skills/[slug]/install` — Generate install instructions and shell scripts
 - [x] Skill package upload API (creator-submitted packages)
 - [x] Skill package versioning and update notifications
+
+## 15. User Engagement Features
+
+- [x] Agent bookmarking / favorites system
+  - [x] `bookmarks` table with RLS (user_id + agent_id unique constraint)
+  - [x] BookmarkButton component (heart icon, auth-gated, optimistic toggle)
+  - [x] BookmarkCount component (shows save count on agent detail pages)
+  - [x] `/bookmarks` page (auth-gated, sort by newest/oldest/name, grid layout)
+  - [x] Bookmark button on agent cards (browse, search, trending, category pages)
+  - [x] Bookmark button + save count on agent detail page
+  - [x] "Saved" nav link in navbar (authenticated users)
+  - [x] "Saved Agents" link in mobile nav (authenticated users)
+  - [x] "Saved Agents" link in footer
 
 ## Notes
 
