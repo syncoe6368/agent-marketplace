@@ -9,6 +9,7 @@ import { HowItWorks } from '@/components/landing/how-it-works';
 import { CallToAction } from '@/components/landing/call-to-action';
 import { TestimonialsSection } from '@/components/landing/testimonials';
 import { SkillPackagesPreview } from '@/components/landing/skill-packages-preview';
+import { RecentlyAdded } from '@/components/landing/recently-added';
 
 // Revalidate every 60 seconds — serves cached page, regenerates in background
 export const revalidate = 60;
@@ -75,6 +76,11 @@ export default async function HomePage() {
   // Derived: trending (top 5 by views)
   const trendingAgents = allAgents.slice(0, 5);
 
+  // Derived: recently added (newest 4)
+  const recentAgents = [...allAgents].sort((a, b) => 
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  ).slice(0, 4);
+
   // Compute stats from already-fetched data (no extra DB round-trip)
   const totalReviews = allAgents.reduce((sum, a) => sum + (a.reviews?.length || 0), 0);
   const allRatings = allAgents.flatMap(a => (a.reviews || []).map((r: { rating: number }) => r.rating));
@@ -115,6 +121,7 @@ export default async function HomePage() {
       <TrendingAgents agents={trendingAgents} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
+      <RecentlyAdded agents={recentAgents} />
       <TestimonialsSection testimonials={testimonials} />
       <SkillPackagesPreview />
       <HowItWorks />
