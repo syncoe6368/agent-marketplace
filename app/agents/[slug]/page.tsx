@@ -175,6 +175,17 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
 
   const relatedAgents = (relatedData || []) as AgentRow[];
 
+  // Per-category avatar gradients
+  const categoryGradients: Record<string, string> = {
+    automation: 'from-amber-500 to-orange-500',
+    'research-analysis': 'from-blue-500 to-cyan-500',
+    'customer-support': 'from-emerald-500 to-teal-500',
+    development: 'from-violet-500 to-purple-500',
+    finance: 'from-sky-500 to-blue-500',
+    marketing: 'from-rose-500 to-pink-500',
+  };
+  const avatarGradient = categoryGradients[agent.category?.slug || ''] || 'from-primary to-primary/70';
+
   // Calculate average rating
   const ratings = reviews.map((r) => r.rating);
   const averageRating = ratings.length > 0 ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0;
@@ -193,7 +204,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
         <div className="lg:col-span-2 space-y-6">
           {/* Header */}
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-bold text-2xl shrink-0">
+            <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white font-bold text-2xl shrink-0`}>
               {agent.name.charAt(0).toUpperCase()}
             </div>
             <div className="space-y-2">

@@ -117,6 +117,17 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
     return () => window.removeEventListener('agenthub_compare_change', handler);
   }, [agent.slug]);
 
+  // Per-category avatar gradient colors
+  const categoryGradients: Record<string, string> = {
+    automation: 'from-amber-500 to-orange-500',
+    'research-analysis': 'from-blue-500 to-cyan-500',
+    'customer-support': 'from-emerald-500 to-teal-500',
+    development: 'from-violet-500 to-purple-500',
+    finance: 'from-sky-500 to-blue-500',
+    marketing: 'from-rose-500 to-pink-500',
+  };
+  const avatarGradient = categoryGradients[agent.category?.slug || ''] || 'from-primary to-primary/70';
+
   const pricingColors: Record<string, string> = {
     free: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
     paid: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
@@ -134,7 +145,7 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
           {/* Top row: avatar, name, pricing */}
           <div className="flex items-start justify-between mb-2">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-bold text-sm shrink-0">
+              <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
                 {agent.name.charAt(0).toUpperCase()}
               </div>
               <div className="min-w-0">

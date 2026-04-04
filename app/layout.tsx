@@ -38,6 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme');var s=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(s)d.classList.add('dark');else d.classList.remove('dark')}catch(e){}})()`,
+          }}
+        />
         <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
