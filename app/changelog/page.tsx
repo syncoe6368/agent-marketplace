@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Bot, Sparkles, GitFork, Eye, Star, Shield, Zap, Heart, BookOpen, Search, Users, Bell, Rocket } from 'lucide-react';
+import { Bot, Sparkles, GitFork, Eye, Star, Shield, Zap, Heart, BookOpen, Search, Users, Bell, Rocket, Palette } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -23,118 +23,44 @@ interface ChangelogEntry {
 
 const changelog: ChangelogEntry[] = [
   {
-    version: 'v0.9.0',
+    version: '2026.04.05',
     date: '2026-04-05',
-    title: 'Creator Profiles, Search Autocomplete & Changelog',
-    description: 'Public creator profile pages, smarter agent discovery, and full transparency with our changelog.',
+    title: 'Creator Profiles, Search Autocomplete & API Docs',
+    description: 'Public creator pages, smarter agent discovery, full API reference, and embed badges.',
     type: 'feature',
     changes: [
       { icon: <Users className="h-4 w-4" />, text: 'Public creator profile pages — click any creator to see all their agents' },
       { icon: <Search className="h-4 w-4" />, text: 'Search autocomplete API — instant suggestions as you type' },
       { icon: <Sparkles className="h-4 w-4" />, text: 'Smarter "Similar Agents" — tag-based + category-based recommendations' },
-      { icon: <BookOpen className="h-4 w-4" />, text: 'Public changelog page — what you\'re reading right now!' },
-    ],
-  },
-  {
-    version: 'v0.8.0',
-    date: '2026-04-05',
-    title: 'API Documentation & Embed Badges',
-    description: 'Full API reference page and SVG badge generator for external embeds.',
-    type: 'feature',
-    changes: [
       { icon: <BookOpen className="h-4 w-4" />, text: 'API documentation page with curl examples and all endpoint references' },
       { icon: <Zap className="h-4 w-4" />, text: 'SVG embed badge generator — 4 styles (flat, flat-square, for-the-badge, social)' },
-      { icon: <Eye className="h-4 w-4" />, text: 'API link added to navbar, footer, and mobile nav' },
-    ],
-  },
-  {
-    version: 'v0.7.0',
-    date: '2026-04-05',
-    title: 'Live Stats, Recently Added & Enhanced Pricing',
-    description: 'Dynamic marketplace stats on homepage and pricing page with live DB data.',
-    type: 'feature',
-    changes: [
       { icon: <Eye className="h-4 w-4" />, text: 'Live stats API endpoint (/api/stats) with 60s server-side caching' },
-      { icon: <Sparkles className="h-4 w-4" />, text: '"Recently Added" section on homepage showing 4 newest agents' },
+      { icon: <Sparkles className="h-4 w-4" />, text: '"Recently Added" section on homepage showing newest agents' },
       { icon: <Star className="h-4 w-4" />, text: 'Enhanced pricing page with live stats, plan icons, and FAQ section' },
       { icon: <Shield className="h-4 w-4" />, text: 'Trust badges in hero section (verified, free, community-driven)' },
+      { icon: <BookOpen className="h-4 w-4" />, text: 'Public changelog page with date-based versioning' },
     ],
   },
   {
-    version: 'v0.6.0',
+    version: '2026.04.04',
     date: '2026-04-04',
-    title: 'Bookmarks, Newsletter & Social Sharing',
-    description: 'Save your favorite agents, subscribe to updates, and share with one click.',
-    type: 'feature',
+    title: 'Bookmarks, Social Sharing, Theme Overhaul & Real Value',
+    description: 'Save favorites, share agents, professional Ocean theme, and actionable agent detail pages.',
+    type: 'major',
     changes: [
-      { icon: <Heart className="h-4 w-4" />, text: 'Agent bookmarking system with heart icon toggle' },
-      { icon: <Users className="h-4 w-4" />, text: 'Saved Agents page with sort options' },
+      { icon: <Heart className="h-4 w-4" />, text: 'Agent bookmarking system with heart icon toggle and /bookmarks page' },
       { icon: <Bell className="h-4 w-4" />, text: 'Newsletter signup with email validation and rate limiting' },
       { icon: <GitFork className="h-4 w-4" />, text: 'Share Agent dialog — copy link, X, LinkedIn, Discord' },
-    ],
-  },
-  {
-    version: 'v0.5.0',
-    date: '2026-04-04',
-    title: 'Skill Packages & Security Hardening',
-    description: 'Skill package distribution system and critical security fixes.',
-    type: 'major',
-    changes: [
+      { icon: <Palette className="h-4 w-4" />, text: 'Professional "Ocean" light + "Midnight" dark theme — replaced all purple/indigo' },
+      { icon: <Zap className="h-4 w-4" />, text: 'Install commands, capabilities grid, requirements, pricing breakdown per agent' },
+      { icon: <Search className="h-4 w-4" />, text: 'Agent comparison page — side-by-side compare up to 3 agents' },
+      { icon: <Sparkles className="h-4 w-4" />, text: 'Trending This Week page — top 20 agents by weekly views' },
       { icon: <BookOpen className="h-4 w-4" />, text: 'Skill packages browse and detail pages' },
       { icon: <Shield className="h-4 w-4" />, text: 'Fixed SQL injection vulnerability in agent search' },
-      { icon: <Eye className="h-4 w-4" />, text: 'JSON-LD structured data (WebSite + Organization schema)' },
-      { icon: <Sparkles className="h-4 w-4" />, text: 'Skill packages preview on homepage' },
-    ],
-  },
-  {
-    version: 'v0.4.0',
-    date: '2026-04-04',
-    title: 'Performance & Dynamic OG Images',
-    description: 'Edge caching, query consolidation, and auto-generated social cards.',
-    type: 'improvement',
-    changes: [
-      { icon: <Zap className="h-4 w-4" />, text: 'ISR caching (60s) on homepage, /agents, and category pages' },
-      { icon: <Eye className="h-4 w-4" />, text: 'Homepage DB queries reduced from 5 to 2' },
-      { icon: <GitFork className="h-4 w-4" />, text: 'Dynamic OG image route for unique social cards per agent' },
-    ],
-  },
-  {
-    version: 'v0.3.0',
-    date: '2026-04-04',
-    title: 'Error Tracking & Analytics',
-    description: 'Error monitoring, Vercel Analytics, and launch preparation kit.',
-    type: 'feature',
-    changes: [
-      { icon: <Shield className="h-4 w-4" />, text: 'Global error tracking with /api/errors endpoint' },
-      { icon: <Eye className="h-4 w-4" />, text: 'Vercel Analytics integration (Web Vitals + pageviews)' },
-      { icon: <Rocket className="h-4 w-4" />, text: 'Launch announcement draft for Product Hunt, HN, Reddit' },
-    ],
-  },
-  {
-    version: 'v0.2.0',
-    date: '2026-04-04',
-    title: 'User Experience Polish',
-    description: 'Custom 404, loading skeletons, testimonials, and error boundaries.',
-    type: 'improvement',
-    changes: [
-      { icon: <Sparkles className="h-4 w-4" />, text: 'Custom 404 page with CTAs and category suggestions' },
-      { icon: <Eye className="h-4 w-4" />, text: 'Skeleton loaders across all major pages' },
-      { icon: <Star className="h-4 w-4" />, text: 'Testimonials section pulling real reviews from DB' },
-      { icon: <Shield className="h-4 w-4" />, text: 'Global error boundary with retry button' },
-    ],
-  },
-  {
-    version: 'v0.1.0',
-    date: '2026-04-04',
-    title: 'AgentHub MVP Launch',
-    description: 'Initial marketplace with agent browsing, search, reviews, and 22 seed agents.',
-    type: 'major',
-    changes: [
-      { icon: <Bot className="h-4 w-4" />, text: 'Agent browsing with search, category filters, and sort options' },
+      { icon: <Eye className="h-4 w-4" />, text: 'ISR caching (60s), dynamic OG images, JSON-LD structured data' },
       { icon: <Star className="h-4 w-4" />, text: 'Review and rating system with star ratings' },
       { icon: <Users className="h-4 w-4" />, text: 'User authentication (email + OAuth)' },
-      { icon: <Eye className="h-4 w-4" />, text: 'Dynamic hero stats and trending agents page' },
-      { icon: <Shield className="h-4 w-4" />, text: 'RLS policies on all database tables' },
+      { icon: <Shield className="h-4 w-4" />, text: 'Custom 404, loading skeletons, global error boundary, testimonials' },
     ],
   },
 ];
@@ -185,7 +111,7 @@ export default function ChangelogPage() {
                       {typeConfig[entry.type].label}
                     </Badge>
                     <span className="text-xs text-muted-foreground ml-auto">
-                      {new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {new Date(entry.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                     </span>
                   </div>
 
