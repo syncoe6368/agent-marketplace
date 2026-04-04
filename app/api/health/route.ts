@@ -36,10 +36,11 @@ export async function GET() {
       const dbStart = performance.now();
 
       const [catRes, agentRes] = await Promise.all([
-        fetch(`${supabaseUrl}/rest/v1/categories?select=id&limit=1`, {
+        fetch(`${supabaseUrl}/rest/v1/categories?select=id&limit=0`, {
           headers: {
             apikey: supabaseKey,
             Authorization: `Bearer ${supabaseKey}`,
+            Prefer: 'count=exact',
           },
         }),
         fetch(`${supabaseUrl}/rest/v1/agents?select=id&status=eq.active&limit=0`, {
@@ -56,8 +57,15 @@ export async function GET() {
       if (!catRes.ok || !agentRes.ok) {
         dbStatus = 'degraded';
       } else {
-        const catData = await catRes.json();
-        categoryCount = Array.isArray(catData) ? catData.length : 0;
+        // Get total category count from Content-Range header
+        const catContentRange = catRes.headers.get('content-range');
+        if (catContentRange) {
+          const catTotal = catContentRange.split('/')[1];
+          if (catTotal) categoryCount = parseInt(catTotal, 10);
+        } else {
+          const catData = await catRes.json();
+          categoryCount = Array.isArray(catData) ? catData.length : 0;
+        }
 
         // Get total active agents count
         const agentData = await agentRes.json();

@@ -79,7 +79,7 @@ export default async function TrendingPage() {
                 )}
                 <CardContent className="p-5">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${categoryGradients[(agent.category as any)?.slug || ''] || 'from-primary to-primary/70'} flex items-center justify-center text-white font-bold text-lg shrink-0`}>
+                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${categoryGradients[(agent.category as { slug?: string } | null)?.slug || ''] || 'from-primary to-primary/70'} flex items-center justify-center text-white font-bold text-lg shrink-0`}>
                       {agent.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -87,7 +87,7 @@ export default async function TrendingPage() {
                         {agent.name}
                       </h3>
                       <p className="text-xs text-muted-foreground truncate">
-                        {(agent.category as any)?.name || 'Uncategorized'}
+                        {(agent.category as { name?: string } | null)?.name || 'Uncategorized'}
                       </p>
                     </div>
                   </div>

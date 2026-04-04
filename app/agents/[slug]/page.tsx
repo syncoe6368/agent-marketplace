@@ -17,6 +17,7 @@ import { ShareAgent } from '@/components/agents/share-agent';
 import { BookmarkButton } from '@/components/agents/bookmark-button';
 import { BookmarkCount } from '@/components/agents/bookmark-count';
 import { formatDate, formatPrice } from '@/lib/utils';
+import type { Review } from '@/types';
 import {
   ExternalLink, GitFork, Globe, BookOpen, Star, Eye,
   BadgeCheck, Tag, Calendar, Flame,
@@ -306,7 +307,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
           {/* Reviews */}
           <div>
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
-            <ReviewList reviews={reviews as any} />
+            <ReviewList reviews={reviews as Review[]} />
           </div>
         </div>
 
@@ -348,7 +349,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
               <h3 className="font-semibold mb-3">Related Agents</h3>
               <div className="space-y-3">
                 {relatedAgents.map((relAgent) => (
-                  <AgentCard key={relAgent.id} agent={relAgent as any} />
+                  <AgentCard key={relAgent.id} agent={relAgent as Parameters<typeof AgentCard>[0]['agent']} />
                 ))}
               </div>
             </div>

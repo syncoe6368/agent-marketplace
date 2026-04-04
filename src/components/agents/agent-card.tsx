@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { Star, BadgeCheck, GitCompare, Play, Monitor, Flame } from 'lucide-react';
 import { BookmarkButton } from '@/components/agents/bookmark-button';
@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { formatPrice } from '@/lib/utils';
 
-interface AgentCardProps {
+export interface AgentCardProps {
   agent: {
     id: string;
     name: string;
@@ -77,13 +77,15 @@ function getCompareList(): string[] {
   }
 }
 
+const emptySubscribe = () => () => {};
+
 export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
   const [comparing, setComparing] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   useEffect(() => {
-    setMounted(true);
     const list = getCompareList();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing from localStorage
     setComparing(list.includes(agent.slug));
   }, [agent.slug]);
 

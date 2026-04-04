@@ -16,7 +16,7 @@ async function seed() {
   }
 
   const catMap: Record<string, string> = {};
-  categories?.forEach((c: any) => (catMap[c.slug] = c.id));
+  categories?.forEach((c: { slug: string; id: string }) => (catMap[c.slug] = c.id));
 
   // Fetch a demo user profile to use as creator
   const { data: profiles } = await supabase.from('profiles').select('id').limit(1);

@@ -39,12 +39,14 @@ export default function ComparePageClient() {
 
   useEffect(() => {
     const slugs = searchParams.get('agents')?.split(',').filter(Boolean) || [];
-    if (slugs.length === 0) {
-      setLoading(false);
-      return;
-    }
 
     const fetchAgents = async () => {
+      if (slugs.length === 0) {
+        setAgents([]);
+        setLoading(false);
+        return;
+      }
+
       const { data } = await supabase
         .from('agents')
         .select('*, category:categories(id, name, slug), reviews(rating)')

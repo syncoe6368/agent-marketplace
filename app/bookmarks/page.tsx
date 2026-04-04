@@ -60,11 +60,11 @@ export default function BookmarksPage() {
       }
 
       // Flatten and compute rating
-      const agents = (data || []).map((b: any) => {
-        const agent = b.agent as any;
-        const reviews = agent?.reviews || [];
+      const agents = (data || []).map((b: Record<string, unknown>) => {
+        const agent = (b.agent as Record<string, unknown>[])?.[0] || (b.agent as Record<string, unknown>) || {};
+        const reviews = ((agent as Record<string, unknown>).reviews as Record<string, unknown>[]) || [];
         const avgRating = reviews.length > 0
-          ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
+          ? reviews.reduce((sum: number, r: Record<string, unknown>) => sum + (r.rating as number), 0) / reviews.length
           : 0;
         return {
           bookmark_id: b.id,

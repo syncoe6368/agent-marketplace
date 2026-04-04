@@ -77,7 +77,7 @@ export default async function HomePage() {
 
   // Compute stats from already-fetched data (no extra DB round-trip)
   const totalReviews = allAgents.reduce((sum, a) => sum + (a.reviews?.length || 0), 0);
-  const allRatings = allAgents.flatMap(a => (a.reviews || []).map((r: any) => r.rating));
+  const allRatings = allAgents.flatMap(a => (a.reviews || []).map((r: { rating: number }) => r.rating));
   const avgRating = allRatings.length > 0
     ? allRatings.reduce((sum, r) => sum + r, 0) / allRatings.length
     : 0;
@@ -90,12 +90,12 @@ export default async function HomePage() {
     .not('comment', 'is', null)
     .limit(6);
 
-  const testimonials = (topReviewsData || []).map((r: any) => ({
-    user_name: r.user?.full_name || 'Anonymous',
+  const testimonials = (topReviewsData || []).map((r: { rating: number; comment: string | null; user: { full_name: string | null }[]; agent: { name: string | null; slug: string | null }[] }) => ({
+    user_name: r.user?.[0]?.full_name || 'Anonymous',
     rating: r.rating,
-    comment: r.comment,
-    agent_name: r.agent?.name || 'Unknown',
-    agent_slug: r.agent?.slug || '',
+    comment: r.comment || '',
+    agent_name: r.agent?.[0]?.name || 'Unknown',
+    agent_slug: r.agent?.[0]?.slug || '',
   }));
 
   // Categories (separate query — different table)
