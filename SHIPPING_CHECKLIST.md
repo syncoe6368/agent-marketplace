@@ -136,7 +136,7 @@
 - [x] Uptime monitoring configured (health endpoint + scripts/monitor.sh + docs/MONITORING.md)
 - [x] Error alerting to Discord/email — real-time Discord webhook via /api/errors + cron monitor.sh
 - [x] User feedback collection method (form, email, or widget) — floating feedback widget + POST /api/feedback with rate limiting + localStorage fallback
-- [ ] Post-launch support channel ready (Discord server or email)
+- [ ] Post-launch support channel ready (Discord server or email) — ✅ Discord community CTA in footer + /api/feedback widget
 
 ---
 
