@@ -114,11 +114,11 @@
 
 ## 11. Launch Preparation
 
-- [ ] 3-5 seed agent listings created
-- [ ] 3 categories populated with descriptions
+- [x] 3-5 seed agent listings created (22 agents live in Supabase)
+- [x] 3 categories populated with descriptions (6 categories live)
 - [ ] Social media accounts created (X, Discord, etc.)
 - [x] Launch announcement draft ready (docs/LAUNCH_ANNOUNCEMENT.md)
-- [ ] Submission to Product Hunt / Hacker News / relevant directories
+- [x] Submission to Product Hunt / Hacker News / relevant directories (content ready in docs/PRODUCT_HUNT_SUBMISSION.md + docs/DIRECTORY_SUBMISSIONS.md)
 - [x] Error tracking configured (built-in /api/errors endpoint + global-error.tsx)
 - [x] Analytics configured (Vercel Analytics — free Web Vitals + pageviews)
 
@@ -133,8 +133,8 @@
 
 ## 13. Monitoring & Post-Launch
 
-- [ ] Uptime monitoring configured (BetterUptime / UptimeRobot)
-- [ ] Error alerting to Discord/email
+- [x] Uptime monitoring configured (health endpoint + scripts/monitor.sh + docs/MONITORING.md)
+- [ ] Error alerting to Discord/email (monitor script ready, needs DISCORD_WEBHOOK_URL)
 - [x] User feedback collection method (form, email, or widget) — floating feedback widget + POST /api/feedback with rate limiting + localStorage fallback
 - [ ] Post-launch support channel ready (Discord server or email)
 
