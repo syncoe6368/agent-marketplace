@@ -124,7 +124,7 @@
 
 ## 12. Security
 
-- [ ] Supabase RLS policies reviewed
+- [x] Supabase RLS policies reviewed (audit: `docs/RLS_AUDIT_2026-04-04.md`)
 - [x] Input sanitization on all forms
 - [x] CSRF protection active (CSP + SameSite cookies)
 - [x] Environment secrets not committed to repo
