@@ -123,7 +123,7 @@ export async function GET(request: Request) {
           }}
         >
           <span style={{ fontSize: '20px', color: '#64748b' }}>
-            agentmarketplace-kohl.vercel.app
+            agenthub.syncoe.com
           </span>
           <div
             style={{

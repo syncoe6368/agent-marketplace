@@ -70,6 +70,7 @@ interface AgentRow {
   capabilities?: string[] | null;
   requirements?: string[] | null;
   platforms?: string[] | null;
+  weekly_views?: number | null;
   pricing_tier_free?: { features: string[]; limits: string } | null;
   pricing_tier_paid?: {
     features: string[];
@@ -153,10 +154,13 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
   const agent = data as AgentRow | null;
   if (!agent) notFound();
 
-  // Increment views
+  // Increment views (total + weekly for trending)
   await supabase
     .from('agents')
-    .update({ views_count: agent.views_count + 1 })
+    .update({ 
+      views_count: agent.views_count + 1,
+      weekly_views: (agent.weekly_views || 0) + 1,
+    })
     .eq('id', agent.id);
 
   // Fetch reviews

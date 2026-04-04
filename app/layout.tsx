@@ -45,6 +45,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="alternate" type="application/rss+xml" title="AgentHub — New Agents" href="https://agenthub.syncoe.com/feed.xml" />
       </head>
       <body className={inter.className}>
         <ThemeProvider

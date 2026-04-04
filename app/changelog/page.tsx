@@ -23,6 +23,21 @@ interface ChangelogEntry {
 
 const changelog: ChangelogEntry[] = [
   {
+    version: '2026.04.05b',
+    date: '2026-04-05',
+    title: 'Agent Spotlight, RSS Feed & Trending Fix',
+    description: 'Weekly view tracking, agent spotlight feature, RSS feed for SEO, and trending algorithm improvements.',
+    type: 'feature',
+    changes: [
+      { icon: <Sparkles className="h-4 w-4" />, text: 'Agent Spotlight section on homepage — rotating featured agent with full details' },
+      { icon: <Bell className="h-4 w-4" />, text: 'RSS feed at /feed.xml — auto-discovery in all pages, 20 latest agents' },
+      { icon: <Eye className="h-4 w-4" />, text: 'Weekly view tracking — agent detail pages now increment weekly_views' },
+      { icon: <Zap className="h-4 w-4" />, text: 'Trending page improved — shows weekly data when available, falls back to total views' },
+      { icon: <Shield className="h-4 w-4" />, text: 'Fixed OG image domain — now shows agenthub.syncoe.com instead of old Vercel URL' },
+      { icon: <BookOpen className="h-4 w-4" />, text: 'Weekly views reset cron endpoint (/api/cron/weekly-views) for automated trending rotation' },
+    ],
+  },
+  {
     version: '2026.04.05',
     date: '2026-04-05',
     title: 'Creator Profiles, Search Autocomplete & API Docs',

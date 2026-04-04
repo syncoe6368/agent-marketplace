@@ -10,6 +10,7 @@ import { CallToAction } from '@/components/landing/call-to-action';
 import { TestimonialsSection } from '@/components/landing/testimonials';
 import { SkillPackagesPreview } from '@/components/landing/skill-packages-preview';
 import { RecentlyAdded } from '@/components/landing/recently-added';
+import { AgentSpotlight } from '@/components/landing/agent-spotlight';
 
 // Revalidate every 60 seconds — serves cached page, regenerates in background
 export const revalidate = 60;
@@ -33,6 +34,7 @@ interface AgentRow {
   is_verified: boolean;
   status: string;
   views_count: number;
+  weekly_views: number;
   created_at: string;
   category?: { id: string; name: string; slug: string } | null;
   creator?: { full_name: string | null; avatar_url: string | null } | null;
@@ -115,9 +117,32 @@ export default async function HomePage() {
     agent_count: (cat.agents as unknown as { count: number }[])?.[0]?.count || 0,
   }));
 
+  // Spotlight agent: top by weekly_views, or most viewed as fallback
+  // Uses REST API directly for a separate query to avoid full type union
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  let spotlightAgent: AgentRow | null = null;
+  if (supabaseUrl && supabaseAnon) {
+    const weeklyRes = await fetch(`${supabaseUrl}/rest/v1/agents?select=*,category:categories(id,name,slug,description,icon),creator:profiles(full_name,avatar_url),reviews(rating)&status=eq.active&order=weekly_views.desc&limit=1`, {
+      headers: { 'apikey': supabaseAnon, 'Authorization': `Bearer ${supabaseAnon}` },
+    });
+    if (weeklyRes.ok) {
+      const weeklyData = await weeklyRes.json();
+      const hasWeeklyData = (weeklyData[0]?.weekly_views || 0) > 0;
+      spotlightAgent = hasWeeklyData
+        ? (weeklyData[0] as AgentRow)
+        : [...allAgents].sort((a, b) => b.views_count - a.views_count)[0] || null;
+    }
+  }
+  if (!spotlightAgent && allAgents.length > 0) {
+    spotlightAgent = [...allAgents].sort((a, b) => b.views_count - a.views_count)[0];
+  }
+
   return (
     <>
       <HeroSection totalAgents={totalAgents || 0} totalReviews={totalReviews} avgRating={avgRating} />
+      {spotlightAgent && <AgentSpotlight agent={spotlightAgent} />}
       <TrendingAgents agents={trendingAgents} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
