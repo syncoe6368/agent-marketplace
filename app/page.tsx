@@ -6,6 +6,7 @@ import { FeaturedAgents } from '@/components/landing/featured-agents';
 import { TrendingAgents } from '@/components/landing/trending-agents';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
+import { TestimonialsSection } from '@/components/landing/testimonials';
 
 // Revalidate every 60 seconds — serves cached page, regenerates in background
 export const revalidate = 60;
@@ -79,6 +80,22 @@ export default async function HomePage() {
     ? allRatings.reduce((sum, r) => sum + r, 0) / allRatings.length
     : 0;
 
+  // Top reviews for testimonials (rated 5, limit 6)
+  const { data: topReviewsData } = await supabase
+    .from('reviews')
+    .select('rating, comment, user:profiles(full_name), agent:agents(name, slug)')
+    .eq('rating', 5)
+    .not('comment', 'is', null)
+    .limit(6);
+
+  const testimonials = (topReviewsData || []).map((r: any) => ({
+    user_name: r.user?.full_name || 'Anonymous',
+    rating: r.rating,
+    comment: r.comment,
+    agent_name: r.agent?.name || 'Unknown',
+    agent_slug: r.agent?.slug || '',
+  }));
+
   // Categories (separate query — different table)
   const { data: categoriesData } = await supabase
     .from('categories')
@@ -96,6 +113,7 @@ export default async function HomePage() {
       <TrendingAgents agents={trendingAgents} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
+      <TestimonialsSection testimonials={testimonials} />
       <HowItWorks />
     </>
   );
