@@ -11,6 +11,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://agentmarketplace-kohl.vercel.app'),
   title: {
     default: 'AgentHub — Discover & Deploy AI Agents',
     template: '%s | AgentHub',

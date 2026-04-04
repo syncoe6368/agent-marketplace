@@ -75,6 +75,23 @@ export default function HomeLoading() {
           </div>
         </div>
       </section>
+
+      {/* CTA skeleton */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="rounded-2xl border bg-muted/20 p-12 md:p-16 animate-pulse">
+            <div className="max-w-2xl mx-auto text-center space-y-4">
+              <div className="h-7 w-40 bg-muted rounded-full mx-auto" />
+              <div className="h-10 w-72 bg-muted rounded mx-auto" />
+              <div className="h-5 w-96 bg-muted rounded mx-auto" />
+              <div className="flex gap-3 justify-center pt-4">
+                <div className="h-11 w-52 bg-muted rounded-md" />
+                <div className="h-11 w-32 bg-muted rounded-md" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

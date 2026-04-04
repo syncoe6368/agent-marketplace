@@ -28,12 +28,12 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <h4 className="font-semibold">Resources</h4>
+            <h4 className="font-semibold">Explore</h4>
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link href="/docs" className="hover:text-foreground transition-colors">Documentation</Link>
-              <Link href="/api" className="hover:text-foreground transition-colors">API</Link>
-              <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
-              <Link href="/changelog" className="hover:text-foreground transition-colors">Changelog</Link>
+              <Link href="/compare" className="hover:text-foreground transition-colors">Compare Agents</Link>
+              <Link href="/trending" className="hover:text-foreground transition-colors">Trending</Link>
+              <Link href="/categories" className="hover:text-foreground transition-colors">Categories</Link>
+              <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
             </nav>
           </div>
 
@@ -55,10 +55,10 @@ export function Footer() {
             © {new Date().getFullYear()} AgentHub. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="https://github.com" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="https://github.com/syncoe6368/agent-marketplace" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
               <GitFork className="h-5 w-5" />
             </Link>
-            <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
               <X className="h-5 w-5" />
             </Link>
           </div>

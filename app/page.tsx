@@ -6,6 +6,7 @@ import { FeaturedAgents } from '@/components/landing/featured-agents';
 import { TrendingAgents } from '@/components/landing/trending-agents';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
+import { CallToAction } from '@/components/landing/call-to-action';
 import { TestimonialsSection } from '@/components/landing/testimonials';
 
 // Revalidate every 60 seconds — serves cached page, regenerates in background
@@ -115,6 +116,7 @@ export default async function HomePage() {
       <CategoriesGrid categories={categories} />
       <TestimonialsSection testimonials={testimonials} />
       <HowItWorks />
+      <CallToAction />
     </>
   );
 }
