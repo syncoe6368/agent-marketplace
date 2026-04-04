@@ -89,11 +89,11 @@
 - [ ] "Verified Agent" badge purchase flow
 - [ ] Payment confirmation page
 - [ ] Webhook handler for payment status updates
-- [ ] Featured badge display on listings
-- [ ] Pricing page (public)
-  - [ ] Free listing: $0
-  - [ ] Featured listing: $XX/month
-  - [ ] Verified badge: $XX one-time
+- [x] Featured badge display on listings
+- [x] Pricing page (public)
+  - [x] Free listing: $0
+  - [x] Featured listing: $19/month
+  - [x] Verified badge: included in Pro plan
 
 ## 9. Content & SEO
 

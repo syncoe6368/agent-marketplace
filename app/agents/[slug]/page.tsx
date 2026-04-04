@@ -16,7 +16,7 @@ import { AgentPricing } from '@/components/agents/agent-pricing';
 import { formatDate, formatPrice } from '@/lib/utils';
 import {
   ExternalLink, GitFork, Globe, BookOpen, Star, Eye,
-  BadgeCheck, Tag, Calendar,
+  BadgeCheck, Tag, Calendar, Flame,
 } from 'lucide-react';
 
 async function getSupabase() {
@@ -212,6 +212,9 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
                 <h1 className="text-2xl font-bold">{agent.name}</h1>
                 {agent.is_verified && (
                   <BadgeCheck className="h-5 w-5 text-primary" />
+                )}
+                {agent.is_featured && (
+                  <Flame className="h-5 w-5 text-orange-500" />
                 )}
               </div>
               {agent.category && (

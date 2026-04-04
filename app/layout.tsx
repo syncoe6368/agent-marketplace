@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { FeedbackWidget } from '@/components/feedback-widget';
+import { CompareTray } from '@/components/agents/compare-tray';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -59,6 +60,7 @@ export default function RootLayout({
           <Toaster />
           <Analytics />
           <FeedbackWidget />
+          <CompareTray />
         </ThemeProvider>
       </body>
     </html>

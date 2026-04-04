@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { Star, BadgeCheck, GitCompare, Play, Monitor } from 'lucide-react';
+import { Star, BadgeCheck, GitCompare, Play, Monitor, Flame } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -155,6 +155,9 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
                   </h3>
                   {agent.is_verified && (
                     <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
+                  )}
+                  {agent.is_featured && (
+                    <Flame className="h-4 w-4 text-orange-500 shrink-0" />
                   )}
                 </div>
                 {agent.category && (
