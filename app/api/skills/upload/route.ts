@@ -265,6 +265,7 @@ export async function POST(request: NextRequest) {
 
   // Check if slug already exists
   const skillDir = join(SKILLS_DIR, slug);
+  let previousVersion: string | null = null;
   if (existsSync(skillDir)) {
     // Check if existing package has an owner field matching current user
     const existingManifestPath = join(skillDir, 'skill.json');
@@ -281,6 +282,9 @@ export async function POST(request: NextRequest) {
             { status: 409 }
           );
         }
+
+        // Capture previous version for version tracking
+        previousVersion = existingManifest.version || null;
       } catch {
         // If we can't read the existing manifest, reject to be safe
         return NextResponse.json(
@@ -327,6 +331,31 @@ export async function POST(request: NextRequest) {
     JSON.stringify(enrichedManifest, null, 2)
   );
 
+  // Record version in Supabase
+  const totalSizeBytes = safeFiles.reduce((sum, f) => sum + f.data.length, 0);
+  const newVersion = manifest.version as string;
+
+  try {
+    await supabase
+      .from('skill_versions')
+      .insert({
+        slug,
+        version: newVersion,
+        previous_version: previousVersion,
+        changelog: null, // Can be added via separate API or future upload field
+        manifest_snapshot: enrichedManifest,
+        file_list: writtenFiles,
+        total_size_bytes: totalSizeBytes,
+        uploader_id: user.id,
+      });
+  } catch (versionError) {
+    // Version recording failure should not block upload
+    console.error('Failed to record skill version:', versionError);
+  }
+
+  const isUpdate = previousVersion !== null;
+  const versionChanged = previousVersion !== null && previousVersion !== newVersion;
+
   return NextResponse.json(
     {
       slug,
@@ -339,8 +368,14 @@ export async function POST(request: NextRequest) {
         tags: manifest.tags,
       },
       files: writtenFiles,
-      totalSize: safeFiles.reduce((sum, f) => sum + f.data.length, 0),
-      message: `Skill package '${slug}' uploaded successfully`,
+      totalSize: totalSizeBytes,
+      versionInfo: {
+        previousVersion,
+        currentVersion: newVersion,
+        isUpdate,
+        versionChanged,
+      },
+      message: `Skill package '${slug}' ${isUpdate ? 'updated' : 'uploaded'} successfully${versionChanged ? ` (v${previousVersion} → v${newVersion})` : ''}`,
     },
     { status: 201 }
   );
