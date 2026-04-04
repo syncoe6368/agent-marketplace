@@ -4,6 +4,8 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { AgentCard } from '@/components/agents/agent-card';
 
+export const revalidate = 60;
+
 interface AgentRow {
   id: string;
   name: string;

@@ -111,7 +111,13 @@ export async function generateMetadata({ params }: AgentDetailPageProps): Promis
     openGraph: {
       title: agent.name,
       description: agent.description,
-      images: agent.logo_url ? [agent.logo_url] : [],
+      images: [`/og?slug=${slug}`],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: agent.name,
+      description: agent.description,
+      images: [`/og?slug=${slug}`],
     },
   };
 }

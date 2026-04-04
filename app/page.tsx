@@ -7,6 +7,9 @@ import { TrendingAgents } from '@/components/landing/trending-agents';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
 
+// Revalidate every 60 seconds — serves cached page, regenerates in background
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: 'AgentHub — Discover & Deploy AI Agents',
   description: 'The #1 marketplace for AI agents. Browse, compare, and deploy verified AI agents for automation, research, customer support, and more.',
@@ -54,49 +57,38 @@ export default async function HomePage() {
     }
   );
 
-  const { data: agentsData } = await supabase
+  // Fetch all active agents in one query (covers featured + trending + stats)
+  const { data: allAgentsData, count: totalAgents } = await supabase
     .from('agents')
-    .select('*, category:categories(*), creator:profiles(full_name, avatar_url), reviews(rating)')
+    .select('*, category:categories(*), creator:profiles(full_name, avatar_url), reviews(rating)', { count: 'exact' })
     .eq('status', 'active')
-    .eq('is_featured', true)
-    .order('views_count', { ascending: false })
-    .limit(6);
+    .order('views_count', { ascending: false });
 
+  const allAgents = (allAgentsData || []) as AgentRow[];
+
+  // Derived: featured (max 6)
+  const agents = allAgents.filter(a => a.is_featured).slice(0, 6);
+
+  // Derived: trending (top 5 by views)
+  const trendingAgents = allAgents.slice(0, 5);
+
+  // Compute stats from already-fetched data (no extra DB round-trip)
+  const totalReviews = allAgents.reduce((sum, a) => sum + (a.reviews?.length || 0), 0);
+  const allRatings = allAgents.flatMap(a => (a.reviews || []).map((r: any) => r.rating));
+  const avgRating = allRatings.length > 0
+    ? allRatings.reduce((sum, r) => sum + r, 0) / allRatings.length
+    : 0;
+
+  // Categories (separate query — different table)
   const { data: categoriesData } = await supabase
     .from('categories')
     .select('*, agents(count)')
     .order('name');
 
-  // Fetch trending agents (top 5 by views_count)
-  const { data: trendingData } = await supabase
-    .from('agents')
-    .select('*, category:categories(id, name, slug)')
-    .eq('status', 'active')
-    .order('views_count', { ascending: false })
-    .limit(5);
-
-  const agents = (agentsData || []) as AgentRow[];
   const categories = ((categoriesData || []) as CategoryRow[]).map((cat) => ({
     ...cat,
     agent_count: (cat.agents as unknown as { count: number }[])?.[0]?.count || 0,
   }));
-  const trendingAgents = (trendingData || []) as AgentRow[];
-
-  // Fetch stats for hero section
-  const { count: totalAgents } = await supabase
-    .from('agents')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active');
-
-  const { data: allReviews } = await supabase
-    .from('reviews')
-    .select('rating');
-
-  const reviews = (allReviews || []) as { rating: number }[];
-  const totalReviews = reviews.length;
-  const avgRating = totalReviews > 0
-    ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
-    : 0;
 
   return (
     <>

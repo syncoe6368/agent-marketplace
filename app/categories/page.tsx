@@ -3,6 +3,8 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: 'Categories',
   description: 'Browse AI agents by category. Find agents for automation, research, customer support, development, marketing, and finance.',

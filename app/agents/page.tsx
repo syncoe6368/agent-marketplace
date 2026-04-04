@@ -4,6 +4,8 @@ import { cookies } from 'next/headers';
 import { AgentSearch } from '@/components/agents/agent-search';
 import { AgentCard } from '@/components/agents/agent-card';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: 'Browse Agents',
   description: 'Browse and discover AI agents across all categories. Filter by type, pricing, and ratings.',
