@@ -12,7 +12,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agentmarketplace-kohl.vercel.app'),
+  metadataBase: new URL('https://agenthub.syncoe.com'),
   title: {
     default: 'AgentHub — Discover & Deploy AI Agents',
     template: '%s | AgentHub',
@@ -61,6 +61,43 @@ export default function RootLayout({
           <Analytics />
           <FeedbackWidget />
           <CompareTray />
+          {/* JSON-LD Structured Data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'AgentHub',
+                url: 'https://agenthub.syncoe.com',
+                description: 'The #1 marketplace for AI agents. Browse, compare, and deploy verified AI agents.',
+                potentialAction: {
+                  '@type': 'SearchAction',
+                  target: {
+                    '@type': 'EntryPoint',
+                    urlTemplate: 'https://agenthub.syncoe.com/agents?q={search_term_string}',
+                  },
+                  'query-input': 'required name=search_term_string',
+                },
+              }),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Organization',
+                name: 'AgentHub',
+                url: 'https://agenthub.syncoe.com',
+                logo: 'https://agenthub.syncoe.com/favicon.png',
+                sameAs: [
+                  'https://github.com/syncoe6368/agent-marketplace',
+                  'https://discord.com/invite/clawd',
+                ],
+              }),
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

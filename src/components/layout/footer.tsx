@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Bot, GitFork, X } from 'lucide-react';
+import { Bot, GitFork, MessageCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export function Footer() {
@@ -24,6 +24,7 @@ export function Footer() {
               <Link href="/categories" className="hover:text-foreground transition-colors">Categories</Link>
               <Link href="/submit" className="hover:text-foreground transition-colors">List Your Agent</Link>
               <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
+              <Link href="/skills" className="hover:text-foreground transition-colors">Skill Packages</Link>
             </nav>
           </div>
 
@@ -33,7 +34,7 @@ export function Footer() {
               <Link href="/compare" className="hover:text-foreground transition-colors">Compare Agents</Link>
               <Link href="/trending" className="hover:text-foreground transition-colors">Trending</Link>
               <Link href="/categories" className="hover:text-foreground transition-colors">Categories</Link>
-              <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
+              <Link href="/skills" className="hover:text-foreground transition-colors">Skill Packages</Link>
             </nav>
           </div>
 
@@ -59,7 +60,7 @@ export function Footer() {
               <GitFork className="h-5 w-5" />
             </Link>
             <Link href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-              <X className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5" />
             </Link>
           </div>
         </div>

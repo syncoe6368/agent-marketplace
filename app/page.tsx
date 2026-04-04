@@ -8,6 +8,7 @@ import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
 import { CallToAction } from '@/components/landing/call-to-action';
 import { TestimonialsSection } from '@/components/landing/testimonials';
+import { SkillPackagesPreview } from '@/components/landing/skill-packages-preview';
 
 // Revalidate every 60 seconds — serves cached page, regenerates in background
 export const revalidate = 60;
@@ -115,6 +116,7 @@ export default async function HomePage() {
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
       <TestimonialsSection testimonials={testimonials} />
+      <SkillPackagesPreview />
       <HowItWorks />
       <CallToAction />
     </>

@@ -29,6 +29,15 @@ export function formatDate(date: string): string {
   });
 }
 
+export function sanitizeSearchQuery(input: string): string {
+  // Remove PostgREST filter operators and dangerous characters
+  return input
+    .replace(/[%,.*()]/g, '')
+    .replace(/[\x00-\x1F\x7F]/g, '')
+    .trim()
+    .slice(0, 200);
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()

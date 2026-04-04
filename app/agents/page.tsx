@@ -3,6 +3,7 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { AgentSearch } from '@/components/agents/agent-search';
 import { AgentCard } from '@/components/agents/agent-card';
+import { sanitizeSearchQuery } from '@/lib/utils';
 
 export const revalidate = 60;
 
@@ -62,7 +63,10 @@ export default async function AgentsPage({
     .eq('status', 'active');
 
   if (params.q) {
-    query = query.or(`name.ilike.%${params.q}%,description.ilike.%${params.q}%`);
+    const safeQuery = sanitizeSearchQuery(params.q);
+    if (safeQuery) {
+      query = query.or(`name.ilike.%${safeQuery}%,description.ilike.%${safeQuery}%`);
+    }
   }
   if (params.category && params.category !== 'all') {
     const { data: cat } = await supabase
