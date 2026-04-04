@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/sonner';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { FeedbackWidget } from '@/components/feedback-widget';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -56,6 +57,7 @@ export default function RootLayout({
           </div>
           <Toaster />
           <Analytics />
+          <FeedbackWidget />
         </ThemeProvider>
       </body>
     </html>
