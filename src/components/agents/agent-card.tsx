@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { Star, BadgeCheck, GitCompare, Play, Monitor, Flame } from 'lucide-react';
+import { BookmarkButton } from '@/components/agents/bookmark-button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -201,6 +202,9 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
                 </span>
               ))}
             </div>
+
+            {/* Bookmark button */}
+            <BookmarkButton agentId={agent.id} size="sm" className="h-7 w-7" />
 
             {/* Compare button */}
             {mounted && showCompare && (

@@ -14,6 +14,8 @@ import { AgentCapabilities } from '@/components/agents/agent-capabilities';
 import { AgentRequirements } from '@/components/agents/agent-requirements';
 import { AgentPricing } from '@/components/agents/agent-pricing';
 import { ShareAgent } from '@/components/agents/share-agent';
+import { BookmarkButton } from '@/components/agents/bookmark-button';
+import { BookmarkCount } from '@/components/agents/bookmark-count';
 import { formatDate, formatPrice } from '@/lib/utils';
 import {
   ExternalLink, GitFork, Globe, BookOpen, Star, Eye,
@@ -230,6 +232,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
                   <Eye className="h-3.5 w-3.5" />
                   {agent.views_count} views
                 </div>
+                <BookmarkCount agentId={agent.id} />
                 <div className="flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
                   {formatDate(agent.created_at)}
@@ -257,6 +260,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
 
           {/* Action buttons */}
           <div className="flex gap-3 flex-wrap">
+            <BookmarkButton agentId={agent.id} size="lg" showLabel />
             <ShareAgent
               agentName={agent.name}
               agentSlug={agent.slug}

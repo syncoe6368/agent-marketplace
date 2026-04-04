@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Search, Menu, X, Bot, GitCompare, TrendingUp } from 'lucide-react';
+import { Search, Menu, X, Bot, GitCompare, TrendingUp, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase/client';
 import { SignOutButton } from './sign-out-button';
@@ -48,11 +48,14 @@ export async function Navbar() {
               <Link href="/submit">
                 <Button size="sm">List Agent</Button>
               </Link>
+              <Link href="/bookmarks">
+                <Button variant="outline" size="sm" className="gap-1.5">
+                  <Heart className="h-3.5 w-3.5" />
+                  Saved
+                </Button>
+              </Link>
               <Link href="/dashboard">
                 <Button variant="outline" size="sm">Dashboard</Button>
-              </Link>
-              <Link href="/dashboard/profile">
-                <Button variant="ghost" size="sm">Profile</Button>
               </Link>
               <SignOutButton />
             </div>

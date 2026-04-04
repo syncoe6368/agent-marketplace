@@ -34,7 +34,7 @@ export function Footer() {
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
               <Link href="/compare" className="hover:text-foreground transition-colors">Compare Agents</Link>
               <Link href="/trending" className="hover:text-foreground transition-colors">Trending</Link>
-              <Link href="/categories" className="hover:text-foreground transition-colors">Categories</Link>
+              <Link href="/bookmarks" className="hover:text-foreground transition-colors">Saved Agents</Link>
               <Link href="/skills" className="hover:text-foreground transition-colors">Skill Packages</Link>
             </nav>
           </div>

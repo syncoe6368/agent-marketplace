@@ -1,3 +1,6 @@
+-- Ensure uuid extension exists (may already be present from 001)
+create extension if not exists "uuid-ossp";
+
 -- Skill Package Version Tracking
 -- Tracks version history for marketplace skill packages
 
