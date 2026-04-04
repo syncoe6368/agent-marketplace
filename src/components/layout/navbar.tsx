@@ -38,6 +38,9 @@ export async function Navbar() {
             <Link href="/skills" className="text-muted-foreground hover:text-foreground transition-colors">
               Skills
             </Link>
+            <Link href="/api-docs" className="text-muted-foreground hover:text-foreground transition-colors">
+              API
+            </Link>
           </nav>
         </div>
 

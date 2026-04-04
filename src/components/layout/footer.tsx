@@ -35,7 +35,7 @@ export function Footer() {
               <Link href="/compare" className="hover:text-foreground transition-colors">Compare Agents</Link>
               <Link href="/trending" className="hover:text-foreground transition-colors">Trending</Link>
               <Link href="/bookmarks" className="hover:text-foreground transition-colors">Saved Agents</Link>
-              <Link href="/skills" className="hover:text-foreground transition-colors">Skill Packages</Link>
+              <Link href="/api-docs" className="hover:text-foreground transition-colors">API Documentation</Link>
             </nav>
           </div>
 
