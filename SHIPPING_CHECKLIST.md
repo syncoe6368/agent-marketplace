@@ -2,7 +2,7 @@
 
 > **Goal:** MVP launch ready to accept first agent listings and generate revenue
 > **Target:** 7-day sprint
-> **Last Updated:** 2026-04-03
+> **Last Updated:** 2026-04-05
 
 ---
 
@@ -89,6 +89,8 @@
 - [ ] "Verified Agent" badge purchase flow
 - [ ] Payment confirmation page
 - [ ] Webhook handler for payment status updates
+- [x] Pricing page live with real stats + FAQ
+- [x] Stats API for widgets/embeds
 - [x] Featured badge display on listings
 - [x] Pricing page (public)
   - [x] Free listing: $0
@@ -117,6 +119,10 @@
 - [x] 3-5 seed agent listings created (22 agents live in Supabase)
 - [x] 3 categories populated with descriptions (6 categories live)
 - [ ] Social media accounts created (X, Discord, etc.)
+- [x] Live stats API endpoint (`/api/stats` with 60s caching)
+- [x] "Recently Added" section on homepage (4 newest agents)
+- [x] Pricing page with live marketplace stats + FAQ section
+- [x] Trust badges in hero section
 - [x] Launch announcement draft ready (docs/LAUNCH_ANNOUNCEMENT.md)
 - [x] Submission to Product Hunt / Hacker News / relevant directories (content ready in docs/PRODUCT_HUNT_SUBMISSION.md + docs/DIRECTORY_SUBMISSIONS.md)
 - [x] Error tracking configured (built-in /api/errors endpoint + global-error.tsx)
