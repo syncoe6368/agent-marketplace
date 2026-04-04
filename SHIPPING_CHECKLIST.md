@@ -190,6 +190,15 @@
   - [x] "Saved Agents" link in mobile nav (authenticated users)
   - [x] "Saved Agents" link in footer
 
+## 16. API Documentation & Embed Widgets
+
+- [x] `/api-docs` — Public API reference page (agents, skills, stats, embed, health endpoints)
+- [x] `/api/embed` — SVG badge generator for agent listings
+  - [x] 4 styles: flat, flat-square, for-the-badge, social
+  - [x] Shows agent name, rating, category, verified/featured status
+  - [x] CORS-enabled for external embeds
+- [x] API link in navbar, footer, and mobile nav
+
 ## Notes
 
 - **v1 is a discovery platform, not a hosting platform.** Agents link out to their own endpoints/platforms. This massively reduces complexity.
