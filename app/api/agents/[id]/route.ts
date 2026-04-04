@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { isValidUuid, sanitizePlainText, sanitizeUrl, sanitizeTags, sanitizePricingModel, sanitizeRichText, FIELD_LIMITS } from '@/lib/sanitize';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  if (!id) {
-    return NextResponse.json({ error: 'Agent ID is required' }, { status: 400 });
+
+  // Validate UUID
+  if (!id || !isValidUuid(id)) {
+    return NextResponse.json({ error: 'Valid agent ID is required' }, { status: 400 });
   }
 
   const supabase = await createClient();
@@ -24,7 +27,7 @@ export async function GET(
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch agent' }, { status: 500 });
   }
 
   if (!agent) {
@@ -49,6 +52,11 @@ export async function PATCH(
   const supabase = await createClient();
   const { id } = await params;
 
+  // Validate UUID
+  if (!id || !isValidUuid(id)) {
+    return NextResponse.json({ error: 'Valid agent ID is required' }, { status: 400 });
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -71,13 +79,55 @@ export async function PATCH(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  const body = await request.json();
-  const { name, slug } = body;
+  let body: any;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
 
-  const updatePayload: Record<string, unknown> = { ...body };
-  if (name && !slug) {
-    const { data: slugData } = await supabase.rpc('generate_unique_slug', { p_name: name });
-    if (slugData) updatePayload.slug = slugData;
+  // ─── Sanitize updatable fields ───────────────────────────────
+  const updatePayload: Record<string, unknown> = {};
+
+  if (body.name !== undefined) {
+    updatePayload.name = sanitizePlainText(body.name, FIELD_LIMITS.agentName);
+  }
+  if (body.description !== undefined) {
+    updatePayload.description = sanitizePlainText(body.description, FIELD_LIMITS.agentDescription);
+  }
+  if (body.long_description !== undefined) {
+    updatePayload.long_description = sanitizeRichText(body.long_description, FIELD_LIMITS.agentLongDescription);
+  }
+  if (body.pricing_model !== undefined) {
+    updatePayload.pricing_model = sanitizePricingModel(body.pricing_model);
+  }
+  if (body.tags !== undefined) {
+    updatePayload.tags = sanitizeTags(body.tags);
+  }
+  if (body.website_url !== undefined) {
+    updatePayload.website_url = sanitizeUrl(body.website_url);
+  }
+  if (body.github_url !== undefined) {
+    updatePayload.github_url = sanitizeUrl(body.github_url);
+  }
+  if (body.api_docs_url !== undefined) {
+    updatePayload.api_docs_url = sanitizeUrl(body.api_docs_url);
+  }
+  if (body.logo_url !== undefined) {
+    updatePayload.logo_url = sanitizeUrl(body.logo_url);
+  }
+  // Block direct updates to protected fields
+  delete updatePayload.creator_id;
+  delete updatePayload.id;
+  delete updatePayload.status;
+  delete updatePayload.is_featured;
+  delete updatePayload.is_verified;
+  delete updatePayload.views_count;
+  delete updatePayload.created_at;
+  delete updatePayload.updated_at;
+
+  if (Object.keys(updatePayload).length === 0) {
+    return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
   }
 
   const { data: updated, error } = await supabase
@@ -88,7 +138,8 @@ export async function PATCH(
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Agent update error:', error);
+    return NextResponse.json({ error: 'Failed to update agent' }, { status: 500 });
   }
 
   return NextResponse.json({ agent: updated });
@@ -101,6 +152,11 @@ export async function DELETE(
   const supabase = await createClient();
   const { id } = await params;
 
+  // Validate UUID
+  if (!id || !isValidUuid(id)) {
+    return NextResponse.json({ error: 'Valid agent ID is required' }, { status: 400 });
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -112,7 +168,8 @@ export async function DELETE(
   const { error } = await supabase.from('agents').delete().eq('creator_id', user.id).eq('id', id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Agent delete error:', error);
+    return NextResponse.json({ error: 'Failed to delete agent' }, { status: 500 });
   }
 
   return NextResponse.json({ success: true });

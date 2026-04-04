@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { sanitizePlainText, sanitizeUrl, FIELD_LIMITS } from '@/lib/sanitize';
 
 export async function GET() {
   const supabase = await createClient();
@@ -19,7 +20,7 @@ export async function GET() {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch profile' }, { status: 500 });
   }
 
   return NextResponse.json({ profile });
@@ -36,18 +37,46 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await request.json();
+  let body: any;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
   const { full_name, bio, avatar_url } = body;
+
+  // ─── Input Sanitization ──────────────────────────────────────
+  const sanitizedName = full_name != null
+    ? sanitizePlainText(String(full_name), FIELD_LIMITS.profileFullName)
+    : undefined;
+  const sanitizedBio = bio != null
+    ? sanitizePlainText(String(bio), FIELD_LIMITS.profileBio)
+    : undefined;
+  const sanitizedAvatar = avatar_url != null
+    ? sanitizeUrl(avatar_url)
+    : undefined;
+
+  // Build update object with only provided fields
+  const updates: Record<string, unknown> = {};
+  if (sanitizedName !== undefined) updates.full_name = sanitizedName;
+  if (sanitizedBio !== undefined) updates.bio = sanitizedBio;
+  if (sanitizedAvatar !== undefined) updates.avatar_url = sanitizedAvatar;
+
+  if (Object.keys(updates).length === 0) {
+    return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
+  }
 
   const { data: updated, error } = await supabase
     .from('profiles')
-    .update({ full_name, bio, avatar_url })
+    .update(updates)
     .eq('id', user.id)
     .select()
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Profile update error:', error);
+    return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
   }
 
   return NextResponse.json({ profile: updated });

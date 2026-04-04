@@ -1,7 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import {
+  sanitizePlainText,
+  sanitizeRichText,
+  sanitizeUrl,
+  sanitizeTags,
+  sanitizeSlug,
+  sanitizePricingModel,
+  sanitizeSearchQuery,
+  sanitizeInt,
+  FIELD_LIMITS,
+} from '@/lib/sanitize';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
+  // Rate limit agent creation
+  const rl = rateLimit(request, RATE_LIMITS.write);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429, headers: rl.headers });
+  }
+
   const supabase = await createClient();
 
   // Authenticate
@@ -18,21 +36,86 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { name, slug, description, pricing_model, category_id,
-    price_amount, currency, website_url, github_url, api_docs_url,
-    logo_url, tags, long_description } = body;
+  const {
+    name: rawName,
+    slug: rawSlug,
+    description: rawDescription,
+    long_description: rawLongDescription,
+    pricing_model: rawPricingModel,
+    category_id: rawCategoryId,
+    price_amount: rawPriceAmount,
+    currency: rawCurrency,
+    website_url: rawWebsiteUrl,
+    github_url: rawGithubUrl,
+    api_docs_url: rawApiDocsUrl,
+    logo_url: rawLogoUrl,
+    tags: rawTags,
+  } = body;
 
-  // Validate required fields
+  // ─── Input Sanitization ──────────────────────────────────────
+  const name = sanitizePlainText(rawName, FIELD_LIMITS.agentName);
+  const description = sanitizePlainText(rawDescription, FIELD_LIMITS.agentDescription);
+
   if (!name || !description) {
-    return NextResponse.json({ error: 'Name and description are required' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Name and description are required' },
+      { status: 400 }
+    );
   }
 
-  // Generate slug
-  let targetSlug = slug || name.toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+  const longDescription = rawLongDescription
+    ? sanitizeRichText(rawLongDescription, FIELD_LIMITS.agentLongDescription)
+    : null;
+  const pricingModel = sanitizePricingModel(rawPricingModel);
+  const tags = sanitizeTags(rawTags);
 
-  // Check slug uniqueness
+  // Validate slug
+  let targetSlug: string;
+  if (rawSlug) {
+    const cleaned = sanitizeSlug(rawSlug);
+    if (!cleaned) {
+      return NextResponse.json(
+        { error: 'Invalid slug format. Use lowercase letters, numbers, and hyphens.' },
+        { status: 400 }
+      );
+    }
+    targetSlug = cleaned;
+  } else {
+    const autoSlug = sanitizeSlug(name);
+    if (!autoSlug) {
+      return NextResponse.json(
+        { error: 'Could not generate slug from name.' },
+        { status: 400 }
+      );
+    }
+    targetSlug = autoSlug;
+  }
+
+  // Validate URLs
+  const websiteUrl = sanitizeUrl(rawWebsiteUrl);
+  const githubUrl = sanitizeUrl(rawGithubUrl);
+  const apiDocsUrl = sanitizeUrl(rawApiDocsUrl);
+  const logoUrl = sanitizeUrl(rawLogoUrl);
+
+  // Validate price
+  const priceAmount =
+    rawPriceAmount != null ? parseFloat(rawPriceAmount) : null;
+  if (priceAmount !== null && (Number.isNaN(priceAmount) || priceAmount < 0 || priceAmount > 999999)) {
+    return NextResponse.json(
+      { error: 'Invalid price_amount' },
+      { status: 400 }
+    );
+  }
+
+  // Validate currency
+  const currency = typeof rawCurrency === 'string' && rawCurrency.length === 3
+    ? rawCurrency.toUpperCase().replace(/[^A-Z]/g, '')
+    : 'USD';
+
+  // Validate category_id as UUID
+  const categoryId = rawCategoryId || null;
+
+  // ─── Check slug uniqueness ──────────────────────────────────
   const { data: existing } = await supabase
     .from('agents')
     .select('id')
@@ -40,40 +123,47 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (existing) {
-    return NextResponse.json({
-      error: 'Slug already in use',
-      suggestion: `${targetSlug}-${Math.floor(Math.random() * 9000)}`
-    }, { status: 409 });
+    return NextResponse.json(
+      {
+        error: 'Slug already in use',
+        suggestion: `${targetSlug}-${Math.floor(Math.random() * 9000)}`,
+      },
+      { status: 409 }
+    );
   }
 
+  // ─── Insert ──────────────────────────────────────────────────
   const { data: agent, error } = await supabase
     .from('agents')
     .insert({
       name,
       slug: targetSlug,
-      description: description.trim(),
-      long_description: long_description?.trim() || null,
-      pricing_model: pricing_model || 'free',
-      price_amount: price_amount || null,
-      currency: currency || 'USD',
-      category_id: category_id || null,
-      website_url: website_url || null,
-      github_url: github_url || null,
-      api_docs_url: api_docs_url || null,
-      logo_url: logo_url || null,
-      tags: Array.isArray(tags) ? tags : [],
+      description,
+      long_description: longDescription,
+      pricing_model: pricingModel,
+      price_amount: priceAmount,
+      currency,
+      category_id: categoryId,
+      website_url: websiteUrl,
+      github_url: githubUrl,
+      api_docs_url: apiDocsUrl,
+      logo_url: logoUrl,
+      tags,
       creator_id: user.id,
-      status: 'pending' // All new submissions start as pending
+      status: 'pending', // All new submissions start as pending
     })
-    .select(`
+    .select(
+      `
       id, name, slug, description, pricing_model, status,
       created_at, category_id,
       categories ( name, slug )
-    `)
+    `
+    )
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Agent create error:', error);
+    return NextResponse.json({ error: 'Failed to create agent listing' }, { status: 500 });
   }
 
   return NextResponse.json({ agent }, { status: 201 });

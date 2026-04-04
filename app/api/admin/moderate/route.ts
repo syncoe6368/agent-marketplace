@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { isValidUuid, sanitizeModerateAction } from '@/lib/sanitize';
 
 // POST /api/admin/moderate — approve, suspend, feature, verify, unfeature agents
 export async function POST(request: NextRequest) {
@@ -36,18 +37,33 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  const body = await request.json();
+  let body: any;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
   const { agentId, action } = body as { agentId: string; action: string };
 
-  if (!agentId || !action) {
-    return NextResponse.json({ error: 'Missing agentId or action' }, { status: 400 });
+  // ─── Input Validation ────────────────────────────────────────
+  if (!agentId || !isValidUuid(agentId)) {
+    return NextResponse.json({ error: 'Valid agentId is required' }, { status: 400 });
+  }
+
+  const validAction = sanitizeModerateAction(action);
+  if (!validAction) {
+    return NextResponse.json(
+      { error: 'Invalid action. Allowed: approve, suspend, feature, unfeature, verify, unverify' },
+      { status: 400 }
+    );
   }
 
   // Determine update payload based on action
   let updatePayload: Record<string, unknown> = {};
   let successMessage = '';
 
-  switch (action) {
+  switch (validAction) {
     case 'approve':
       updatePayload = { status: 'active' };
       successMessage = 'Agent approved and now active';
@@ -72,8 +88,6 @@ export async function POST(request: NextRequest) {
       updatePayload = { is_verified: false };
       successMessage = 'Agent unverified';
       break;
-    default:
-      return NextResponse.json({ error: `Unknown action: ${action}` }, { status: 400 });
   }
 
   // Apply update

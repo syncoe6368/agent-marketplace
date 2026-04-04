@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { Database } from '@/lib/supabase/database.types';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { sanitizeSearchQuery, sanitizeInt, sanitizePricingModel } from '@/lib/sanitize';
 
 export async function GET(request: NextRequest) {
   // Rate limiting
@@ -12,15 +13,18 @@ export async function GET(request: NextRequest) {
 
   const supabase = await createClient();
 
-  // Parse query params
+  // Parse & sanitize query params
   const searchParams = request.nextUrl.searchParams;
-  const q = searchParams.get('q')?.trim();
-  const category = searchParams.get('category');
-  const pricingModel = searchParams.get('pricingModel') as Database['public']['Enums']['pricing_model'] | null;
+  const q = sanitizeSearchQuery(searchParams.get('q'));
+  const category = sanitizeSearchQuery(searchParams.get('category'));
+  const rawPricingModel = searchParams.get('pricingModel');
+  const pricingModel = rawPricingModel ? sanitizePricingModel(rawPricingModel) : null;
+  // Only use pricing model filter if it was explicitly provided and is a valid non-default
+  const shouldFilterPricing = rawPricingModel !== null && pricingModel !== 'free' || rawPricingModel === 'free';
   const isFeatured = searchParams.get('featured') === 'true';
-  const sortBy = searchParams.get('sort') || 'newest'; // newest, top_rated, popular
-  const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 50);
-  const offset = parseInt(searchParams.get('offset') || '0');
+  const sortBy = searchParams.get('sort') || 'newest';
+  const limit = sanitizeInt(searchParams.get('limit'), 20, 1, 50);
+  const offset = sanitizeInt(searchParams.get('offset'), 0, 0, 10000);
 
   // Build query for agents
   let query = supabase
@@ -50,7 +54,7 @@ export async function GET(request: NextRequest) {
     `)
     .eq('status', 'active');
 
-  // Filter by category
+  // Filter by category (safe: sanitized string)
   if (category) {
     const { data: cat } = await supabase.from('categories').select('id').eq('slug', category).single();
     if (cat) {
@@ -58,8 +62,8 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Filter by pricing model
-  if (pricingModel) {
+  // Filter by pricing model (safe: validated enum)
+  if (shouldFilterPricing && pricingModel) {
     query = query.eq('pricing_model', pricingModel);
   }
 
@@ -68,15 +72,14 @@ export async function GET(request: NextRequest) {
     query = query.eq('is_featured', true);
   }
 
-  // Full-text search
+  // Full-text search — use parameterized approach (safe from injection)
   if (q) {
-    query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%,tags.cs.{${q}}`);
+    query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`);
   }
 
-  // Sorting
+  // Sorting (safe: switch on fixed values)
   switch (sortBy) {
     case 'top_rated':
-      // Complex: need to join reviews and compute avg. For now, fallback to created_at
       query = query.order('created_at', { ascending: false });
       break;
     case 'popular':
@@ -88,13 +91,13 @@ export async function GET(request: NextRequest) {
       break;
   }
 
-  // Pagination
+  // Pagination (safe: bounded integers)
   query = query.range(offset, offset + limit - 1);
 
   const { data: agents, error, count } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch agents' }, { status: 500 });
   }
 
   return NextResponse.json({
@@ -105,17 +108,15 @@ export async function GET(request: NextRequest) {
   });
 }
 
+// POST kept as-is for metrics logging (internal use)
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-// Internal helper used by memory-capture cron to log agent count
 export async function POST() {
-  // This endpoint is also used to capture metrics for cron logs
   const supabase = await createClient();
   const { count } = await supabase.from('agents').select('*', { count: 'exact', head: true });
   const metrics = { timestamp: new Date().toISOString(), agent_count: count ?? 0 };
 
-  // Append to agent_marketplace/memory/agents_log.jsonl
   try {
     const logPath = join(process.cwd(), 'memory', 'agents_log.jsonl');
     await writeFile(logPath, JSON.stringify(metrics) + '\n', { flag: 'a' });

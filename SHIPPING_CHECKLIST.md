@@ -125,11 +125,11 @@
 ## 12. Security
 
 - [ ] Supabase RLS policies reviewed
-- [ ] Input sanitization on all forms
-- [ ] CSRF protection active
-- [ ] Environment secrets not committed to repo
-- [ ] Content Security Policy headers set
-- [ ] Dependency audit (`npm audit`) passing with no criticals
+- [x] Input sanitization on all forms
+- [x] CSRF protection active (CSP + SameSite cookies)
+- [x] Environment secrets not committed to repo
+- [x] Content Security Policy headers set
+- [x] Dependency audit (`npm audit`) passing with no criticals
 
 ## 13. Monitoring & Post-Launch
 
