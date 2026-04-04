@@ -117,10 +117,10 @@
 - [ ] 3-5 seed agent listings created
 - [ ] 3 categories populated with descriptions
 - [ ] Social media accounts created (X, Discord, etc.)
-- [ ] Launch announcement draft ready
+- [x] Launch announcement draft ready (docs/LAUNCH_ANNOUNCEMENT.md)
 - [ ] Submission to Product Hunt / Hacker News / relevant directories
-- [ ] Error tracking configured (Sentry or similar)
-- [ ] Analytics configured (Plausible / Umami / Google Analytics)
+- [x] Error tracking configured (built-in /api/errors endpoint + global-error.tsx)
+- [x] Analytics configured (Vercel Analytics — free Web Vitals + pageviews)
 
 ## 12. Security
 
