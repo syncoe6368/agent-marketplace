@@ -2,7 +2,7 @@
 
 > **Goal:** MVP launch ready to accept first agent listings and generate revenue
 > **Target:** 7-day sprint
-> **Last Updated:** 2026-04-05
+> **Last Updated:** 2026-04-03
 
 ---
 
@@ -12,8 +12,8 @@
 - [x] CI/CD pipeline configured (GitHub Actions → Vercel)
 - [x] Development environment documented (`CONTRIBUTING.md`)
 - [x] Environment variables template created (`.env.example`)
-- [x] Domain / subdomain secured — agenthub.syncoe.com
-- [x] SSL / HTTPS active (Vercel-managed)
+- [ ] Domain / subdomain secured (e.g. `agentmarketplace.io`)
+- [ ] SSL / HTTPS active
 - [x] Supabase project created (DB, Auth, Storage)
 
 ## 2. Core Architecture
@@ -89,13 +89,11 @@
 - [ ] "Verified Agent" badge purchase flow
 - [ ] Payment confirmation page
 - [ ] Webhook handler for payment status updates
-- [x] Pricing page live with real stats + FAQ
-- [x] Stats API for widgets/embeds
-- [x] Featured badge display on listings
-- [x] Pricing page (public)
-  - [x] Free listing: $0
-  - [x] Featured listing: $19/month
-  - [x] Verified badge: included in Pro plan
+- [ ] Featured badge display on listings
+- [ ] Pricing page (public)
+  - [ ] Free listing: $0
+  - [ ] Featured listing: $XX/month
+  - [ ] Verified badge: $XX one-time
 
 ## 9. Content & SEO
 
@@ -103,7 +101,7 @@
 - [x] `robots.txt` configured
 - [x] `sitemap.xml` auto-generated
 - [x] Semantic HTML throughout
-- [x] Page loading performance (Lighthouse score > 90) — ISR caching (60s), query consolidation, preconnect, dynamic OG images
+- [ ] Page loading performance (Lighthouse score > 90) — hero now uses dynamic DB stats ✓
 - [x] Favicon and OG images created
 
 ## 10. Legal & Compliance
@@ -116,50 +114,17 @@
 
 ## 11. Launch Preparation
 
-- [x] 3-5 seed agent listings created (22 agents live in Supabase)
-- [x] 3 categories populated with descriptions (6 categories live)
-- [x] Social media accounts created (X, Discord, etc.) — using existing Syncoe channels
-
-## 17. Creator Profile Pages
-
-- [x] `/creators/[id]` — Public creator profile with agent list, stats (agents count, avg rating, total views, join date)
-- [x] Creator name links on agent detail pages
-- [x] Deterministic gradient avatars for creators without uploaded photos
-- [x] Empty state with CTA for creators with no agents
-- [x] Verified Creator badge when any of their agents is verified
-
-## 18. Search Autocomplete
-
-- [x] `/api/agents/suggestions` — Returns agents + categories as user types
-- [x] 30s server-side caching
-- [x] Input sanitization via `sanitizeSearchQuery()`
-- [x] Rate limit of 20 results per query
-- [x] Documented in `/api-docs`
-
-## 19. Enhanced Agent Discovery
-
-- [x] Smarter Similar Agents — category-first, then tag-based recommendations
-- [x] Up to 4 related agents shown on detail pages (was 3)
-- [x] Deduplication between category and tag results
-
-## 20. Changelog
-
-- [x] `/changelog` — Public changelog page with timeline design
-- [x] Versioned entries (v0.1.0 through v0.9.0)
-- [x] Type badges (Major, Feature, Improved, Fixed)
-- [x] Linked to footer, mobile nav, and sitemap
-- [x] Live stats API endpoint (`/api/stats` with 60s caching)
-- [x] "Recently Added" section on homepage (4 newest agents)
-- [x] Pricing page with live marketplace stats + FAQ section
-- [x] Trust badges in hero section
-- [x] Launch announcement draft ready (docs/LAUNCH_ANNOUNCEMENT.md)
-- [x] Submission to Product Hunt / Hacker News / relevant directories (content ready in docs/PRODUCT_HUNT_SUBMISSION.md + docs/DIRECTORY_SUBMISSIONS.md)
-- [x] Error tracking configured (built-in /api/errors endpoint + global-error.tsx)
-- [x] Analytics configured (Vercel Analytics — free Web Vitals + pageviews)
+- [ ] 3-5 seed agent listings created
+- [ ] 3 categories populated with descriptions
+- [ ] Social media accounts created (X, Discord, etc.)
+- [ ] Launch announcement draft ready
+- [ ] Submission to Product Hunt / Hacker News / relevant directories
+- [ ] Error tracking configured (Sentry or similar)
+- [ ] Analytics configured (Plausible / Umami / Google Analytics)
 
 ## 12. Security
 
-- [x] Supabase RLS policies reviewed (audit: `docs/RLS_AUDIT_2026-04-04.md`)
+- [ ] Supabase RLS policies reviewed
 - [x] Input sanitization on all forms
 - [x] CSRF protection active (CSP + SameSite cookies)
 - [x] Environment secrets not committed to repo
@@ -168,10 +133,10 @@
 
 ## 13. Monitoring & Post-Launch
 
-- [x] Uptime monitoring configured (health endpoint + scripts/monitor.sh + docs/MONITORING.md)
-- [x] Error alerting to Discord/email — real-time Discord webhook via /api/errors + cron monitor.sh
-- [x] User feedback collection method (form, email, or widget) — floating feedback widget + POST /api/feedback with rate limiting + localStorage fallback
-- [x] Post-launch support channel ready (Discord server or email) — Discord community CTA in footer + /api/feedback widget
+- [ ] Uptime monitoring configured (BetterUptime / UptimeRobot)
+- [ ] Error alerting to Discord/email
+- [ ] User feedback collection method (form, email, or widget)
+- [ ] Post-launch support channel ready (Discord server or email)
 
 ---
 
@@ -203,30 +168,8 @@
 - [x] `GET /api/skills/[slug]` — Get skill package details (manifest + optional SKILL.md + file listing)
 - [x] `GET /api/skills/[slug]/download?file=<path>` — Download individual skill files (whitelist security)
 - [x] `GET /api/skills/[slug]/install` — Generate install instructions and shell scripts
-- [x] Skill package upload API (creator-submitted packages)
-- [x] Skill package versioning and update notifications
-
-## 15. User Engagement Features
-
-- [x] Agent bookmarking / favorites system
-  - [x] `bookmarks` table with RLS (user_id + agent_id unique constraint)
-  - [x] BookmarkButton component (heart icon, auth-gated, optimistic toggle)
-  - [x] BookmarkCount component (shows save count on agent detail pages)
-  - [x] `/bookmarks` page (auth-gated, sort by newest/oldest/name, grid layout)
-  - [x] Bookmark button on agent cards (browse, search, trending, category pages)
-  - [x] Bookmark button + save count on agent detail page
-  - [x] "Saved" nav link in navbar (authenticated users)
-  - [x] "Saved Agents" link in mobile nav (authenticated users)
-  - [x] "Saved Agents" link in footer
-
-## 16. API Documentation & Embed Widgets
-
-- [x] `/api-docs` — Public API reference page (agents, skills, stats, embed, health endpoints)
-- [x] `/api/embed` — SVG badge generator for agent listings
-  - [x] 4 styles: flat, flat-square, for-the-badge, social
-  - [x] Shows agent name, rating, category, verified/featured status
-  - [x] CORS-enabled for external embeds
-- [x] API link in navbar, footer, and mobile nav
+- [ ] Skill package upload API (creator-submitted packages)
+- [ ] Skill package versioning and update notifications
 
 ## Notes
 

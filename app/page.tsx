@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { HeroSection } from '@/components/landing/hero-section';
@@ -6,14 +8,6 @@ import { FeaturedAgents } from '@/components/landing/featured-agents';
 import { TrendingAgents } from '@/components/landing/trending-agents';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
-import { CallToAction } from '@/components/landing/call-to-action';
-import { TestimonialsSection } from '@/components/landing/testimonials';
-import { SkillPackagesPreview } from '@/components/landing/skill-packages-preview';
-import { RecentlyAdded } from '@/components/landing/recently-added';
-import { AgentSpotlight } from '@/components/landing/agent-spotlight';
-
-// Revalidate every 60 seconds — serves cached page, regenerates in background
-export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'AgentHub — Discover & Deploy AI Agents',
@@ -34,7 +28,6 @@ interface AgentRow {
   is_verified: boolean;
   status: string;
   views_count: number;
-  weekly_views: number;
   created_at: string;
   category?: { id: string; name: string; slug: string } | null;
   creator?: { full_name: string | null; avatar_url: string | null } | null;
@@ -63,94 +56,72 @@ export default async function HomePage() {
     }
   );
 
-  // Fetch all active agents in one query (covers featured + trending + stats)
-  const { data: allAgentsData, count: totalAgents } = await supabase
+  const { data: agentsData } = await supabase
     .from('agents')
-    .select('*, category:categories(*), creator:profiles(full_name, avatar_url), reviews(rating)', { count: 'exact' })
+    .select('*, category:categories(*), creator:profiles(full_name, avatar_url), reviews(rating)')
     .eq('status', 'active')
-    .order('views_count', { ascending: false });
-
-  const allAgents = (allAgentsData || []) as AgentRow[];
-
-  // Derived: featured (max 6)
-  const agents = allAgents.filter(a => a.is_featured).slice(0, 6);
-
-  // Derived: trending (top 5 by views)
-  const trendingAgents = allAgents.slice(0, 5);
-
-  // Derived: recently added (newest 4)
-  const recentAgents = [...allAgents].sort((a, b) => 
-    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  ).slice(0, 4);
-
-  // Compute stats from already-fetched data (no extra DB round-trip)
-  const totalReviews = allAgents.reduce((sum, a) => sum + (a.reviews?.length || 0), 0);
-  const allRatings = allAgents.flatMap(a => (a.reviews || []).map((r: { rating: number }) => r.rating));
-  const avgRating = allRatings.length > 0
-    ? allRatings.reduce((sum, r) => sum + r, 0) / allRatings.length
-    : 0;
-
-  // Top reviews for testimonials (rated 5, limit 6)
-  const { data: topReviewsData } = await supabase
-    .from('reviews')
-    .select('rating, comment, user:profiles(full_name), agent:agents(name, slug)')
-    .eq('rating', 5)
-    .not('comment', 'is', null)
+    .eq('is_featured', true)
+    .order('views_count', { ascending: false })
     .limit(6);
 
-  const testimonials = (topReviewsData || []).map((r: { rating: number; comment: string | null; user: { full_name: string | null }[]; agent: { name: string | null; slug: string | null }[] }) => ({
-    user_name: r.user?.[0]?.full_name || 'Anonymous',
-    rating: r.rating,
-    comment: r.comment || '',
-    agent_name: r.agent?.[0]?.name || 'Unknown',
-    agent_slug: r.agent?.[0]?.slug || '',
-  }));
-
-  // Categories (separate query — different table)
   const { data: categoriesData } = await supabase
     .from('categories')
     .select('*, agents(count)')
     .order('name');
 
+  // Fetch trending agents (top 5 by views_count)
+  const { data: trendingData } = await supabase
+    .from('agents')
+    .select('*, category:categories(id, name, slug)')
+    .eq('status', 'active')
+    .order('views_count', { ascending: false })
+    .limit(5);
+
+  const agents = (agentsData || []) as AgentRow[];
   const categories = ((categoriesData || []) as CategoryRow[]).map((cat) => ({
     ...cat,
     agent_count: (cat.agents as unknown as { count: number }[])?.[0]?.count || 0,
   }));
+  const trendingAgents = (trendingData || []) as AgentRow[];
 
-  // Spotlight agent: top by weekly_views, or most viewed as fallback
-  // Uses REST API directly for a separate query to avoid full type union
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  
-  let spotlightAgent: AgentRow | null = null;
-  if (supabaseUrl && supabaseAnon) {
-    const weeklyRes = await fetch(`${supabaseUrl}/rest/v1/agents?select=*,category:categories(id,name,slug,description,icon),creator:profiles(full_name,avatar_url),reviews(rating)&status=eq.active&order=weekly_views.desc&limit=1`, {
-      headers: { 'apikey': supabaseAnon, 'Authorization': `Bearer ${supabaseAnon}` },
-    });
-    if (weeklyRes.ok) {
-      const weeklyData = await weeklyRes.json();
-      const hasWeeklyData = (weeklyData[0]?.weekly_views || 0) > 0;
-      spotlightAgent = hasWeeklyData
-        ? (weeklyData[0] as AgentRow)
-        : [...allAgents].sort((a, b) => b.views_count - a.views_count)[0] || null;
-    }
-  }
-  if (!spotlightAgent && allAgents.length > 0) {
-    spotlightAgent = [...allAgents].sort((a, b) => b.views_count - a.views_count)[0];
-  }
+  // Fetch stats for hero section
+  const { count: totalAgents } = await supabase
+    .from('agents')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'active');
+
+  const { data: allReviews } = await supabase
+    .from('reviews')
+    .select('rating');
+
+  const reviews = (allReviews || []) as { rating: number }[];
+  const totalReviews = reviews.length;
+  const avgRating = totalReviews > 0
+    ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
+    : 0;
 
   return (
     <>
       <HeroSection totalAgents={totalAgents || 0} totalReviews={totalReviews} avgRating={avgRating} />
-      {spotlightAgent && <AgentSpotlight agent={spotlightAgent} />}
       <TrendingAgents agents={trendingAgents} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
-      <RecentlyAdded agents={recentAgents} />
-      <TestimonialsSection testimonials={testimonials} />
-      <SkillPackagesPreview />
       <HowItWorks />
-      <CallToAction />
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 md:p-12 text-center text-white max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Built an AI Agent? Share it with the world.</h2>
+            <p className="text-indigo-100 mb-6 max-w-xl mx-auto">
+              Join our growing community of agent creators. Get discovered, collect reviews, and grow your user base.
+            </p>
+            <Link href="/submit">
+              <Button size="lg" variant="secondary" className="bg-white text-indigo-600 hover:bg-indigo-50 text-base px-8">
+                List Your Agent — It&apos;s Free
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

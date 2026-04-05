@@ -1,18 +1,15 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/sonner';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
-import { FeedbackWidget } from '@/components/feedback-widget';
-import { CompareTray } from '@/components/agents/compare-tray';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agenthub.syncoe.com'),
+  metadataBase: new URL('https://agentmarketplace-kohl.vercel.app'),
   title: {
     default: 'AgentHub — Discover & Deploy AI Agents',
     template: '%s | AgentHub',
@@ -30,7 +27,6 @@ export const metadata: Metadata = {
     icon: '/favicon.png',
     apple: '/apple-touch-icon.png',
   },
-  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -43,9 +39,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="alternate" type="application/rss+xml" title="AgentHub — New Agents" href="https://agenthub.syncoe.com/feed.xml" />
       </head>
       <body className={inter.className}>
         <ThemeProvider
@@ -60,46 +53,6 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
-          <Analytics />
-          <FeedbackWidget />
-          <CompareTray />
-          {/* JSON-LD Structured Data */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'WebSite',
-                name: 'AgentHub',
-                url: 'https://agenthub.syncoe.com',
-                description: 'The #1 marketplace for AI agents. Browse, compare, and deploy verified AI agents.',
-                potentialAction: {
-                  '@type': 'SearchAction',
-                  target: {
-                    '@type': 'EntryPoint',
-                    urlTemplate: 'https://agenthub.syncoe.com/agents?q={search_term_string}',
-                  },
-                  'query-input': 'required name=search_term_string',
-                },
-              }),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'Organization',
-                name: 'AgentHub',
-                url: 'https://agenthub.syncoe.com',
-                logo: 'https://agenthub.syncoe.com/favicon.png',
-                sameAs: [
-                  'https://github.com/syncoe6368/agent-marketplace',
-                  'https://discord.com/invite/clawd',
-                ],
-              }),
-            }}
-          />
         </ThemeProvider>
       </body>
     </html>
