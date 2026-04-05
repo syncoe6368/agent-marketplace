@@ -11,7 +11,6 @@
  *   npm run seed:agents -- --category automation   # Seed specific category
  */
 
-/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 

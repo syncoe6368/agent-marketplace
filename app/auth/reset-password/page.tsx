@@ -44,7 +44,7 @@ export default function ResetPasswordPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <Bot className="h-8 w-8 text-primary" />
+            <Bot className="h-8 w-8 text-indigo-600" />
           </div>
           <CardTitle>Reset your password</CardTitle>
           <CardDescription>
@@ -100,7 +100,7 @@ export default function ResetPasswordPage() {
           <div className="text-center">
             <Link
               href="/auth/login"
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              className="inline-flex items-center gap-1 text-sm text-indigo-600 hover:underline"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               Back to sign in

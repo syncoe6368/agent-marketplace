@@ -50,7 +50,7 @@ export default function TermsPage() {
         <h3 className="text-xl font-medium mt-4 mb-2">3.2 Listing Review & Moderation</h3>
         <p>
           All Agent submissions are reviewed before publication. We may reject, suspend, or remove
-          listings that violate our <Link href="/legal/guidelines" className="text-primary hover:underline">Agent Listing Guidelines</Link>.
+          listings that violate our <Link href="/legal/guidelines" className="text-indigo-600 hover:underline">Agent Listing Guidelines</Link>.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">4. Reviews & Ratings</h2>
@@ -71,7 +71,7 @@ export default function TermsPage() {
         <h2 className="text-2xl font-semibold mt-8 mb-4">6. Payments & Fees</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>Basic Agent listings are free.</li>
-          <li>Featured listings and Verified badges are available for a fee, as outlined on our <Link href="/pricing" className="text-primary hover:underline">Pricing page</Link>.</li>
+          <li>Featured listings and Verified badges are available for a fee, as outlined on our <Link href="/pricing" className="text-indigo-600 hover:underline">Pricing page</Link>.</li>
           <li>All payments are processed through Stripe. Refund policies apply as per Stripe&apos;s terms.</li>
         </ul>
 
@@ -85,13 +85,13 @@ export default function TermsPage() {
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">8. DMCA & Takedown</h2>
         <p>
-          We respect intellectual property rights and have a <Link href="/legal/dmca" className="text-primary hover:underline">DMCA Takedown Policy</Link>.
-          If you believe your content has been used improperly, contact us at <a href="mailto:dmca@agenthub.io" className="text-primary hover:underline">dmca@agenthub.io</a>.
+          We respect intellectual property rights and have a <Link href="/legal/dmca" className="text-indigo-600 hover:underline">DMCA Takedown Policy</Link>.
+          If you believe your content has been used improperly, contact us at <a href="mailto:dmca@agenthub.io" className="text-indigo-600 hover:underline">dmca@agenthub.io</a>.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">9. Privacy</h2>
         <p>
-          Your use of the Platform is also governed by our <Link href="/legal/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
+          Your use of the Platform is also governed by our <Link href="/legal/privacy" className="text-indigo-600 hover:underline">Privacy Policy</Link>.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">10. Changes to Terms</h2>
@@ -103,12 +103,12 @@ export default function TermsPage() {
         <h2 className="text-2xl font-semibold mt-8 mb-4">11. Contact</h2>
         <p>
           For questions about these Terms, contact us at{' '}
-          <a href="mailto:hello@agenthub.io" className="text-primary hover:underline">hello@agenthub.io</a>.
+          <a href="mailto:hello@agenthub.io" className="text-indigo-600 hover:underline">hello@agenthub.io</a>.
         </p>
       </div>
 
       <div className="mt-12 pt-6 border-t">
-        <Link href="/" className="text-primary hover:underline">← Back to AgentHub</Link>
+        <Link href="/" className="text-indigo-600 hover:underline">← Back to AgentHub</Link>
       </div>
     </div>
   );

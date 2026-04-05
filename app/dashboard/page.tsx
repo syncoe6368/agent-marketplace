@@ -54,7 +54,7 @@ export default async function DashboardPage() {
           <p className="text-muted-foreground">Manage your agent listings</p>
         </div>
         <a href="/submit">
-          <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">
+          <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
             + New Agent
           </button>
         </a>

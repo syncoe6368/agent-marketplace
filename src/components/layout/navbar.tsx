@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Search, Menu, X, Bot, GitCompare, TrendingUp, Heart } from 'lucide-react';
+import { Search, Menu, X, Bot, GitCompare, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase/client';
 import { SignOutButton } from './sign-out-button';
@@ -14,7 +14,7 @@ export async function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-            <Bot className="h-6 w-6 text-primary" />
+            <Bot className="h-6 w-6 text-indigo-600" />
             <span className="hidden sm:inline">AgentHub</span>
           </Link>
           <nav className="hidden md:flex items-center gap-4 text-sm">
@@ -28,18 +28,12 @@ export async function Navbar() {
               <GitCompare className="h-3.5 w-3.5" />
               Compare
             </Link>
-            <Link href="/trending" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/#trending" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
               <TrendingUp className="h-3.5 w-3.5" />
               Trending
             </Link>
             <Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">
               Pricing
-            </Link>
-            <Link href="/skills" className="text-muted-foreground hover:text-foreground transition-colors">
-              Skills
-            </Link>
-            <Link href="/api-docs" className="text-muted-foreground hover:text-foreground transition-colors">
-              API
             </Link>
           </nav>
         </div>
@@ -51,14 +45,11 @@ export async function Navbar() {
               <Link href="/submit">
                 <Button size="sm">List Agent</Button>
               </Link>
-              <Link href="/bookmarks">
-                <Button variant="outline" size="sm" className="gap-1.5">
-                  <Heart className="h-3.5 w-3.5" />
-                  Saved
-                </Button>
-              </Link>
               <Link href="/dashboard">
                 <Button variant="outline" size="sm">Dashboard</Button>
+              </Link>
+              <Link href="/dashboard/profile">
+                <Button variant="ghost" size="sm">Profile</Button>
               </Link>
               <SignOutButton />
             </div>

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -14,14 +13,10 @@ import { AgentInstall } from '@/components/agents/agent-install';
 import { AgentCapabilities } from '@/components/agents/agent-capabilities';
 import { AgentRequirements } from '@/components/agents/agent-requirements';
 import { AgentPricing } from '@/components/agents/agent-pricing';
-import { ShareAgent } from '@/components/agents/share-agent';
-import { BookmarkButton } from '@/components/agents/bookmark-button';
-import { BookmarkCount } from '@/components/agents/bookmark-count';
 import { formatDate, formatPrice } from '@/lib/utils';
-import type { Review } from '@/types';
 import {
   ExternalLink, GitFork, Globe, BookOpen, Star, Eye,
-  BadgeCheck, Tag, Calendar, Flame,
+  BadgeCheck, Tag, Calendar,
 } from 'lucide-react';
 
 async function getSupabase() {
@@ -70,7 +65,6 @@ interface AgentRow {
   capabilities?: string[] | null;
   requirements?: string[] | null;
   platforms?: string[] | null;
-  weekly_views?: number | null;
   pricing_tier_free?: { features: string[]; limits: string } | null;
   pricing_tier_paid?: {
     features: string[];
@@ -117,13 +111,7 @@ export async function generateMetadata({ params }: AgentDetailPageProps): Promis
     openGraph: {
       title: agent.name,
       description: agent.description,
-      images: [`/og?slug=${slug}`],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: agent.name,
-      description: agent.description,
-      images: [`/og?slug=${slug}`],
+      images: agent.logo_url ? [agent.logo_url] : [],
     },
   };
 }
@@ -154,13 +142,10 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
   const agent = data as AgentRow | null;
   if (!agent) notFound();
 
-  // Increment views (total + weekly for trending)
+  // Increment views
   await supabase
     .from('agents')
-    .update({ 
-      views_count: agent.views_count + 1,
-      weekly_views: (agent.weekly_views || 0) + 1,
-    })
+    .update({ views_count: agent.views_count + 1 })
     .eq('id', agent.id);
 
   // Fetch reviews
@@ -172,50 +157,17 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
 
   const reviews = (reviewsData || []) as ReviewRow[];
 
-  // Fetch related agents (same category first, then tag overlap)
-  const { data: categoryRelated } = await supabase
+  // Fetch related agents (same category)
+  const { data: relatedData } = await supabase
     .from('agents')
     .select('*, category:categories(id, name, slug)')
     .eq('status', 'active')
     .neq('id', agent.id)
     .eq('category_id', agent.category_id)
     .order('views_count', { ascending: false })
-    .limit(4);
+    .limit(3);
 
-  // Build tag-based query for additional suggestions
-  let tagRelated: AgentRow[] = [];
-  if (agent.tags && agent.tags.length > 0 && (categoryRelated || []).length < 3) {
-    const tagFilters = agent.tags
-      .slice(0, 3)
-      .map((tag) => `tags.ilike.%${tag}%`)
-      .join(',');
-    const existingIds = (categoryRelated || []).map((a: AgentRow) => a.id);
-    const { data: tagData } = await supabase
-      .from('agents')
-      .select('*, category:categories(id, name, slug)')
-      .eq('status', 'active')
-      .neq('id', agent.id)
-      .or(tagFilters)
-      .limit(4);
-    tagRelated = (tagData || []).filter((a: AgentRow) => !existingIds.includes(a.id)) as AgentRow[];
-  }
-
-  // Merge: prefer category matches, fill with tag matches
-  const relatedAgents = [
-    ...(categoryRelated || []) as AgentRow[],
-    ...tagRelated,
-  ].slice(0, 4);
-
-  // Per-category avatar gradients
-  const categoryGradients: Record<string, string> = {
-    automation: 'from-amber-500 to-orange-500',
-    'research-analysis': 'from-blue-500 to-cyan-500',
-    'customer-support': 'from-emerald-500 to-teal-500',
-    development: 'from-violet-500 to-purple-500',
-    finance: 'from-sky-500 to-blue-500',
-    marketing: 'from-rose-500 to-pink-500',
-  };
-  const avatarGradient = categoryGradients[agent.category?.slug || ''] || 'from-primary to-primary/70';
+  const relatedAgents = (relatedData || []) as AgentRow[];
 
   // Calculate average rating
   const ratings = reviews.map((r) => r.rating);
@@ -235,17 +187,14 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
         <div className="lg:col-span-2 space-y-6">
           {/* Header */}
           <div className="flex items-start gap-4">
-            <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white font-bold text-2xl shrink-0`}>
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-2xl shrink-0">
               {agent.name.charAt(0).toUpperCase()}
             </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-bold">{agent.name}</h1>
                 {agent.is_verified && (
-                  <BadgeCheck className="h-5 w-5 text-primary" />
-                )}
-                {agent.is_featured && (
-                  <Flame className="h-5 w-5 text-orange-500" />
+                  <BadgeCheck className="h-5 w-5 text-indigo-600" />
                 )}
               </div>
               {agent.category && (
@@ -260,7 +209,6 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
                   <Eye className="h-3.5 w-3.5" />
                   {agent.views_count} views
                 </div>
-                <BookmarkCount agentId={agent.id} />
                 <div className="flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
                   {formatDate(agent.created_at)}
@@ -287,13 +235,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
           )}
 
           {/* Action buttons */}
-          <div className="flex gap-3 flex-wrap">
-            <BookmarkButton agentId={agent.id} size="lg" showLabel />
-            <ShareAgent
-              agentName={agent.name}
-              agentSlug={agent.slug}
-              agentDescription={agent.description}
-            />
+          <div className="flex gap-3">
             {agent.website_url && (
               <a href={agent.website_url} target="_blank" rel="noopener noreferrer">
                 <Button>
@@ -334,7 +276,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
           {/* Reviews */}
           <div>
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
-            <ReviewList reviews={reviews as Review[]} />
+            <ReviewList reviews={reviews as any} />
           </div>
         </div>
 
@@ -364,12 +306,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
               {agent.creator && (
                 <div className="text-center">
                   <p className="text-sm font-medium">Created by</p>
-                  <Link href={`/creators/${agent.creator.id}`} className="text-sm text-primary hover:underline">
-                    {agent.creator.full_name || 'Anonymous'}
-                  </Link>
-                  {agent.creator.bio && (
-                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{agent.creator.bio}</p>
-                  )}
+                  <p className="text-sm text-muted-foreground">{agent.creator.full_name || 'Anonymous'}</p>
                 </div>
               )}
             </CardContent>
@@ -381,7 +318,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
               <h3 className="font-semibold mb-3">Related Agents</h3>
               <div className="space-y-3">
                 {relatedAgents.map((relAgent) => (
-                  <AgentCard key={relAgent.id} agent={relAgent as Parameters<typeof AgentCard>[0]['agent']} />
+                  <AgentCard key={relAgent.id} agent={relAgent as any} />
                 ))}
               </div>
             </div>

@@ -104,7 +104,7 @@ export function AdminDashboardContent({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <ShieldCheck className="h-8 w-8 text-primary" />
+            <ShieldCheck className="h-8 w-8 text-indigo-600" />
             Admin Dashboard
           </h1>
           <p className="text-muted-foreground mt-1">Moderate listings, manage marketplace</p>
@@ -114,7 +114,7 @@ export function AdminDashboardContent({
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <StatCard icon={<Bot className="h-5 w-5 text-primary" />} label="Total Agents" value={stats.totalAgents} />
+        <StatCard icon={<Bot className="h-5 w-5 text-indigo-500" />} label="Total Agents" value={stats.totalAgents} />
         <StatCard icon={<Users className="h-5 w-5 text-blue-500" />} label="Users" value={stats.totalUsers} />
         <StatCard icon={<MessageSquare className="h-5 w-5 text-green-500" />} label="Reviews" value={stats.totalReviews} />
         <StatCard icon={<Clock className="h-5 w-5 text-yellow-500" />} label="Pending" value={stats.pendingCount} highlight={stats.pendingCount > 0} />
@@ -274,7 +274,7 @@ function PendingAgentCard({
                 href={agent.website_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1"
+                className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:underline mt-1"
               >
                 <ExternalLink className="h-3 w-3" /> Visit website
               </a>
@@ -312,7 +312,7 @@ function PendingAgentCard({
           <div className="mt-3 pt-3 border-t">
             <p className="text-sm text-muted-foreground whitespace-pre-wrap">{agent.long_description}</p>
             {agent.github_url && (
-              <a href={agent.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2">
+              <a href={agent.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:underline mt-2">
                 <ExternalLink className="h-3 w-3" /> GitHub
               </a>
             )}

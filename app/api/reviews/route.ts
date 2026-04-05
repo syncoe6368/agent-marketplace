@@ -61,14 +61,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: unknown;
+  let body: any;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { agent_id, rating, comment } = body as { agent_id?: string; rating?: number; comment?: string };
+  const { agent_id, rating, comment } = body;
 
   // ─── Input Validation ────────────────────────────────────────
   if (!agent_id || !isValidUuid(agent_id)) {

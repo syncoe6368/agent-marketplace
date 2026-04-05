@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: unknown;
+  let body: any;
   try {
     body = await request.json();
   } catch {

@@ -37,7 +37,7 @@ export function MyReviewsContent({ reviews, agentStats }: MyReviewsContentProps)
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold flex items-center gap-2">
-          <MessageSquare className="h-6 w-6 text-primary" />
+          <MessageSquare className="h-6 w-6 text-indigo-600" />
           My Agent Reviews
         </h1>
         <Link href="/dashboard">
@@ -55,7 +55,7 @@ export function MyReviewsContent({ reviews, agentStats }: MyReviewsContentProps)
                   <div>
                     <Link
                       href={`/agents/${stat.slug}`}
-                      className="font-semibold hover:text-primary transition-colors"
+                      className="font-semibold hover:text-indigo-600 transition-colors"
                     >
                       {stat.name}
                     </Link>
@@ -97,7 +97,7 @@ export function MyReviewsContent({ reviews, agentStats }: MyReviewsContentProps)
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-medium text-sm">{review.reviewer_name}</span>
                         <Badge variant="outline" className="text-xs">
-                          on <Link href={`/agents/${review.agent_slug}`} className="hover:text-primary">{review.agent_name}</Link>
+                          on <Link href={`/agents/${review.agent_slug}`} className="hover:text-indigo-600">{review.agent_name}</Link>
                         </Badge>
                       </div>
                       <StarRating rating={review.rating} />

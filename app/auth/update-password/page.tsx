@@ -58,7 +58,7 @@ export default function UpdatePasswordPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <Bot className="h-8 w-8 text-primary" />
+            <Bot className="h-8 w-8 text-indigo-600" />
           </div>
           <CardTitle>Update your password</CardTitle>
           <CardDescription>

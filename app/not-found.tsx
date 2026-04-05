@@ -8,10 +8,10 @@ export default function NotFound() {
       <div className="space-y-6 max-w-md">
         {/* 404 illustration */}
         <div className="relative">
-          <span className="text-8xl font-bold bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+          <span className="text-8xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             404
           </span>
-          <div className="absolute -top-4 -right-4 h-12 w-12 rounded-full bg-primary/10 blur-xl" />
+          <div className="absolute -top-4 -right-4 h-12 w-12 rounded-full bg-indigo-500/10 blur-xl" />
         </div>
 
         <h1 className="text-2xl font-bold">Agent Not Found</h1>

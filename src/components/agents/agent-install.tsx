@@ -83,7 +83,7 @@ export function AgentInstall({ slug, name, tags }: AgentInstallProps) {
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Terminal className="h-5 w-5 text-primary" />
+          <Terminal className="h-5 w-5 text-indigo-600" />
           Quick Start — Install {name}
         </CardTitle>
       </CardHeader>

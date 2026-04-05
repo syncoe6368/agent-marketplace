@@ -3,9 +3,6 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { AgentSearch } from '@/components/agents/agent-search';
 import { AgentCard } from '@/components/agents/agent-card';
-import { sanitizeSearchQuery } from '@/lib/utils';
-
-export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Browse Agents',
@@ -63,10 +60,7 @@ export default async function AgentsPage({
     .eq('status', 'active');
 
   if (params.q) {
-    const safeQuery = sanitizeSearchQuery(params.q);
-    if (safeQuery) {
-      query = query.or(`name.ilike.%${safeQuery}%,description.ilike.%${safeQuery}%`);
-    }
+    query = query.or(`name.ilike.%${params.q}%,description.ilike.%${params.q}%`);
   }
   if (params.category && params.category !== 'all') {
     const { data: cat } = await supabase
@@ -145,7 +139,7 @@ export default async function AgentsPage({
             <div className="text-center mt-8">
               <a
                 href={`/agents?q=${params.q || ''}&category=${params.category || 'all'}&pricing=${params.pricing || 'all'}&sort=${params.sort || 'newest'}&page=${page + 1}`}
-                className="text-primary hover:underline"
+                className="text-indigo-600 hover:underline"
               >
                 Load more agents →
               </a>

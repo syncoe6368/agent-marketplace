@@ -29,7 +29,7 @@ export default function DmcaPage() {
         </p>
         <div className="bg-muted p-6 rounded-lg my-4">
           <p className="mb-2"><strong>Designated Copyright Agent:</strong></p>
-          <p>Email: <a href="mailto:dmca@agenthub.io" className="text-primary hover:underline">dmca@agenthub.io</a></p>
+          <p>Email: <a href="mailto:dmca@agenthub.io" className="text-indigo-600 hover:underline">dmca@agenthub.io</a></p>
           <p>Subject: DMCA Takedown Notice</p>
         </div>
 
@@ -88,20 +88,20 @@ export default function DmcaPage() {
           Please also review our other policies:
         </p>
         <ul className="list-disc pl-6 space-y-2">
-          <li><Link href="/legal/terms" className="text-primary hover:underline">Terms of Service</Link></li>
-          <li><Link href="/legal/privacy" className="text-primary hover:underline">Privacy Policy</Link></li>
-          <li><Link href="/legal/guidelines" className="text-primary hover:underline">Agent Listing Guidelines</Link></li>
+          <li><Link href="/legal/terms" className="text-indigo-600 hover:underline">Terms of Service</Link></li>
+          <li><Link href="/legal/privacy" className="text-indigo-600 hover:underline">Privacy Policy</Link></li>
+          <li><Link href="/legal/guidelines" className="text-indigo-600 hover:underline">Agent Listing Guidelines</Link></li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">8. Contact</h2>
         <p>
           For DMCA-related inquiries, contact us at{' '}
-          <a href="mailto:dmca@agenthub.io" className="text-primary hover:underline">dmca@agenthub.io</a>.
+          <a href="mailto:dmca@agenthub.io" className="text-indigo-600 hover:underline">dmca@agenthub.io</a>.
         </p>
       </div>
 
       <div className="mt-12 pt-6 border-t">
-        <Link href="/" className="text-primary hover:underline">← Back to AgentHub</Link>
+        <Link href="/" className="text-indigo-600 hover:underline">← Back to AgentHub</Link>
       </div>
     </div>
   );

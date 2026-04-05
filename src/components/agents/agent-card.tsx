@@ -1,15 +1,14 @@
 'use client';
 
-import { useState, useCallback, useEffect, useSyncExternalStore } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { Star, BadgeCheck, GitCompare, Play, Monitor, Flame } from 'lucide-react';
-import { BookmarkButton } from '@/components/agents/bookmark-button';
+import { Star, BadgeCheck, GitCompare, Play, Monitor } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { formatPrice } from '@/lib/utils';
 
-export interface AgentCardProps {
+interface AgentCardProps {
   agent: {
     id: string;
     name: string;
@@ -77,15 +76,13 @@ function getCompareList(): string[] {
   }
 }
 
-const emptySubscribe = () => () => {};
-
 export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
   const [comparing, setComparing] = useState(false);
-  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const list = getCompareList();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing from localStorage
     setComparing(list.includes(agent.slug));
   }, [agent.slug]);
 
@@ -120,17 +117,6 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
     return () => window.removeEventListener('agenthub_compare_change', handler);
   }, [agent.slug]);
 
-  // Per-category avatar gradient colors
-  const categoryGradients: Record<string, string> = {
-    automation: 'from-amber-500 to-orange-500',
-    'research-analysis': 'from-blue-500 to-cyan-500',
-    'customer-support': 'from-emerald-500 to-teal-500',
-    development: 'from-violet-500 to-purple-500',
-    finance: 'from-sky-500 to-blue-500',
-    marketing: 'from-rose-500 to-pink-500',
-  };
-  const avatarGradient = categoryGradients[agent.category?.slug || ''] || 'from-primary to-primary/70';
-
   const pricingColors: Record<string, string> = {
     free: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
     paid: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
@@ -143,24 +129,21 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
 
   return (
     <Link href={`/agents/${agent.slug}`}>
-      <Card className="group h-full hover:shadow-lg hover:border-primary/30 transition-all duration-200">
+      <Card className="group h-full hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-200">
         <CardContent className="p-5 flex flex-col h-full">
           {/* Top row: avatar, name, pricing */}
           <div className="flex items-start justify-between mb-2">
             <div className="flex items-center gap-3 min-w-0">
-              <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
                 {agent.name.charAt(0).toUpperCase()}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <h3 className="font-semibold text-sm truncate group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-sm truncate group-hover:text-indigo-600 transition-colors">
                     {agent.name}
                   </h3>
                   {agent.is_verified && (
-                    <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
-                  )}
-                  {agent.is_featured && (
-                    <Flame className="h-4 w-4 text-orange-500 shrink-0" />
+                    <BadgeCheck className="h-4 w-4 text-indigo-600 shrink-0" />
                   )}
                 </div>
                 {agent.category && (
@@ -205,17 +188,14 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
               ))}
             </div>
 
-            {/* Bookmark button */}
-            <BookmarkButton agentId={agent.id} size="sm" className="h-7 w-7" />
-
             {/* Compare button */}
             {mounted && showCompare && (
               <button
                 onClick={toggleCompare}
                 className={`p-1 rounded transition-colors ${
                   comparing
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-primary hover:bg-muted'
+                    ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950'
+                    : 'text-muted-foreground hover:text-indigo-600 hover:bg-muted'
                 }`}
                 title={comparing ? 'Remove from comparison' : 'Add to comparison'}
               >

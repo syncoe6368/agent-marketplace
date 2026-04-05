@@ -39,14 +39,12 @@ export default function ComparePageClient() {
 
   useEffect(() => {
     const slugs = searchParams.get('agents')?.split(',').filter(Boolean) || [];
+    if (slugs.length === 0) {
+      setLoading(false);
+      return;
+    }
 
     const fetchAgents = async () => {
-      if (slugs.length === 0) {
-        setAgents([]);
-        setLoading(false);
-        return;
-      }
-
       const { data } = await supabase
         .from('agents')
         .select('*, category:categories(id, name, slug), reviews(rating)')
@@ -114,7 +112,7 @@ export default function ComparePageClient() {
             Back
           </Button>
         </Link>
-        <GitCompare className="h-5 w-5 text-primary" />
+        <GitCompare className="h-5 w-5 text-indigo-600" />
         <h1 className="text-2xl font-bold">Agent Comparison</h1>
       </div>
 
@@ -124,14 +122,14 @@ export default function ComparePageClient() {
         {agents.map((agent) => (
           <Card key={agent.id} className="relative overflow-hidden">
             <CardContent className="p-4 text-center">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-bold text-lg mx-auto mb-2">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg mx-auto mb-2">
                 {agent.name.charAt(0).toUpperCase()}
               </div>
-              <Link href={`/agents/${agent.slug}`} className="font-semibold hover:text-primary transition-colors">
+              <Link href={`/agents/${agent.slug}`} className="font-semibold hover:text-indigo-600 transition-colors">
                 {agent.name}
               </Link>
               {agent.is_verified && (
-                <BadgeCheck className="h-4 w-4 text-primary inline ml-1" />
+                <BadgeCheck className="h-4 w-4 text-indigo-600 inline ml-1" />
               )}
               {agent.category && (
                 <p className="text-xs text-muted-foreground mt-1">{agent.category.name}</p>

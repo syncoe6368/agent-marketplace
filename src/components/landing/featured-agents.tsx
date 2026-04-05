@@ -1,25 +1,8 @@
 import { AgentCard } from '@/components/agents/agent-card';
 import { Flame } from 'lucide-react';
 
-interface FeaturedAgent {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  pricing_model: string;
-  price_amount: number | null;
-  currency: string;
-  logo_url?: string | null;
-  tags?: string[] | null;
-  is_featured?: boolean;
-  is_verified?: boolean;
-  average_rating?: number;
-  review_count?: number;
-  category?: { id: string; name: string; slug: string } | null;
-}
-
 interface FeaturedAgentsProps {
-  agents: FeaturedAgent[];
+  agents: any[];
 }
 
 export function FeaturedAgents({ agents }: FeaturedAgentsProps) {

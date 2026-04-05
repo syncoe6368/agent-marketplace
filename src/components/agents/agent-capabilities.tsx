@@ -79,7 +79,7 @@ export function AgentCapabilities({ name, tags, capabilities }: AgentCapabilitie
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Zap className="h-5 w-5 text-primary" />
+          <Zap className="h-5 w-5 text-indigo-600" />
           What {name} Can Do
         </CardTitle>
       </CardHeader>
@@ -92,8 +92,8 @@ export function AgentCapabilities({ name, tags, capabilities }: AgentCapabilitie
                 key={item.label}
                 className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
               >
-                <div className="mt-0.5 rounded-md bg-primary/10 p-1.5">
-                  <Icon className="h-4 w-4 text-primary" />
+                <div className="mt-0.5 rounded-md bg-indigo-100 dark:bg-indigo-900/50 p-1.5">
+                  <Icon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-medium">{item.label}</p>

@@ -29,15 +29,6 @@ function isLast7Days(dateStr: string): boolean {
   return diff <= 7 * 24 * 60 * 60 * 1000;
 }
 
-const categoryGradients: Record<string, string> = {
-  automation: 'from-amber-500 to-orange-500',
-  'research-analysis': 'from-blue-500 to-cyan-500',
-  'customer-support': 'from-emerald-500 to-teal-500',
-  development: 'from-violet-500 to-purple-500',
-  finance: 'from-sky-500 to-blue-500',
-  marketing: 'from-rose-500 to-pink-500',
-};
-
 export function TrendingAgents({ agents }: TrendingAgentsProps) {
   if (agents.length === 0) return null;
 
@@ -53,7 +44,7 @@ export function TrendingAgents({ agents }: TrendingAgentsProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {agents.slice(0, 5).map((agent, i) => (
             <Link key={agent.id} href={`/agents/${agent.slug}`}>
-              <Card className="group h-full hover:shadow-lg hover:border-primary/30 transition-all duration-200 relative overflow-hidden">
+              <Card className="group h-full hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-200 relative overflow-hidden">
                 {i === 0 && (
                   <div className="absolute top-0 right-0">
                     <div className="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-bl-lg">
@@ -63,11 +54,11 @@ export function TrendingAgents({ agents }: TrendingAgentsProps) {
                 )}
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${categoryGradients[agent.category?.slug || ''] || 'from-primary to-primary/70'} flex items-center justify-center text-white font-bold text-xs shrink-0`}>
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
                       {agent.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-semibold text-sm truncate group-hover:text-primary transition-colors">
+                      <h3 className="font-semibold text-sm truncate group-hover:text-indigo-600 transition-colors">
                         {agent.name}
                       </h3>
                       {agent.category && (
