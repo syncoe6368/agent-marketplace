@@ -115,7 +115,7 @@
 ## 11. Launch Preparation
 
 - [x] 3-5 seed agent listings created (8 total: 5 original + 3 new with skill packages)
-- [ ] 3 categories populated with descriptions
+- [x] 3 categories populated with descriptions (6 total)
 - [ ] Social media accounts created (X, Discord, etc.)
 - [ ] Launch announcement draft ready
 - [ ] Submission to Product Hunt / Hacker News / relevant directories
@@ -134,7 +134,7 @@
 ## 13. Monitoring & Post-Launch
 
 - [ ] Uptime monitoring configured (BetterUptime / UptimeRobot)
-- [ ] Error alerting to Discord/email
+- [x] Error alerting to Discord (rate-limited, per-error digest)
 - [ ] User feedback collection method (form, email, or widget)
 - [ ] Post-launch support channel ready (Discord server or email)
 
