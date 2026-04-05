@@ -1,0 +1,48 @@
+{
+  "name": "Loan Comparison Agent",
+  "version": "1.0.0",
+  "description": "AI-powered personal loan comparison engine for the Malaysian market with EMI calculation and lead matching",
+  "longDescription": "Loan Comparison Agent powers PinjamanCompare (loans.syncoe.com), a bilingual BM/EN loan comparison platform. It matches borrowers with the best personal loan offers from Malaysian banks and financial institutions. Features EMI calculation with reducing balance method, Islamic loan support, and automated lead distribution to partner lenders.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "finance",
+  "pricingModel": "free",
+  "price": 0,
+  "currency": "MYR",
+  "homepage": "https://loans.syncoe.com",
+  "repository": "https://github.com/syncoe6368/pinjaman-compare",
+  "icon": "icon.svg",
+  "tags": ["loans", "finance", "malaysia", "comparison", "emi", "islamic", "bilingual"],
+  "features": [
+    "Personal loan comparison across Malaysian lenders",
+    "EMI calculator with reducing balance + flat rate methods",
+    "Islamic loan toggle (Shariah-compliant filtering)",
+    "Bilingual BM/EN interface",
+    "Multi-step application with PDPA consent",
+    "Lead distribution to partner lenders",
+    "Amortization schedule generation",
+    "SEO-optimized landing pages per loan type"
+  ],
+  "capabilities": [
+    "loan-comparison",
+    "emi-calculation",
+    "lead-matching",
+    "amortization",
+    "pdpa-compliance"
+  ],
+  "useCases": [
+    "Compare personal loans from 10+ Malaysian lenders",
+    "Calculate monthly installments for RM 1K-200K loans",
+    "Submit loan applications to multiple lenders simultaneously",
+    "Find Shariah-compliant Islamic financing options"
+  ],
+  "platforms": ["web"],
+  "pricingTierFree": {
+    "features": ["Full comparison engine", "EMI calculator", "Application submission"],
+    "limits": "Unlimited comparisons"
+  },
+  "runtime": {
+    "node": ">=18.0.0"
+  },
+  "entrypoint": "scripts/main.sh"
+}

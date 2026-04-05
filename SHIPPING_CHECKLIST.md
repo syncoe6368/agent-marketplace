@@ -114,17 +114,17 @@
 
 ## 11. Launch Preparation
 
-- [ ] 3-5 seed agent listings created
+- [x] 3-5 seed agent listings created (8 total: 5 original + 3 new with skill packages)
 - [ ] 3 categories populated with descriptions
 - [ ] Social media accounts created (X, Discord, etc.)
 - [ ] Launch announcement draft ready
 - [ ] Submission to Product Hunt / Hacker News / relevant directories
-- [ ] Error tracking configured (Sentry or similar)
-- [ ] Analytics configured (Plausible / Umami / Google Analytics)
+- [x] Error tracking configured (Sentry integration with type-safe optional import — set NEXT_PUBLIC_SENTRY_DSN to activate)
+- [x] Analytics configured (Vercel Analytics + Sentry error tracking)
 
 ## 12. Security
 
-- [ ] Supabase RLS policies reviewed
+- [x] Supabase RLS policies reviewed (migration 003: admin-only categories, creator status protection, rating trigger, view tracking)
 - [x] Input sanitization on all forms
 - [x] CSRF protection active (CSP + SameSite cookies)
 - [x] Environment secrets not committed to repo

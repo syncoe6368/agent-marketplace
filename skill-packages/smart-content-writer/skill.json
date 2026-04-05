@@ -1,0 +1,55 @@
+{
+  "name": "Smart Content Writer",
+  "version": "1.0.0",
+  "description": "AI-powered multilingual content creation for blogs, social media, and ad copy with SEO optimization",
+  "longDescription": "Smart Content Writer generates high-quality, on-brand content at scale for Malaysian and SEA markets. Supports BM/EN bilingual content, automatic SEO optimization, and multi-platform formatting for WordPress, social media, and ad networks. Built-in keyword research integration and A/B headline testing.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "marketing",
+  "pricingModel": "freemium",
+  "price": 19,
+  "currency": "USD",
+  "homepage": "https://syncoe.com/content-writer",
+  "repository": "https://github.com/syncoe6368/affiliate-creator-silo",
+  "icon": "icon.svg",
+  "tags": ["content", "seo", "marketing", "bilingual", "malaysia", "blog", "social-media"],
+  "features": [
+    "BM/EN bilingual content generation",
+    "Automatic SEO keyword optimization",
+    "Multi-platform formatting (WordPress, X, Instagram, TikTok)",
+    "A/B headline testing with CTR prediction",
+    "Brand voice consistency engine",
+    "Competitor content gap analysis",
+    "Bulk generation for content calendars",
+    "Affiliate link insertion with anchor text optimization"
+  ],
+  "capabilities": [
+    "blog-writing",
+    "social-media-posts",
+    "ad-copy",
+    "email-sequences",
+    "seo-optimization",
+    "keyword-research",
+    "content-calendar"
+  ],
+  "useCases": [
+    "Generate weekly blog posts for affiliate marketing sites",
+    "Create Instagram carousel copy in BM and EN",
+    "Write email nurture sequences for SaaS products",
+    "Produce SEO-optimized landing page content"
+  ],
+  "platforms": ["web", "api"],
+  "pricingTierFree": {
+    "features": ["5 posts/month", "EN only", "Basic SEO"],
+    "limits": "5,000 words/month"
+  },
+  "pricingTierPaid": {
+    "features": ["Unlimited posts", "BM/EN/中文", "Advanced SEO", "A/B testing", "Bulk generation", "Priority API"],
+    "price": "$19/month",
+    "limits": "Unlimited"
+  },
+  "runtime": {
+    "node": ">=18.0.0"
+  },
+  "entrypoint": "scripts/main.sh"
+}

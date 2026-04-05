@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { sanitizeRichText, sanitizeInt, isValidUuid, FIELD_LIMITS } from '@/lib/sanitize';
+import { logApiError } from '@/lib/sentry';
 
 export async function GET(request: NextRequest) {
   const supabase = await createClient();
@@ -119,7 +120,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      console.error('Review update error:', error);
+      logApiError(request, error, { action: 'update', review_id: existing.id });
       return NextResponse.json({ error: 'Failed to update review' }, { status: 500 });
     }
     return NextResponse.json({ review: updated });
@@ -140,7 +141,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      console.error('Review insert error:', error);
+      logApiError(request, error, { action: 'insert', agent_id });
       return NextResponse.json({ error: 'Failed to create review' }, { status: 500 });
     }
     return NextResponse.json({ review: inserted }, { status: 201 });

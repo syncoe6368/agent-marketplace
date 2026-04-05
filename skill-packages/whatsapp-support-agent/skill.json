@@ -1,0 +1,56 @@
+{
+  "name": "WhatsApp Support Agent",
+  "version": "1.0.0",
+  "description": "24/7 AI customer support agent for Malaysian SMEs via WhatsApp Business API",
+  "longDescription": "WhatsApp Support Agent handles customer inquiries, appointment bookings, order tracking, and FAQs automatically via WhatsApp Business API. Built for Malaysian SMEs with BM/EN bilingual support, PDPA compliance, and seamless handoff to human agents. Integrates with Supabase for CRM and leads management.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "customer-support",
+  "pricingModel": "subscription",
+  "price": 49,
+  "currency": "USD",
+  "homepage": "https://syncoe.com/servicelink",
+  "repository": "https://github.com/syncoe6368/web-business-app",
+  "icon": "icon.svg",
+  "tags": ["whatsapp", "support", "chatbot", "malaysia", "sme", "bilingual", "pdpa"],
+  "features": [
+    "24/7 automated WhatsApp responses",
+    "BM/EN bilingual customer interactions",
+    "Appointment booking and scheduling",
+    "Order tracking and status updates",
+    "FAQ auto-response from knowledge base",
+    "Human agent handoff for complex issues",
+    "Lead capture with CRM integration",
+    "PDPA-compliant data handling",
+    "Multi-business support from single instance",
+    "Analytics dashboard for response metrics"
+  ],
+  "capabilities": [
+    "customer-support",
+    "appointment-booking",
+    "order-tracking",
+    "faq-automation",
+    "lead-capture",
+    "analytics"
+  ],
+  "useCases": [
+    "F&B restaurants handling reservation and menu inquiries",
+    "Clinic appointment scheduling and reminders",
+    "Professional services lead qualification and booking",
+    "Retail order status and return handling"
+  ],
+  "platforms": ["whatsapp", "web", "api"],
+  "pricingTierFree": {
+    "features": ["100 messages/month", "EN only", "Basic FAQ"],
+    "limits": "1 business number"
+  },
+  "pricingTierPaid": {
+    "features": ["Unlimited messages", "BM/EN", "Full CRM", "Analytics", "Priority support", "Custom training"],
+    "price": "$49/month",
+    "limits": "Up to 5 business numbers"
+  },
+  "runtime": {
+    "node": ">=18.0.0"
+  },
+  "entrypoint": "scripts/main.sh"
+}

@@ -12,6 +12,7 @@ import {
   FIELD_LIMITS,
 } from '@/lib/sanitize';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { logApiError } from '@/lib/sentry';
 
 export async function POST(request: NextRequest) {
   // Rate limit agent creation
@@ -162,7 +163,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    console.error('Agent create error:', error);
+    logApiError(request, error, { slug: targetSlug, creator_id: user.id });
     return NextResponse.json({ error: 'Failed to create agent listing' }, { status: 500 });
   }
 
