@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Bot, GitFork, X } from 'lucide-react';
+import { Bot, GitFork, MessageCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { FeedbackInline } from '@/components/feedback-inline';
 
 export function Footer() {
   return (
@@ -30,8 +31,6 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="font-semibold">Resources</h4>
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
-              <Link href="/submit" className="hover:text-foreground transition-colors">List Your Agent</Link>
               <Link href="/compare" className="hover:text-foreground transition-colors">Compare Agents</Link>
               <Link href="/changelog" className="hover:text-foreground transition-colors">Changelog</Link>
               <Link href="https://github.com/syncoe6368/agent-marketplace" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub ↗</Link>
@@ -51,16 +50,22 @@ export function Footer() {
 
         <Separator className="my-8" />
 
+        {/* Inline feedback */}
+        <div className="mb-6">
+          <p className="text-sm text-muted-foreground mb-2">Have feedback? We&apos;d love to hear it.</p>
+          <FeedbackInline />
+        </div>
+
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} AgentHub. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="https://github.com/syncoe6368/agent-marketplace" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="https://github.com/syncoe6368/agent-marketplace" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="GitHub">
               <GitFork className="h-5 w-5" />
             </Link>
-            <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors">
-              <X className="h-5 w-5" />
+            <Link href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="Discord">
+              <MessageCircle className="h-5 w-5" />
             </Link>
           </div>
         </div>

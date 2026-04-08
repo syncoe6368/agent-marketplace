@@ -8,9 +8,22 @@ export const metadata: Metadata = {
 
 const releases = [
   {
+    version: '2026.04.09',
+    date: 'April 9, 2026',
+    tag: 'latest',
+    changes: [
+      { type: 'feature', text: 'Health check endpoint (/api/health) with Supabase connectivity probe' },
+      { type: 'feature', text: 'User feedback collection — inline form in footer with rate limiting' },
+      { type: 'feature', text: 'JSON-LD structured data for SEO (WebSite + Organization schemas)' },
+      { type: 'feature', text: 'ISR caching on homepage (60s revalidation) for faster page loads' },
+      { type: 'fix', text: 'Global error handler now auto-reports errors to /api/errors in production' },
+      { type: 'fix', text: 'metadataBase corrected to agenthub.syncoe.com (was old Vercel URL)' },
+      { type: 'fix', text: 'Footer cleaned up — removed dead Twitter link, added Discord, deduplicated nav' },
+    ],
+  },
+  {
     version: '2026.04.05',
     date: 'April 5, 2026',
-    tag: 'latest',
     changes: [
       { type: 'fix', text: 'Fixed broken navigation links in footer (docs, blog, changelog pages removed)' },
       { type: 'fix', text: 'Set metadataBase to production URL — fixes OG image resolution' },

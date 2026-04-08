@@ -43,6 +43,9 @@ interface CategoryRow {
   agents?: { count: number }[];
 }
 
+// Revalidate every 60 seconds — serves cached page, regenerates in background
+export const revalidate = 60;
+
 export default async function HomePage() {
   const cookieStore = await cookies();
   const supabase = createServerClient(
