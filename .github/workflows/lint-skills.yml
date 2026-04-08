@@ -1,0 +1,29 @@
+name: Lint Skill Packages
+
+on:
+  push:
+    paths:
+      - 'skill-packages/**'
+      - 'scripts/skill_package_linter.py'
+  pull_request:
+    paths:
+      - 'skill-packages/**'
+      - 'scripts/skill_package_linter.py'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Lint skill packages
+        run: python3 scripts/skill_package_linter.py --json
+      
+      - name: Lint summary
+        if: always()
+        run: python3 scripts/skill_package_linter.py

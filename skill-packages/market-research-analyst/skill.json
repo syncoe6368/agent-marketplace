@@ -1,0 +1,49 @@
+{
+  "name": "Market Research Analyst",
+  "version": "1.0.0",
+  "description": "AI-powered market research and competitive analysis agent for Southeast Asian markets",
+  "longDescription": "Market Research Analyst automates competitive landscape analysis, market sizing, and trend identification for Malaysian and SEA markets. Generates structured reports with actionable insights, TAM/SAM/SOM calculations, and competitive positioning matrices. Built for founders and product teams who need fast, data-driven market intelligence.",
+  "author": "Syncoe <ops@syncoe.com>",
+  "license": "MIT",
+  "category": "research",
+  "pricingModel": "freemium",
+  "price": 29,
+  "currency": "USD",
+  "homepage": "https://syncoe.com/market-research",
+  "icon": "icon.svg",
+  "tags": ["market-research", "competitive-analysis", "SEA", "malaysia", "business-intelligence", "tam-sam-som"],
+  "features": [
+    "Automated competitive landscape mapping",
+    "Market sizing (TAM/SAM/SOM) with data sources",
+    "Trend analysis for SEA markets",
+    "Bilingual report generation (BM/EN)",
+    "Competitive positioning matrix output",
+    "Industry-specific templates (F&B, fintech, SaaS, e-commerce)"
+  ],
+  "capabilities": [
+    "market-sizing",
+    "competitive-analysis",
+    "trend-research",
+    "report-generation",
+    "data-collection"
+  ],
+  "useCases": [
+    "Validate market opportunity before building a product",
+    "Generate investor-ready market analysis decks",
+    "Monitor competitor moves and positioning changes",
+    "Size the addressable market for Malaysian SME verticals"
+  ],
+  "platforms": ["web", "api"],
+  "pricingTierFree": {
+    "features": ["3 reports/month", "EN only", "Basic competitive mapping"],
+    "limits": "3 reports/month"
+  },
+  "pricingTierPaid": {
+    "features": ["Unlimited reports", "BM/EN/中文", "Advanced TAM/SAM/SOM", "Custom templates", "API access"],
+    "price": "$29/month",
+    "limits": "Unlimited"
+  },
+  "runtime": {
+    "node": ">=18.0.0"
+  }
+}
