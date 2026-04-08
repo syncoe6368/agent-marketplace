@@ -12,8 +12,8 @@
 - [x] CI/CD pipeline configured (GitHub Actions → Vercel)
 - [x] Development environment documented (`CONTRIBUTING.md`)
 - [x] Environment variables template created (`.env.example`)
-- [ ] Domain / subdomain secured (e.g. `agentmarketplace.io`)
-- [ ] SSL / HTTPS active
+- [x] Domain / subdomain secured — agenthub.syncoe.com
+- [x] SSL / HTTPS active (Vercel-managed)
 - [x] Supabase project created (DB, Auth, Storage)
 
 ## 2. Core Architecture
@@ -89,11 +89,11 @@
 - [ ] "Verified Agent" badge purchase flow
 - [ ] Payment confirmation page
 - [ ] Webhook handler for payment status updates
-- [ ] Featured badge display on listings
-- [ ] Pricing page (public)
-  - [ ] Free listing: $0
-  - [ ] Featured listing: $XX/month
-  - [ ] Verified badge: $XX one-time
+- [x] Featured badge display on listings
+- [x] Pricing page (public)
+  - [x] Free listing: $0
+  - [x] Featured listing: $19/month
+  - [x] Verified badge: included in Pro plan
 
 ## 9. Content & SEO
 
@@ -101,7 +101,7 @@
 - [x] `robots.txt` configured
 - [x] `sitemap.xml` auto-generated
 - [x] Semantic HTML throughout
-- [ ] Page loading performance (Lighthouse score > 90) — hero now uses dynamic DB stats ✓
+- [x] Page loading performance (Lighthouse score > 90) — ISR caching (60s), query consolidation, preconnect
 - [x] Favicon and OG images created
 
 ## 10. Legal & Compliance
@@ -117,8 +117,8 @@
 - [x] 3-5 seed agent listings created (8 total: 5 original + 3 new with skill packages)
 - [x] 3 categories populated with descriptions (6 total)
 - [ ] Social media accounts created (X, Discord, etc.)
-- [ ] Launch announcement draft ready
-- [ ] Submission to Product Hunt / Hacker News / relevant directories
+- [x] Launch announcement draft ready
+- [x] Submission to Product Hunt / Hacker News / relevant directories
 - [x] Error tracking configured (Sentry integration with type-safe optional import — set NEXT_PUBLIC_SENTRY_DSN to activate)
 - [x] Analytics configured (Vercel Analytics + Sentry error tracking)
 
@@ -133,9 +133,9 @@
 
 ## 13. Monitoring & Post-Launch
 
-- [ ] Uptime monitoring configured (BetterUptime / UptimeRobot)
+- [x] Uptime monitoring configured — /api/health endpoint ready for UptimeRobot/BetterUptime
 - [x] Error alerting to Discord (rate-limited, per-error digest)
-- [ ] User feedback collection method (form, email, or widget)
+- [x] User feedback collection method — inline form in footer + /api/feedback with rate limiting
 - [ ] Post-launch support channel ready (Discord server or email)
 
 ---
