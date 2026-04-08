@@ -59,8 +59,10 @@ export default async function AgentsPage({
     .select('*, category:categories(*), creator:profiles(full_name, avatar_url), reviews(rating)')
     .eq('status', 'active');
 
+  // Sanitize search input to prevent Supabase filter injection
   if (params.q) {
-    query = query.or(`name.ilike.%${params.q}%,description.ilike.%${params.q}%`);
+    const sanitized = params.q.replace(/[%_'\\.]/g, ' ');
+    query = query.or(`name.ilike.%${sanitized}%,description.ilike.%${sanitized}%`);
   }
   if (params.category && params.category !== 'all') {
     const { data: cat } = await supabase
@@ -90,6 +92,28 @@ export default async function AgentsPage({
   const perPage = 12;
   query = query.range((page - 1) * perPage, page * perPage - 1);
 
+  // Get total count for the current filters (separate count query)
+  const countQuery = supabase
+    .from('agents')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'active');
+  if (params.q) {
+    const sanitized = params.q.replace(/[%_'\\.]/g, ' ');
+    countQuery.or(`name.ilike.%${sanitized}%,description.ilike.%${sanitized}%`);
+  }
+  if (params.category && params.category !== 'all') {
+    const { data: cat } = await supabase
+      .from('categories')
+      .select('id')
+      .eq('slug', params.category)
+      .single();
+    if (cat) countQuery.eq('category_id', cat.id);
+  }
+  if (params.pricing && params.pricing !== 'all') {
+    countQuery.eq('pricing_model', params.pricing);
+  }
+  const { count: totalAgents } = await countQuery;
+
   const { data: rawAgents } = await query;
   const agents = ((rawAgents || []) as AgentRow[]).map((agent) => {
     const reviews = (agent.reviews || []) as { rating: number }[];
@@ -110,6 +134,11 @@ export default async function AgentsPage({
         <h1 className="text-3xl font-bold mb-2">Browse Agents</h1>
         <p className="text-muted-foreground">
           Discover AI agents for every use case
+          {totalAgents !== null && (
+            <span className="ml-2 text-sm font-medium">
+              ({totalAgents} agent{totalAgents !== 1 ? 's' : ''})
+            </span>
+          )}
         </p>
       </div>
 
@@ -135,16 +164,30 @@ export default async function AgentsPage({
               <AgentCard key={agent.id} agent={agent} />
             ))}
           </div>
-          {sortedAgents.length === perPage && (
-            <div className="text-center mt-8">
-              <a
-                href={`/agents?q=${params.q || ''}&category=${params.category || 'all'}&pricing=${params.pricing || 'all'}&sort=${params.sort || 'newest'}&page=${page + 1}`}
-                className="text-indigo-600 hover:underline"
-              >
-                Load more agents →
-              </a>
+          {/* Pagination */}
+          <div className="flex items-center justify-between mt-8">
+            <p className="text-sm text-muted-foreground">
+              Showing {(page - 1) * perPage + 1}&ndash;{(page - 1) * perPage + sortedAgents.length} results
+            </p>
+            <div className="flex items-center gap-2">
+              {page > 1 && (
+                <a
+                  href={`/agents?q=${params.q || ''}&category=${params.category || 'all'}&pricing=${params.pricing || 'all'}&sort=${params.sort || 'newest'}&page=${page - 1}`}
+                  className="inline-flex items-center gap-1 px-4 py-2 rounded-md border text-sm hover:bg-muted transition-colors"
+                >
+                  ← Previous
+                </a>
+              )}
+              {sortedAgents.length === perPage && (
+                <a
+                  href={`/agents?q=${params.q || ''}&category=${params.category || 'all'}&pricing=${params.pricing || 'all'}&sort=${params.sort || 'newest'}&page=${page + 1}`}
+                  className="inline-flex items-center gap-1 px-4 py-2 rounded-md border text-sm hover:bg-muted transition-colors"
+                >
+                  Next →
+                </a>
+              )}
             </div>
-          )}
+          </div>
         </>
       )}
     </div>

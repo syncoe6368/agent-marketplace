@@ -103,6 +103,20 @@ export function AgentSearch({
                   </SelectContent>
                 </Select>
               </div>
+
+              <div className="space-y-2">
+                <Label>Sort by</Label>
+                <Select value={initialSort} onValueChange={(v) => updateParams('sort', v || '')}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="newest">Newest</SelectItem>
+                    <SelectItem value="top_rated">Top Rated</SelectItem>
+                    <SelectItem value="most_viewed">Most Viewed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </SheetContent>
         </Sheet>
