@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { PricingButton } from './pricing-button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -24,6 +23,7 @@ const plans = [
     ],
     cta: 'Get Started Free',
     href: '/auth/signup',
+    plan: 'free' as const,
     popular: false,
   },
   {
@@ -40,7 +40,7 @@ const plans = [
       'Custom branding',
     ],
     cta: 'Start Pro Trial',
-    href: '/auth/signup',
+    plan: 'pro' as const,
     popular: true,
   },
   {
@@ -57,7 +57,7 @@ const plans = [
       'SLA guarantee',
     ],
     cta: 'Contact Sales',
-    href: '#',
+    plan: 'enterprise' as const,
     popular: false,
   },
 ];
@@ -100,14 +100,12 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href={plan.href}>
-                <Button
-                  className="w-full"
-                  variant={plan.popular ? 'default' : 'outline'}
-                >
-                  {plan.cta}
-                </Button>
-              </Link>
+              <PricingButton
+                plan={plan.plan}
+                label={plan.cta}
+                popular={plan.popular}
+                href={plan.plan === 'free' ? '/auth/signup' : undefined}
+              />
             </CardContent>
           </Card>
         ))}

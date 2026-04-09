@@ -84,11 +84,16 @@
 
 ## 8. Payments & Monetization (v1)
 
-- [ ] Stripe account connected
-- [ ] Featured listing payment flow (one-time or monthly)
-- [ ] "Verified Agent" badge purchase flow
-- [ ] Payment confirmation page
-- [ ] Webhook handler for payment status updates
+- [ ] Stripe account connected (requires Founder action)
+- [x] Featured listing payment flow (checkout session + webhook)
+- [x] "Verified Agent" badge purchase flow (Pro plan grants badge)
+- [x] Payment confirmation page (`/pricing/success`)
+- [x] Webhook handler for payment status updates (`/api/stripe/webhook`)
+- [x] Customer portal for subscription management (`/api/stripe/portal`)
+- [x] Subscription status API (`/api/stripe/status`)
+- [x] Stripe client-side utility (`lib/stripe-client.ts`)
+- [x] Database migration for subscriptions table (`supabase/migrations/20260409000000_subscriptions.sql`)
+- [x] Pricing page updated with real Stripe checkout buttons
 - [x] Featured badge display on listings
 - [x] Pricing page (public)
   - [x] Free listing: $0
