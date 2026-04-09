@@ -10,19 +10,19 @@ export const PRICE_IDS: Record<PlanKey, string> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const noop = (..._args: any[]) => {
+const stub = (..._args: any[]): any => {
   throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY environment variable.');
 };
 
 export const stripe = {
   checkout: {
-    sessions: { create: noop },
+    sessions: { create: stub },
   },
-  customers: { create: noop },
+  customers: { create: stub },
   billingPortal: {
-    sessions: { create: noop },
+    sessions: { create: stub },
   },
   webhooks: {
-    constructEvent: noop,
+    constructEvent: stub,
   },
 };
