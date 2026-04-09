@@ -9,29 +9,20 @@ export const PRICE_IDS: Record<PlanKey, string> = {
   featured_listing: process.env.STRIPE_PRICE_FEATURED || 'price_featured_placeholder',
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const noop = (..._args: any[]) => {
+  throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY environment variable.');
+};
+
 export const stripe = {
   checkout: {
-    sessions: {
-      create: async () => {
-        throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY environment variable.');
-      },
-    },
+    sessions: { create: noop },
   },
-  customers: {
-    create: async () => {
-      throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY environment variable.');
-    },
-  },
+  customers: { create: noop },
   billingPortal: {
-    sessions: {
-      create: async () => {
-        throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY environment variable.');
-      },
-    },
+    sessions: { create: noop },
   },
   webhooks: {
-    constructEvent: () => {
-      throw new Error('Stripe is not configured.');
-    },
+    constructEvent: noop,
   },
 };
