@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
       long_description: manifest.longDescription
         ? sanitizeRichText(manifest.longDescription as string, FIELD_LIMITS.agentLongDescription)
         : null,
-      pricing_model: manifest.pricingModel as string,
+      pricing_model: manifest.pricingModel as 'free' | 'paid' | 'freemium' | 'subscription',
       price_amount: typeof manifest.price === 'number' ? manifest.price : null,
       currency: typeof manifest.currency === 'string' ? manifest.currency.toUpperCase() : 'USD',
       website_url: manifest.homepage ? sanitizeUrl(manifest.homepage as string) : null,
