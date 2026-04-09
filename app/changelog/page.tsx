@@ -12,6 +12,10 @@ const releases = [
     date: 'April 9, 2026',
     tag: 'latest',
     changes: [
+      { type: 'feature', text: 'Hero search bar — instant agent search from the landing page' },
+      { type: 'feature', text: 'Testimonials section — real 5-star reviews from the community' },
+      { type: 'feature', text: 'Public stats API endpoint (/api/stats) with agent/review/category counts' },
+      { type: 'feature', text: 'ISR caching on agents browse page (60s revalidation)' },
       { type: 'feature', text: 'Health check endpoint (/api/health) with Supabase connectivity probe' },
       { type: 'feature', text: 'User feedback collection — inline form in footer with rate limiting' },
       { type: 'feature', text: 'JSON-LD structured data for SEO (WebSite + Organization schemas)' },

@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description: 'Browse and discover AI agents across all categories. Filter by type, pricing, and ratings.',
 };
 
+// Revalidate every 60 seconds
+export const revalidate = 60;
+
 interface AgentRow {
   id: string;
   name: string;

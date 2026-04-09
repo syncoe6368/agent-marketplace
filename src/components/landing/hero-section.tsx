@@ -1,6 +1,7 @@
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { formatNumber } from '@/lib/utils';
 
 interface HeroSectionProps {
   totalAgents: number;
@@ -50,14 +51,27 @@ export function HeroSection({ totalAgents, totalReviews, avgRating }: HeroSectio
             </Link>
           </div>
 
+          {/* Search bar */}
+          <form action="/agents" method="get" className="pt-6 max-w-lg mx-auto">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <input
+                name="q"
+                type="text"
+                placeholder="Search AI agents..."
+                className="w-full h-12 pl-12 pr-4 rounded-xl border bg-background shadow-sm text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              />
+            </div>
+          </form>
+
           <div className="flex items-center justify-center gap-8 pt-8 text-sm text-muted-foreground">
             <div className="text-center">
-              <p className="text-2xl font-bold text-foreground">{totalAgents}+</p>
+              <p className="text-2xl font-bold text-foreground">{formatNumber(totalAgents)}</p>
               <p>AI Agents</p>
             </div>
             <div className="h-8 w-px bg-border" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-foreground">{totalReviews}+</p>
+              <p className="text-2xl font-bold text-foreground">{formatNumber(totalReviews)}</p>
               <p>Reviews</p>
             </div>
             <div className="h-8 w-px bg-border" />

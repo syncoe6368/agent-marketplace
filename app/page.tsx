@@ -8,6 +8,7 @@ import { FeaturedAgents } from '@/components/landing/featured-agents';
 import { TrendingAgents } from '@/components/landing/trending-agents';
 import { CategoriesGrid } from '@/components/landing/categories-grid';
 import { HowItWorks } from '@/components/landing/how-it-works';
+import { TestimonialsSection } from '@/components/landing/testimonials-section';
 
 export const metadata: Metadata = {
   title: 'AgentHub — Discover & Deploy AI Agents',
@@ -103,12 +104,29 @@ export default async function HomePage() {
     ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
     : 0;
 
+  // Top 5-star reviews for testimonials
+  const { data: topReviewsData } = await supabase
+    .from('reviews')
+    .select('rating, comment, user:profiles(full_name), agent:agents(name, slug)')
+    .eq('rating', 5)
+    .not('comment', 'is', null)
+    .limit(6);
+
+  const testimonials = (topReviewsData || []).map((r: any) => ({
+    user_name: r.user?.full_name || 'Anonymous',
+    rating: r.rating,
+    comment: r.comment,
+    agent_name: r.agent?.name || 'Unknown',
+    agent_slug: r.agent?.slug || '',
+  }));
+
   return (
     <>
       <HeroSection totalAgents={totalAgents || 0} totalReviews={totalReviews} avgRating={avgRating} />
       <TrendingAgents agents={trendingAgents} />
       <FeaturedAgents agents={agents} />
       <CategoriesGrid categories={categories} />
+      <TestimonialsSection testimonials={testimonials} />
       <HowItWorks />
       <section className="py-16">
         <div className="container mx-auto px-4">
