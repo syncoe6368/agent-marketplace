@@ -197,7 +197,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Auto-generate SKILL.md if not provided
-    if (!files.has('SKILL.md')) {
+    if (!files.some(f => f.path === 'SKILL.md')) {
       const skillMd = generateDefaultSkillMd(sanitizedManifest);
       await writeFile(join(packageDir, 'SKILL.md'), skillMd, 'utf-8');
     }
