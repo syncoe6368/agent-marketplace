@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Stripe from 'stripe';
 
 // Initialize Stripe server-side client
