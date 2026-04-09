@@ -95,6 +95,8 @@ The `/api/skills` endpoints enable programmatic discovery and installation of sk
 | `GET /api/skills/[slug]` | Get skill package details (manifest + optional SKILL.md + file listing) |
 | `GET /api/skills/[slug]/download?file=<path>` | Download individual files (whitelist-secured) |
 | `GET /api/skills/[slug]/install` | Generate install instructions or shell script (`?format=sh`) |
+| `POST /api/skills/upload` | Upload a new skill package (auth required, multipart/form-data) |
+| `GET /api/skills/[slug]/versions` | Get version history, changelog, and update notifications (`?since=<semver>`) |
 
 ### Example: Install a skill
 ```bash
@@ -109,6 +111,19 @@ curl -LO https://agenthub.example.com/api/skills/code-review-agent/download?file
 
 # Get install script
 curl https://agenthub.example.com/api/skills/code-review-agent/install?format=sh | bash
+
+# Check for updates since version 0.9.0
+curl https://agenthub.example.com/api/skills/code-review-agent/versions?since=0.9.0
+```
+
+### Example: Upload a skill package
+```bash
+# Upload a new skill package (requires auth)
+curl -X POST https://agenthub.example.com/api/skills/upload \
+  -H "Cookie: <auth-cookie>" \
+  -F 'manifest={"name":"My Agent","version":"1.0.0","description":"...","category":"automation","pricingModel":"free","author":"me"}' \
+  -F 'SKILL.md=@./SKILL.md' \
+  -F 'scripts/main.sh=@./scripts/main.sh'
 ```
 
 ## Deployment
@@ -139,7 +154,8 @@ npm start
 - [ ] Social sharing & embeds
 - [ ] Agent analytics dashboard (charts)
 - [ ] Multi-language support
-- [ ] Skill package upload API (creator-submitted)
+- [x] Skill package upload API (creator-submitted)
+- [x] Skill package versioning and changelog tracking
 
 ## License
 
