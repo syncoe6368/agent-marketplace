@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://agenthub.syncoe.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://marketplace.syncoe.com';
 
   // Static pages
   const staticPages = [
