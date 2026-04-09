@@ -1,18 +1,21 @@
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://agenthub.io';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://agenthub.syncoe.com';
 
   // Static pages
   const staticPages = [
-    { url: '/', lastModified: new Date() },
-    { url: '/agents', lastModified: new Date() },
-    { url: '/categories', lastModified: new Date() },
-    { url: '/pricing', lastModified: new Date() },
-    { url: '/legal/terms', lastModified: new Date() },
-    { url: '/legal/privacy', lastModified: new Date() },
-    { url: '/legal/guidelines', lastModified: new Date() },
-    { url: '/legal/dmca', lastModified: new Date() },
+    { url: '/', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
+    { url: '/agents', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: '/categories', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: '/compare', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
+    { url: '/trending', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.7 },
+    { url: '/pricing', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: '/changelog', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.5 },
+    { url: '/legal/terms', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: '/legal/privacy', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: '/legal/guidelines', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: '/legal/dmca', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
   ];
 
   // Fetch dynamic agent slugs and categories from Supabase (server-side)
@@ -35,6 +38,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const agentPages = agents.map((agent: { slug: string; created_at: string; updated_at: string }) => ({
           url: `/agents/${agent.slug}`,
           lastModified: new Date(agent.updated_at || agent.created_at),
+          changeFrequency: 'weekly' as const,
+          priority: 0.6,
         }));
         return [...staticPages, ...agentPages];
       }

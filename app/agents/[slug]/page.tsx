@@ -180,7 +180,52 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
     subscription: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
   };
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: agent.name,
+    description: agent.description,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    url: `https://agenthub.syncoe.com/agents/${agent.slug}`,
+    logo: agent.logo_url || 'https://agenthub.syncoe.com/favicon.png',
+    offers: {
+      '@type': 'Offer',
+      price: agent.pricing_model === 'free' ? '0' : (agent.price_amount ? (agent.price_amount / 100).toString() : '0'),
+      priceCurrency: agent.currency || 'USD',
+      availability: 'https://schema.org/InStock',
+      category: agent.pricing_model,
+    },
+    aggregateRating: averageRating > 0 ? {
+      '@type': 'AggregateRating',
+      ratingValue: averageRating.toFixed(1),
+      reviewCount: reviews.length,
+      bestRating: 5,
+      worstRating: 1,
+    } : undefined,
+  };
+
+  const breadcrumbData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agenthub.syncoe.com' },
+      { '@type': 'ListItem', position: 2, name: 'Agents', item: 'https://agenthub.syncoe.com/agents' },
+      ...(agent.category ? [{ '@type': 'ListItem', position: 3, name: agent.category.name, item: `https://agenthub.syncoe.com/categories/${agent.category.slug}` }] : []),
+      { '@type': 'ListItem', position: agent.category ? 4 : 3, name: agent.name },
+    ],
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main content */}
@@ -326,5 +371,6 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
         </div>
       </div>
     </div>
+    </>
   );
 }
