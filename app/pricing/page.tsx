@@ -62,15 +62,18 @@ const plans = [
   },
 ];
 
+import { PricingStrategySection } from './strategy-section';
+
 export default function PricingPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Choose the plan that works for you. Upgrade or downgrade at any time.
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-white to-indigo-50">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Choose the plan that works for you. Upgrade or downgrade at any time.
+          </p>
+        </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         {plans.map((plan) => (
@@ -110,6 +113,7 @@ export default function PricingPage() {
           </Card>
         ))}
       </div>
+      <PricingStrategySection />
     </div>
   );
 }

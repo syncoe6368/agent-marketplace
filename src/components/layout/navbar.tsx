@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Search, Menu, X, Bot, GitCompare, TrendingUp } from 'lucide-react';
+import { Search, Menu, X, Bot, GitCompare, TrendingUp, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase/client';
 import { SignOutButton } from './sign-out-button';
@@ -32,6 +32,10 @@ export async function Navbar() {
               <TrendingUp className="h-3.5 w-3.5" />
               Trending
             </Link>
+            <Link href="/support" className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+              <HelpCircle className="h-3.5 w-3.5" />
+              Support
+            </Link>
             <Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">
               Pricing
             </Link>
@@ -57,6 +61,9 @@ export async function Navbar() {
             <div className="flex items-center gap-2">
               <Link href="/auth/login">
                 <Button variant="outline" size="sm">Sign In</Button>
+              </Link>
+              <Link href="/support">
+                <Button variant="outline" size="sm">Help</Button>
               </Link>
               <Link href="/auth/signup">
                 <Button size="sm">Get Started</Button>
