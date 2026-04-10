@@ -142,7 +142,7 @@
 - [x] Uptime monitoring configured — /api/health endpoint ready for UptimeRobot/BetterUptime
 - [x] Error alerting to Discord (rate-limited, per-error digest)
 - [x] User feedback collection method — inline form in footer + /api/feedback with rate limiting
-- [ ] Post-launch support channel ready (Discord server or email)
+- [x] Post-launch support channel ready (Discord server or email)
 
 ---
 
