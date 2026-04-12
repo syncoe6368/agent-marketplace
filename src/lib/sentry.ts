@@ -48,6 +48,7 @@ async function getSentry() {
       tracesSampleRate: 0.1,
       replaysSessionSampleRate: 0,
       replaysOnErrorSampleRate: 1.0,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       beforeSend(event: any) {
         // Scrub PII
         if (event.request?.headers) {
@@ -137,7 +138,7 @@ export function logApiError(
   context?: Record<string, unknown>
 ) {
   const method = request.method || 'UNKNOWN';
-  const path = (request as Record<string, any>).nextUrl?.pathname || '/unknown';
+  const path = request.nextUrl?.pathname || '/unknown';
   const message = error instanceof Error ? error.message : String(error);
 
   captureException(error, {

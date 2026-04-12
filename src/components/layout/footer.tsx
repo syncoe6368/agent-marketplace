@@ -60,6 +60,9 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} AgentHub. All rights reserved.
           </p>
+          <p className="text-xs text-muted-foreground">
+            Powered by <a href="https://syncoe.com" className="hover:text-foreground transition-colors">Syncoe</a>
+          </p>
           <div className="flex items-center gap-4">
             <Link href="https://github.com/syncoe6368/agent-marketplace" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="GitHub">
               <GitFork className="h-5 w-5" />

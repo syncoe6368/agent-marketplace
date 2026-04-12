@@ -79,7 +79,7 @@ export async function PATCH(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  let body: any;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
@@ -87,34 +87,35 @@ export async function PATCH(
   }
 
   // ─── Sanitize updatable fields ───────────────────────────────
+  const b = body as Record<string, unknown>;
   const updatePayload: Record<string, unknown> = {};
 
-  if (body.name !== undefined) {
-    updatePayload.name = sanitizePlainText(body.name, FIELD_LIMITS.agentName);
+  if (b.name !== undefined) {
+    updatePayload.name = sanitizePlainText(b.name as string, FIELD_LIMITS.agentName);
   }
-  if (body.description !== undefined) {
-    updatePayload.description = sanitizePlainText(body.description, FIELD_LIMITS.agentDescription);
+  if (b.description !== undefined) {
+    updatePayload.description = sanitizePlainText(b.description as string, FIELD_LIMITS.agentDescription);
   }
-  if (body.long_description !== undefined) {
-    updatePayload.long_description = sanitizeRichText(body.long_description, FIELD_LIMITS.agentLongDescription);
+  if (b.long_description !== undefined) {
+    updatePayload.long_description = sanitizeRichText(b.long_description as string, FIELD_LIMITS.agentLongDescription);
   }
-  if (body.pricing_model !== undefined) {
-    updatePayload.pricing_model = sanitizePricingModel(body.pricing_model);
+  if (b.pricing_model !== undefined) {
+    updatePayload.pricing_model = sanitizePricingModel(b.pricing_model);
   }
-  if (body.tags !== undefined) {
-    updatePayload.tags = sanitizeTags(body.tags);
+  if (b.tags !== undefined) {
+    updatePayload.tags = sanitizeTags(b.tags);
   }
-  if (body.website_url !== undefined) {
-    updatePayload.website_url = sanitizeUrl(body.website_url);
+  if (b.website_url !== undefined) {
+    updatePayload.website_url = sanitizeUrl(b.website_url as string | null);
   }
-  if (body.github_url !== undefined) {
-    updatePayload.github_url = sanitizeUrl(body.github_url);
+  if (b.github_url !== undefined) {
+    updatePayload.github_url = sanitizeUrl(b.github_url as string | null);
   }
-  if (body.api_docs_url !== undefined) {
-    updatePayload.api_docs_url = sanitizeUrl(body.api_docs_url);
+  if (b.api_docs_url !== undefined) {
+    updatePayload.api_docs_url = sanitizeUrl(b.api_docs_url as string | null);
   }
-  if (body.logo_url !== undefined) {
-    updatePayload.logo_url = sanitizeUrl(body.logo_url);
+  if (b.logo_url !== undefined) {
+    updatePayload.logo_url = sanitizeUrl(b.logo_url as string | null);
   }
   // Block direct updates to protected fields
   delete updatePayload.creator_id;

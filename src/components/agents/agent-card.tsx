@@ -77,13 +77,26 @@ function getCompareList(): string[] {
 }
 
 export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
-  const [comparing, setComparing] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [comparing, setComparing] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return getCompareList().includes(agent.slug);
+  });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-    const list = getCompareList();
-    setComparing(list.includes(agent.slug));
+  }, []);
+
+  // Sync compare state from localStorage on mount and external changes
+  useEffect(() => {
+    const sync = () => {
+      const list = getCompareList();
+      setComparing(list.includes(agent.slug));
+    };
+    sync();
+    window.addEventListener('agenthub_compare_change', sync);
+    return () => window.removeEventListener('agenthub_compare_change', sync);
   }, [agent.slug]);
 
   const toggleCompare = useCallback((e: React.MouseEvent) => {
@@ -105,16 +118,6 @@ export function AgentCard({ agent, showCompare = true }: AgentCardProps) {
     setComparing(newList.includes(agent.slug));
     // Dispatch event for other cards to sync
     window.dispatchEvent(new Event('agenthub_compare_change'));
-  }, [agent.slug]);
-
-  // Listen for external compare changes
-  useEffect(() => {
-    const handler = () => {
-      const list = getCompareList();
-      setComparing(list.includes(agent.slug));
-    };
-    window.addEventListener('agenthub_compare_change', handler);
-    return () => window.removeEventListener('agenthub_compare_change', handler);
   }, [agent.slug]);
 
   const pricingColors: Record<string, string> = {

@@ -37,14 +37,14 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: any;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { full_name, bio, avatar_url } = body;
+  const { full_name, bio, avatar_url } = body as { full_name?: string; bio?: string; avatar_url?: string };
 
   // ─── Input Sanitization ──────────────────────────────────────
   const sanitizedName = full_name != null

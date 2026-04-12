@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 interface PricingButtonProps {
-  plan: 'free' | 'pro' | 'enterprise';
+  plan: 'free' | 'pro' | 'featured';
   label: string;
   popular: boolean;
   href?: string;

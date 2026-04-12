@@ -49,12 +49,12 @@ export default function GlobalError({
               >
                 Try Again
               </button>
-              <a
-                href="/"
+              <button
+                onClick={() => { window.location.href = '/'; }}
                 className="inline-flex items-center justify-center h-10 px-6 rounded-md border text-sm font-medium hover:bg-muted transition-colors"
               >
                 Go Home
-              </a>
+              </button>
             </div>
 
             {error.digest && (

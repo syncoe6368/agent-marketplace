@@ -23,7 +23,7 @@ export async function GET() {
     const reviews = Array.isArray(reviewsRes) ? reviewsRes : [];
     const totalReviews = reviews.length;
     const avgRating = totalReviews > 0
-      ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / totalReviews
+      ? reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) / totalReviews
       : 0;
     const totalCategories = Array.isArray(categoriesRes) ? categoriesRes.length : 0;
 

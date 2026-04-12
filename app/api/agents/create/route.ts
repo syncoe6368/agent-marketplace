@@ -30,32 +30,31 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: any;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const {
-    name: rawName,
-    slug: rawSlug,
-    description: rawDescription,
-    long_description: rawLongDescription,
-    pricing_model: rawPricingModel,
-    category_id: rawCategoryId,
-    price_amount: rawPriceAmount,
-    currency: rawCurrency,
-    website_url: rawWebsiteUrl,
-    github_url: rawGithubUrl,
-    api_docs_url: rawApiDocsUrl,
-    logo_url: rawLogoUrl,
-    tags: rawTags,
-  } = body;
+  const b = body as Partial<Record<string, unknown>>;
+  const rawName = b.name;
+  const rawSlug = b.slug;
+  const rawDescription = b.description;
+  const rawLongDescription = b.long_description;
+  const rawPricingModel = b.pricing_model;
+  const rawCategoryId = b.category_id;
+  const rawPriceAmount = b.price_amount;
+  const rawCurrency = b.currency;
+  const rawWebsiteUrl = b.website_url;
+  const rawGithubUrl = b.github_url;
+  const rawApiDocsUrl = b.api_docs_url;
+  const rawLogoUrl = b.logo_url;
+  const rawTags = b.tags;
 
   // ─── Input Sanitization ──────────────────────────────────────
-  const name = sanitizePlainText(rawName, FIELD_LIMITS.agentName);
-  const description = sanitizePlainText(rawDescription, FIELD_LIMITS.agentDescription);
+  const name = sanitizePlainText(rawName as string, FIELD_LIMITS.agentName);
+  const description = sanitizePlainText(rawDescription as string, FIELD_LIMITS.agentDescription);
 
   if (!name || !description) {
     return NextResponse.json(
@@ -65,7 +64,7 @@ export async function POST(request: NextRequest) {
   }
 
   const longDescription = rawLongDescription
-    ? sanitizeRichText(rawLongDescription, FIELD_LIMITS.agentLongDescription)
+    ? sanitizeRichText(rawLongDescription as string, FIELD_LIMITS.agentLongDescription)
     : null;
   const pricingModel = sanitizePricingModel(rawPricingModel);
   const tags = sanitizeTags(rawTags);
@@ -73,7 +72,7 @@ export async function POST(request: NextRequest) {
   // Validate slug
   let targetSlug: string;
   if (rawSlug) {
-    const cleaned = sanitizeSlug(rawSlug);
+    const cleaned = sanitizeSlug(rawSlug as string);
     if (!cleaned) {
       return NextResponse.json(
         { error: 'Invalid slug format. Use lowercase letters, numbers, and hyphens.' },
@@ -93,14 +92,14 @@ export async function POST(request: NextRequest) {
   }
 
   // Validate URLs
-  const websiteUrl = sanitizeUrl(rawWebsiteUrl);
-  const githubUrl = sanitizeUrl(rawGithubUrl);
-  const apiDocsUrl = sanitizeUrl(rawApiDocsUrl);
-  const logoUrl = sanitizeUrl(rawLogoUrl);
+  const websiteUrl = sanitizeUrl(rawWebsiteUrl as string | null);
+  const githubUrl = sanitizeUrl(rawGithubUrl as string | null);
+  const apiDocsUrl = sanitizeUrl(rawApiDocsUrl as string | null);
+  const logoUrl = sanitizeUrl(rawLogoUrl as string | null);
 
   // Validate price
   const priceAmount =
-    rawPriceAmount != null ? parseFloat(rawPriceAmount) : null;
+    rawPriceAmount != null ? parseFloat(rawPriceAmount as string) : null;
   if (priceAmount !== null && (Number.isNaN(priceAmount) || priceAmount < 0 || priceAmount > 999999)) {
     return NextResponse.json(
       { error: 'Invalid price_amount' },
@@ -109,12 +108,12 @@ export async function POST(request: NextRequest) {
   }
 
   // Validate currency
-  const currency = typeof rawCurrency === 'string' && rawCurrency.length === 3
+  const currency = typeof rawCurrency === 'string' && (rawCurrency as string).length === 3
     ? rawCurrency.toUpperCase().replace(/[^A-Z]/g, '')
     : 'USD';
 
   // Validate category_id as UUID
-  const categoryId = rawCategoryId || null;
+  const categoryId = (rawCategoryId as string | null) || null;
 
   // ─── Check slug uniqueness ──────────────────────────────────
   const { data: existing } = await supabase
