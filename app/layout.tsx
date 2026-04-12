@@ -9,7 +9,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agenthub.syncoe.com'),
+  metadataBase: new URL('https://marketplace.syncoe.com'),
   title: {
     default: 'AgentHub — Discover & Deploy AI Agents',
     template: '%s | AgentHub',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'AgentHub',
     title: 'AgentHub — Discover & Deploy AI Agents',
     description: 'The #1 marketplace for AI agents. Browse, compare, and deploy verified AI agents.',
-    images: ['/og-image.png'],
+    images: ['https://marketplace.syncoe.com/og-image.png'],
   },
   icons: {
     icon: '/favicon.png',
@@ -61,13 +61,13 @@ export default function RootLayout({
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
                 name: 'AgentHub',
-                url: 'https://agenthub.syncoe.com',
+                url: 'https://marketplace.syncoe.com',
                 description: 'The #1 marketplace for AI agents. Browse, compare, and deploy verified AI agents for automation, research, customer support, and more.',
                 potentialAction: {
                   '@type': 'SearchAction',
                   target: {
                     '@type': 'EntryPoint',
-                    urlTemplate: 'https://agenthub.syncoe.com/agents?q={search_term_string}',
+                    urlTemplate: 'https://marketplace.syncoe.com/agents?q={search_term_string}',
                   },
                   'query-input': 'required name=search_term_string',
                 },
@@ -81,8 +81,8 @@ export default function RootLayout({
                 '@context': 'https://schema.org',
                 '@type': 'Organization',
                 name: 'AgentHub',
-                url: 'https://agenthub.syncoe.com',
-                logo: 'https://agenthub.syncoe.com/favicon.png',
+                url: 'https://marketplace.syncoe.com',
+                logo: 'https://marketplace.syncoe.com/favicon.png',
                 sameAs: [
                   'https://github.com/syncoe6368/agent-marketplace',
                   'https://discord.com/invite/clawd',

@@ -5,13 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 
 export const metadata: Metadata = {
-  title: 'Pricing',
-  description: 'Simple, transparent pricing for AgentHub. List your AI agents and reach thousands of users.',
+  title: 'Pricing - AgentHub',
+  description: 'Launch special: Free agent listings for the first month. Choose your plan to maximize your agent\'s visibility and sales.',
 };
 
 const plans = [
   {
-    name: 'Free',
+    name: 'Free Discovery',
     price: '$0',
     period: 'forever',
     description: 'Perfect for getting started',
@@ -19,7 +19,8 @@ const plans = [
       'Up to 3 agent listings',
       'Basic analytics (views)',
       'Community support',
-      'Standard placement',
+      'Standard placement in search',
+      'Up to 3 skill packages',
     ],
     cta: 'Get Started Free',
     href: '/auth/signup',
@@ -27,37 +28,39 @@ const plans = [
     popular: false,
   },
   {
-    name: 'Pro',
-    price: '$19',
+    name: 'Featured Discovery',
+    price: '$9',
     period: '/month',
-    description: 'For serious agent builders',
+    description: 'Launch special - 50% off',
     features: [
+      'Top search placement',
+      'Priority review',
+      'Basic analytics dashboard',
+      'Boosted visibility',
+      'Email support',
+      'Up to 10 skill packages',
+    ],
+    cta: 'Start Free Trial',
+    plan: 'featured' as const,
+    popular: true,
+    badge: 'Launch Special',
+  },
+  {
+    name: 'Pro Discovery',
+    price: '$49',
+    period: '/month',
+    description: 'For serious creators & agencies',
+    features: [
+      'Everything in Featured',
       'Unlimited agent listings',
-      'Advanced analytics',
-      'Featured placement',
-      'Verified badge',
+      'Advanced analytics & insights',
+      'Custom branding options',
+      'API access (1,000 requests/month)',
       'Priority support',
-      'Custom branding',
+      'Unlimited skill packages',
     ],
     cta: 'Start Pro Trial',
     plan: 'pro' as const,
-    popular: true,
-  },
-  {
-    name: 'Enterprise',
-    price: '$99',
-    period: '/month',
-    description: 'For teams and organizations',
-    features: [
-      'Everything in Pro',
-      'Team collaboration',
-      'API access',
-      'Custom integrations',
-      'Dedicated support',
-      'SLA guarantee',
-    ],
-    cta: 'Contact Sales',
-    plan: 'enterprise' as const,
     popular: false,
   },
 ];
@@ -69,9 +72,12 @@ export default function PricingPage() {
     <div className="min-h-screen bg-gradient-to-b from-white to-indigo-50">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-800 px-4 py-2 rounded-full mb-4">
+            <span className="font-semibold">🚀 LAUNCH WEEK SPECIAL</span>
+          </div>
           <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Choose the plan that works for you. Upgrade or downgrade at any time.
+            Launch special: Free listings for the first month. Featured plans at 50% off. Start selling your AI agents today.
           </p>
         </div>
 
@@ -81,7 +87,12 @@ export default function PricingPage() {
             key={plan.name}
             className={`relative ${plan.popular ? 'border-indigo-600 shadow-lg scale-105' : ''}`}
           >
-            {plan.popular && (
+            {plan.badge && (
+              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500">
+                {plan.badge}
+              </Badge>
+            )}
+            {plan.popular && !plan.badge && (
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600">
                 Most Popular
               </Badge>
@@ -114,6 +125,7 @@ export default function PricingPage() {
         ))}
       </div>
       <PricingStrategySection />
+      </div>
     </div>
   );
 }

@@ -3,19 +3,20 @@ import { MetadataRoute } from 'next';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://marketplace.syncoe.com';
 
-  // Static pages
+  // Static pages — always use absolute URLs
   const staticPages = [
-    { url: '/', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
-    { url: '/agents', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
-    { url: '/categories', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
-    { url: '/compare', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
-    { url: '/trending', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.7 },
-    { url: '/pricing', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: '/changelog', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.5 },
-    { url: '/legal/terms', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: '/legal/privacy', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: '/legal/guidelines', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: '/legal/dmca', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
+    { url: `${baseUrl}/agents`, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: `${baseUrl}/categories`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${baseUrl}/compare`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
+    { url: `${baseUrl}/pricing`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/changelog`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.5 },
+    { url: `${baseUrl}/submit`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
+    { url: `${baseUrl}/support`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.4 },
+    { url: `${baseUrl}/legal/terms`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/legal/privacy`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/legal/guidelines`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/legal/dmca`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
   ];
 
   // Fetch dynamic agent slugs and categories from Supabase (server-side)
@@ -36,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (response.ok) {
         const agents = await response.json();
         const agentPages = agents.map((agent: { slug: string; created_at: string; updated_at: string }) => ({
-          url: `/agents/${agent.slug}`,
+          url: `${baseUrl}/agents/${agent.slug}`,
           lastModified: new Date(agent.updated_at || agent.created_at),
           changeFrequency: 'weekly' as const,
           priority: 0.6,
